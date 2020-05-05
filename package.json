@@ -1,0 +1,23 @@
+{
+  "name": "horae",
+  "version": "1.0.0",
+  "description": "CSE 110 Group H project",
+  "main": "server.js",
+  "repository": "https://github.com/kartmanny/Horae",
+  "author": "kartmanny",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.2.0",
+    "express": "^4.17.1"
+  },
+  "scripts": {
+    "server": "cd server && nodemon server.js",
+    "client": "yarn --cwd client start",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\""
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
