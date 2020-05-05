@@ -1,9 +1,10 @@
 import React from 'react';
+import 'assets/styles/global.scss';
 
-import Calendar from 'components/Calendar';
+import Marketing from 'components/Marketing';
 
 function App() {
-  return <Calendar />;
+  return <Marketing />;
 }
 
 export default App;
