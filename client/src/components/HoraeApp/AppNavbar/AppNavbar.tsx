@@ -24,8 +24,8 @@ interface IAppNavbarProps {
 function AppNavbar({ items }: IAppNavbarProps) {
   return (
     <StyledNavbar>
-      {items.map((item) => (
-        <AppNavItem {...item} />
+      {items.map((item, index) => (
+        <AppNavItem key={`App-nav-item-${index}`} {...item} />
       ))}
     </StyledNavbar>
   );
