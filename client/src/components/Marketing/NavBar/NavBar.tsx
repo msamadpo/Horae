@@ -52,7 +52,7 @@ function NavBar() {
           <NavItem href="#">Login</NavItem>
         </Text>
         <Text type="regular" margins={['small', 'base']}>
-          <NavItem href="/app">App</NavItem>
+          <NavItem href="/calendar">App</NavItem>
         </Text>
       </NavList>
     </nav>

@@ -8,12 +8,12 @@ const StyledNavbar = styled.nav`
   padding: var(--spacing-base);
   min-height: 100vh;
   box-sizing: border-box;
-  max-width: 16rem;
 `;
 
 type AppNavItem = {
   title: string;
   icon: string;
+  to: string;
   active?: boolean;
 };
 
