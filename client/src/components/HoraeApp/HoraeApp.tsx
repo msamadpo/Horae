@@ -5,15 +5,15 @@ import calendarIcon from 'assets/img/calendar-icon.svg';
 
 const ITEMS = [
   {
-    title: 'Calendar',
+    title: 'Luke',
     icon: calendarIcon,
   },
   {
-    title: 'Todo',
+    title: 'the',
     icon: calendarIcon,
   },
   {
-    title: 'Avatar',
+    title: 'Duke',
     icon: calendarIcon,
   },
 ];
