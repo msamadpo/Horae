@@ -8,9 +8,9 @@ import user from 'assets/img/user-icon.svg';
 
 const ITEMS = [
   {
-    name: 'Schedule',
+    name: 'Calendar',
     text:
-      'Sync your schedule across all platforms with our easy to use calendars',
+      'Sync your Calendar across all platforms with our easy to use calendars',
     icon: calendar,
   },
   {
