@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import calendarIcon from 'assets/img/calendar-icon.svg';
+import todoIcon from 'assets/img/todo-icon.svg';
+import userIcon from 'assets/img/user-icon.svg';
 import Text from 'components/Common/Text';
 
 const StyledApp = styled.div`
@@ -18,12 +20,12 @@ const ITEMS = [
   },
   {
     title: 'Todo',
-    icon: calendarIcon,
+    icon: todoIcon,
     to: '/todo',
   },
   {
     title: 'Avatar',
-    icon: calendarIcon,
+    icon: userIcon,
     to: '/avatar',
   },
 ];
