@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import logo from 'assets/img/logo.svg';
 
 import AppNavItem from 'components/HoraeApp/AppNavbar/AppNavItem';
 
@@ -12,7 +13,10 @@ const StyledNavbar = styled.nav`
   min-height: 40rem;
   box-sizing: border-box;
   align-items: center;
-  justify-content: center;
+`;
+
+const Logo = styled.img`
+  margin-bottom: var(--spacing-xlarge);
 `;
 
 type AppNavItem = {
@@ -28,6 +32,7 @@ interface IAppNavbarProps {
 function AppNavbar({ items }: IAppNavbarProps) {
   return (
     <StyledNavbar>
+      <Logo src={logo} height={150} />
       {items.map((item, index) => (
         <AppNavItem key={`App-nav-item-${index}`} {...item} />
       ))}
