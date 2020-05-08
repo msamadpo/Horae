@@ -1,6 +1,11 @@
 import React from 'react';
 import AppNavbar from 'components/HoraeApp/AppNavbar';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import styled from 'styled-components';
 
 import calendarIcon from 'assets/img/calendar-icon.svg';
@@ -44,6 +49,9 @@ function HoraeApp() {
           </Route>
           <Route path="/avatar" exact>
             <Text type="heading1">Avatar</Text>
+          </Route>
+          <Route path="/">
+            <Redirect to="/calendar" />
           </Route>
         </Switch>
       </Router>
