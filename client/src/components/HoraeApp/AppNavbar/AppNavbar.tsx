@@ -21,7 +21,7 @@ const Logo = styled.img`
 
 type AppNavItem = {
   title: string;
-  icon: string;
+  icon:string;
   to: string;
 };
 
