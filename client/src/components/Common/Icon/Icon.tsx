@@ -10,12 +10,12 @@ import defaultAvatar from 'assets/img/user-icon.svg';
 
 interface IIconProps {
     type:string;
+    height:number;
     white?:boolean;
-    height:string;
 }
 
 
-function Icon( { type, white, height} : IIconProps) {
+function Icon( { type, height, white = false } : IIconProps) {
     switch ( type ) {
         case 'calendar':
             return <img src={white ? whiteCalendar : defaultCalendar} height={height} alt ='' />

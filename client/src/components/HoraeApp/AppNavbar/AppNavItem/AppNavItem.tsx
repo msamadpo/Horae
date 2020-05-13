@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink as Link} from 'react-router-dom';
 import Text from 'components/Common/Text';
-import Icon from 'components/Common/Text/Icon';
+import Icon from 'components/Common/Icon';
 
 import styles from 'components/HoraeApp/AppNavbar/AppNavItem/AppNavItem.module.scss';
 
@@ -41,7 +41,7 @@ function AppNavItem({ title, to }: IAppNavItemProps) {
       className={styles.styledAppNavItem}
       activeClassName={styles.active}
     >
-      <Icon type={'calendar'} white={true} height={"30"}/> 
+      <Icon type={'calendar'} white={true} height={30}/> 
       <Text
         size="1.6rem"
         color="var(--color-nav-item-text)"
