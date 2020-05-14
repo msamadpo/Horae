@@ -40,7 +40,7 @@ function AppNavItem({ title, icon, to }: IAppNavItemProps) {
 
   useEffect(() => {
     setActive(history.location.pathname === to);
-  }, []);
+  }, [history.location.pathname, to]);
 
   useEffect(() => {
     history.listen((location) => {
