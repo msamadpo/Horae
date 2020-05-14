@@ -1,0 +1,68 @@
+{
+  "userData": {
+    "id": "5d5060be825ee",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "johndoe@gmail.com",
+    "phoneNumber": "12345678910",
+    "passwordHash": "qiyh4XPJGsOZ",
+    "calendars": [
+      {
+        "id": "5d32b4b2fd13e359",
+        "title": "Work",
+        "settings": {
+          "color": "blue"
+        },
+        "events": [
+          {
+            "id": "5df120015f1d26010ec56b01",
+            "name": "Sun God",
+            "description": "",
+            "date": "Sat May 02 2020 GMT-0700 (PST)",
+            "duration": 2,
+            "location": "Zoom"
+          },
+          {
+            "id": "5df120015f1d26010ec56b01",
+            "name": "Midterm 1",
+            "description": "",
+            "date": "Sat May 22 2020 GMT-0700 (PST)",
+            "duration": 1,
+            "location": "Zoom"
+          }
+        ]
+      }
+    ],
+    "todo_lists": [
+      {
+        "title": "CSE 110",
+        "settings": {
+          "color": "blue"
+        },
+        "tasks": [
+          {
+            "id": "343ERHFGIR4545",
+            "name": "Spinach",
+            "deadline": "Sat May 08 2020 20:02:32 GMT-0700 (PST)",
+            "completed": false
+          },
+          {
+            "id": "343ERH12R4545",
+            "name": "Homework 1",
+            "deadline": "Sat May 12 2020 20:02:32 GMT-0700 (PST)",
+            "completed": false
+          },
+          {
+            "id": "343ERadFGIR4545",
+            "name": "Gym",
+            "deadline": "Sat May 14 2020 20:02:32 GMT-0700 (PST)",
+            "completed": false
+          }
+        ]
+      }
+    ],
+    "coins": 1000,
+    "avatar": {},
+    "inventory": []
+  }
+}

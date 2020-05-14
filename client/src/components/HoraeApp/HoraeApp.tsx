@@ -38,6 +38,7 @@ const StyledApp = styled.div`
 
 const StyledAppBody = styled.div`
   padding: var(--spacing-large) var(--spacing-xlarge);
+  flex-grow: 1;
 `;
 
 function HoraeApp() {

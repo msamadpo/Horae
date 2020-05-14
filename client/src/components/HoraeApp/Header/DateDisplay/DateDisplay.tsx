@@ -18,7 +18,6 @@ const DateMonthContainer = styled.div`
 
 function DateDisplay() {
   const now = new Date();
-  const day = now.toLocaleString('en-us', { weekday: 'long' }).substring(0, 3);
   const date = now.getDate();
   const month = now.toLocaleString('default', { month: 'long' });
   return (
@@ -36,14 +35,6 @@ function DateDisplay() {
           {month}
         </Text>
       </DateMonthContainer>
-      <Text
-        type="heading1"
-        weight="300"
-        size="8rem"
-        margins={['none', 'none', 'none', 'base']}
-      >
-        {day}
-      </Text>
     </StyledDate>
   );
 }
