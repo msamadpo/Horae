@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Text from 'components/Common/Text';
+import DateDisplay from 'components/HoraeApp/Header/DateDisplay';
 
 const StyledHeader = styled.div`
   padding-bottom: var(--spacing-xlarge);
@@ -10,9 +10,7 @@ const StyledHeader = styled.div`
 function Header() {
   return (
     <StyledHeader>
-      <Text type="heading1" weight="300" size="5rem">
-        {new Date().toDateString()}
-      </Text>
+      <DateDisplay />
     </StyledHeader>
   );
 }
