@@ -8,25 +8,22 @@ import {
 } from 'react-router-dom';
 
 import styled from 'styled-components';
-import calendarIcon from 'assets/img/calendar-icon.svg';
-import todoIcon from 'assets/img/todo-icon.svg';
-import userIcon from 'assets/img/user-icon.svg';
 import Text from 'components/Common/Text';
 
 const ITEMS = [
   {
     title: 'Calendar',
-    icon: calendarIcon,
+    icon: 'calendar',
     to: '/calendar',
   },
   {
     title: 'Todo',
-    icon: todoIcon,
+    icon: 'todo',
     to: '/todo',
   },
   {
     title: 'Avatar',
-    icon: userIcon,
+    icon: 'avatar',
     to: '/avatar',
   },
 ];

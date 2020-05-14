@@ -1,6 +1,7 @@
 import React from 'react';
-import { NavLink as Link } from 'react-router-dom';
+import { NavLink as Link} from 'react-router-dom';
 import Text from 'components/Common/Text';
+import Icon from 'components/Common/Icon';
 
 import styles from 'components/HoraeApp/AppNavbar/AppNavItem/AppNavItem.module.scss';
 
@@ -28,19 +29,19 @@ import styles from 'components/HoraeApp/AppNavbar/AppNavItem/AppNavItem.module.s
 
 interface IAppNavItemProps {
   title: string;
-  icon: string;
+  icon: string; /*possible we don't need this anymore*/
   to: string;
   active?: boolean;
 }
 
 function AppNavItem({ title, icon, to }: IAppNavItemProps) {
-  return (
+  return (    
     <Link
       to={to}
       className={styles.styledAppNavItem}
       activeClassName={styles.active}
     >
-      <img src={icon} height={30} alt="" />
+      <Icon type={icon} white={true} height={30}/> 
       <Text
         size="1.6rem"
         color="var(--color-nav-item-text)"
