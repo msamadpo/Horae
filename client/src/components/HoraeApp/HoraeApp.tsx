@@ -1,5 +1,5 @@
 import React from 'react';
-import AppNavbar from 'components/HoraeApp/AppNavbar';
+import styled from 'styled-components';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -7,8 +7,10 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import styled from 'styled-components';
-import Text from 'components/Common/Text';
+import AppNavbar from 'components/HoraeApp/AppNavbar';
+import CalendarPage from 'components/HoraeApp/CalendarPage';
+import TodoPage from 'components/HoraeApp/TodoPage';
+import AvatarPage from 'components/HoraeApp/AvatarPage';
 
 const ITEMS = [
   {
@@ -43,21 +45,9 @@ function HoraeApp() {
         <AppNavbar items={ITEMS} />
         <StyledAppBody>
           <Switch>
-            <Route path="/calendar" exact>
-              <Text weight="400" type="heading1">
-                Calendar
-              </Text>
-            </Route>
-            <Route path="/todo" exact>
-              <Text weight="400" type="heading1">
-                Todo
-              </Text>
-            </Route>
-            <Route path="/avatar" exact>
-              <Text weight="400" type="heading1">
-                Avatar
-              </Text>
-            </Route>
+            <Route path="/calendar" component={CalendarPage} exact />
+            <Route path="/todo" component={TodoPage} exact />
+            <Route path="/avatar" component={AvatarPage} exact />
             <Route path="/">
               <Redirect to="/calendar" />
             </Route>

@@ -44,7 +44,7 @@ function AppNavItem({ title, icon, to }: IAppNavItemProps) {
     history.listen((location) => {
       setActive(location.pathname === to);
     });
-  }, [history]);
+  }, [history, to]);
 
   return (
     <Link
