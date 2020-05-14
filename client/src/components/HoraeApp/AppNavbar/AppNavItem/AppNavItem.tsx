@@ -36,9 +36,11 @@ interface IAppNavItemProps {
 
 function AppNavItem({ title, icon, to }: IAppNavItemProps) {
   const history = useHistory();
-  const [active, setActive] = useState<boolean>(
-    history.location.pathname === to
-  );
+  const [active, setActive] = useState<boolean>(false);
+
+  useEffect(() => {
+    setActive(history.location.pathname === to);
+  }, []);
 
   useEffect(() => {
     history.listen((location) => {

@@ -24,18 +24,14 @@ function DateDisplay() {
   return (
     <StyledDate>
       <DateMonthContainer>
-        <Text
-          type="heading1"
-          weight="400"
-          styleProp="line-height: 115%; !important"
-        >
+        <Text type="heading1" weight="400" styleProp="line-height: 115%;">
           {date}
         </Text>
         <Text
           type="heading2"
           weight="300"
           color="var(--color-text-subtitle)"
-          styleProp="line-height: 115%; !important"
+          styleProp="line-height: 115%;"
         >
           {month}
         </Text>
