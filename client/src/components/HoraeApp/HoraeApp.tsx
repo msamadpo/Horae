@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 
 import AppNavbar from 'components/HoraeApp/AppNavbar';
+import Header from 'components/HoraeApp/Header';
 import CalendarPage from 'components/HoraeApp/CalendarPage';
 import TodoPage from 'components/HoraeApp/TodoPage';
 import AvatarPage from 'components/HoraeApp/AvatarPage';
@@ -32,6 +33,7 @@ const ITEMS = [
 
 const StyledApp = styled.div`
   display: flex;
+  min-height: 100vh;
 `;
 
 const StyledAppBody = styled.div`
@@ -44,6 +46,7 @@ function HoraeApp() {
       <Router>
         <AppNavbar items={ITEMS} />
         <StyledAppBody>
+          <Header />
           <Switch>
             <Route path="/calendar" component={CalendarPage} exact />
             <Route path="/todo" component={TodoPage} exact />

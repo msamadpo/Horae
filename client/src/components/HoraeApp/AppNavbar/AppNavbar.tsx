@@ -9,10 +9,10 @@ const StyledNavbar = styled.nav`
   flex-direction: column;
   background-color: var(--color-bg-nav);
   padding: var(--spacing-base);
-  height: 100vh;
-  min-height: 40rem;
   box-sizing: border-box;
   align-items: center;
+  margin: var(--spacing-tiny);
+  border-radius: 2rem;
 `;
 
 const Logo = styled.img`
@@ -21,7 +21,7 @@ const Logo = styled.img`
 
 type AppNavItem = {
   title: string;
-  icon:string;
+  icon: string;
   to: string;
 };
 
