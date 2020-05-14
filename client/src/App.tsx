@@ -1,16 +1,18 @@
 import React, { useReducer } from 'react';
 import HoraeApp from 'components/HoraeApp';
-import GlobalState from 'context/GlobalContext';
-import reducer from 'context/reducer';
+import mockData from 'assets/data/mockUserData.json';
+
+import globalReducer from 'context/GlobalReducer';
+import GlobalContext from 'context/GlobalContext';
 
 import 'assets/styles/global.scss';
 
 function App() {
-  const [userData, dispatch] = useReducer(() => ({}), {});
+  const [state, dispatch] = useReducer(globalReducer, mockData);
   return (
-    <GlobalState.Provider value={{ userData, dispatch }}>
+    <GlobalContext.Provider value={{ data: state, dispatch }}>
       <HoraeApp />
-    </GlobalState.Provider>
+    </GlobalContext.Provider>
   );
 }
 
