@@ -34,14 +34,14 @@ interface IAppNavItemProps {
   active?: boolean;
 }
 
-function AppNavItem({ title, to }: IAppNavItemProps) {
+function AppNavItem({ title, icon, to }: IAppNavItemProps) {
   return (    
     <Link
       to={to}
       className={styles.styledAppNavItem}
       activeClassName={styles.active}
     >
-      <Icon type={'calendar'} white={true} height={30}/> 
+      <Icon type={icon} white={true} height={30}/> 
       <Text
         size="1.6rem"
         color="var(--color-nav-item-text)"
