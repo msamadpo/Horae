@@ -1,10 +1,36 @@
 const express = require('express');
-
 const router = express.Router();
+const firebase = require('../server');
+
+const AVATAR = {
+  avatarId: '442717c4195c1dd2b931',
+  hair : {
+    color: 'grey',
+    style: 'afro'
+  },
+  skin_color: 'white',
+  eyes_color: 'brown',
+  tops: 'plaid shirt',
+  bottoms: 'jeans',
+  shoes: 'sneakers',
+  headwear: 'hat',
+  facial_hair: 'mustache',
+  accessories: 'book',
+};
+
+
+function writeAvatarData() {
+  firebase.database.ref('avatar/').push().set(AVATAR);
+}
 
 // CREATE an avatar
 router.post('/', (req, res) => {
   res.send(`POST request to ${req.baseUrl}`);
+});
+
+//READ an avatar
+router.get('/', (req, res) => {
+  res.json(AVATAR);
 });
 
 // READ avatar
@@ -24,3 +50,6 @@ router.delete('/', (req, res) => {
 });
 
 module.exports = router;
+module.exports.avatar = AVATAR;
+module.exports.createAvatar = writeAvatarData;
+
