@@ -49,7 +49,15 @@ function HoraeApp() {
         <StyledAppBody>
           <Header />
           <Switch>
-            <Route path="/calendar" component={CalendarPage} exact />
+            <Route path="/calendar/day" exact>
+              <CalendarPage>Day View of calendar</CalendarPage>
+            </Route>
+            <Route path="/calendar/month" exact>
+              <CalendarPage>Month View of calendar</CalendarPage>
+            </Route>
+            <Route path={['/calendar', '/calendar/week']} exact>
+              <CalendarPage>Week View of calendar</CalendarPage>
+            </Route>
             <Route path="/todo" component={TodoPage} exact />
             <Route path="/avatar" component={AvatarPage} exact />
             <Route path="/">
