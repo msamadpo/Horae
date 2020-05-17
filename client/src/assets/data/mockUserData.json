@@ -43,7 +43,7 @@
           "id": "343ERHFGIR4545",
           "name": "Spinach",
           "deadline": "Sat May 08 2020 20:02:32 GMT-0700 (PST)",
-          "completed": false
+          "completed": true
         },
         {
           "id": "343ERH12R4545",
@@ -55,7 +55,7 @@
           "id": "343ERadFGIR4545",
           "name": "Gym",
           "deadline": "Sat May 14 2020 20:02:32 GMT-0700 (PST)",
-          "completed": false
+          "completed": true
         }
       ]
     }
