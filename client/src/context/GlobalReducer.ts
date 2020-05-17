@@ -3,7 +3,13 @@ import mockData from 'assets/data/mockUserData.json';
 export type Task = {
   id: string;
   name: string;
-  deadline: string;
+  deadline?: string;
+  completed: boolean;
+};
+
+export type TaskPayload = {
+  name: string;
+  deadline?: string;
   completed: boolean;
 };
 
@@ -21,7 +27,10 @@ export type GlobalState = typeof mockData;
 export type Action =
   | {
       type: 'ADD_TASK' | 'REMOVE_TASK' | 'EDIT_TASK';
-      payload: Task;
+      payload: {
+        taskListId: string;
+        task: TaskPayload;
+      };
     }
   | {
       type:
@@ -37,8 +46,23 @@ export default function globalReducer(
 ): GlobalState {
   switch (action.type) {
     case 'ADD_TASK':
+      const ID_HACK = Math.floor(Math.random() * 10000).toString(); // TODO Get the correct UUID from server
+      const newTask = {
+        id: ID_HACK,
+        deadline: '',
+        ...action.payload.task,
+      };
+      const newTaskList = {
+        ...state.todo_lists.filter(
+          (list) => list.id === action.payload.taskListId
+        )[0],
+      };
+      newTaskList.tasks.push(newTask);
+      const newTaskLists = state.todo_lists.map((todoList) =>
+        todoList.id === action.payload.taskListId ? newTaskList : todoList
+      );
       console.log('Dispatch ADD_TASK');
-      return state;
+      return { ...state, todo_lists: newTaskLists };
     case 'REMOVE_TASK':
       console.log('Dispatch REMOVE_TASK');
       return state;
