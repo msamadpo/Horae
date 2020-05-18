@@ -1,82 +1,57 @@
-import React, {useContext } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import GlobalContext from 'context/GlobalContext';
-
-
-import styles from 'components/HoraeApp/TodoPage/TodoItem.module.scss';
+import Text from 'components/Common/Text';
 
 interface ITodoItemProps {
   id: string;
   name: string;
   deadline?: string;
   completed: boolean;
+  removeTask: (id: string) => void;
 }
 
 const StyledTodoItemBox = styled.div`
-  position: relative;
-  font: var(--font-regular);
-  min-height: 3rem;
-  max-height: 3rem;
-  min-width: 45rem;
-  max-width: 45rem;
-  background-color: var(--color-text-paragraph);
   margin: var(--spacing-small);
+  padding: var(--spacing-small);
   border-radius: 1rem;
-  box-shadow: 0px 2px 16px 0px rgba(219, 219, 219, 0.2);
-  transition: all 0.2s;
-  border-left: 2px solid red;
-`;
-
-const StyledTodoItemText = styled.div`
-  padding-left: 10px;
-  padding-top: 1px;
-  float: left;
-`;
-
-const Button = styled.button`
-  float: right;
-  margin-top: 5px;
-  margin-right: 15px;
-  background-color: var(--color-text-paragraph);
-  border: 1.5px solid var(--color-primary);
-  border-radius: 100%;
-  height: 20px;
-  width: 20px;
+  box-shadow: 0px 0px 10px var(--color-shadow);
   cursor: pointer;
+  display: grid;
+  grid-template-columns: 3rem 1fr 4rem;
+  grid-column-gap: var(--spacing-tiny);
 `;
 
-const Input = styled.input`
-  float: right;
-  height: 15px;
-  width: 15px;
-  margin-right: 15px;
-  margin-top: 0.7rem;
-  cursor: pointer;
+const CompleteButton = styled.div`
+  min-width: 2.25rem;
+  max-width: 2.25rem;
+  min-height: 2.25rem;
+  max-height: 2.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-nav-item-text);
 `;
 
-function TodoItem({ id, name, deadline = '', completed }: ITodoItemProps) {
-  const { data, dispatch } = useContext(GlobalContext);
-
-
-  const removeTask = () => {
-    dispatch({
-      type: 'REMOVE_TASK',
-      payload: {
-        taskListId: '123456789',
-        taskId: '343ERHFGIR4545',
-      },
-    });
+function TodoItem({
+  id,
+  name,
+  deadline = '',
+  completed,
+  removeTask,
+}: ITodoItemProps) {
+  const handleRemoveTask = () => {
+    removeTask(id);
   };
+
   return (
     <StyledTodoItemBox>
-      <label
-        htmlFor={id}
-        style={{ textDecoration: completed ? 'line-through' : undefined }}
+      <CompleteButton />
+      <Text
+        type="small"
+        styleProp={`text-decoration: ${completed ? 'line-through' : 'unset'}`}
       >
         {name}
-      </label>
-
-      <Input id={id} type="checkbox" checked={completed} />
+      </Text>
+      <span onClick={handleRemoveTask}>Trash Can</span>
     </StyledTodoItemBox>
   );
 }

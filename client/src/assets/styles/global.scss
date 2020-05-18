@@ -7,6 +7,7 @@
   --color-text-body: #484848;
   --color-text-paragraph: #767676;
   --color-text-subtitle: #9ba2a4;
+  --color-shadow: #e6e6e6;
   // App Colors
   --color-bg-nav: #f4f5fa;
   --color-bg-nav-item: #fefeff;
@@ -26,7 +27,8 @@
   --spacing-large: 4.8rem;
   --spacing-xlarge: 6.4rem;
 
-  --box-shadow: 6px 6px 11px #eaeaea, -6px -6px 15px var(--color-white);
+  --box-shadow: 6px 6px 11px var(--color-shadow),
+    -6px -6px 15px var(--color-white);
 }
 
 @font-face {

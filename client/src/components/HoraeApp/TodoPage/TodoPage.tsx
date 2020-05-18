@@ -44,21 +44,22 @@ function TodoPage() {
   };
 
   return (
-    <div>
-      Todo Page
-      <div>
-        {tasks.map((task) => (
-          <div>{task.name}</div>
-          /*<TodoList id={'sss'} title={taskList.title} tasks={tasks}></TodoList>*/
-        ))}
-      </div>
-      <TodoList id={'sss'} title={taskList.title} tasks={tasks}></TodoList>
-      <div>
-        <button onClick={addTask}>Add task</button>
-        <button onClick={removeTask}>Remove task</button>
-        <button onClick={editTask}>Edit task</button>
-      </div>
-    </div>
+    // <div>
+    //   Todo Page
+    //   {/* <div>
+    //     {tasks.map((task) => (
+    //       <div>{task.name}</div>
+    //     ))}
+    //   </div> */}
+    //   <TodoList {...taskList} />
+    //   <div>
+    //     <button onClick={addTask}>Add task</button>
+    //     <button onClick={removeTask}>Remove task</button>
+    //     <button onClick={editTask}>Edit task</button>
+    //   </div>
+    // </div>
+
+    <TodoList {...taskList} />
   );
 }
 

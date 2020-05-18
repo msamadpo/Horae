@@ -1,17 +1,19 @@
-import React, { useContext} from 'react';
+import React, { useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import { Task } from 'context/GlobalReducer';
+import Text from 'components/Common/Text';
 import TodoItem from 'components/HoraeApp/TodoPage/TodoItem';
+import TodoInput from 'components/HoraeApp/TodoPage/TodoInput';
 import styled from 'styled-components';
 
-import styles from 'components/HoraeApp/AppNavbar/AppNavItem/TodoList.module.scss';
+// import styles from 'components/HoraeApp/AppNavbar/AppNavItem/TodoList.module.scss';
 
 interface ITodoProps {
   id: string;
   title: string;
-  //settings: {
-  //  color: string;
-  //};
+  settings: {
+    color: string;
+  };
   tasks: Task[];
 }
 
@@ -19,65 +21,57 @@ interface ITodoProps {
 const StyledTodoList = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 50rem;
-  max-height: 50rem;
-  min-width: 50rem;
-  max-width: 50rem;
-  background-color: var(--color-bg-light);
-  margin: var(--spacing-small);
   border-radius: 1rem;
-  box-shadow: 0px 2px 16px 0px rgba(219, 219, 219, 0.2);
-  transition: all 0.2s;
+  max-width: 35rem;
+  overflow: hidden;
+  box-shadow: 0px 2px 16px 0px rgba(219, 219, 219, 0.5);
 `;
 
-const Title = styled.header`
-  font: var(--font-regular);
-
-  position: realtive;
-  top: 50;
+const Header = styled.div`
+  background-color: var(--color-primary);
+  padding: var(--spacing-small);
+  text-align: center;
 `;
 
+function TodoList({ id, title, tasks }: ITodoProps) {
+  const { dispatch } = useContext(GlobalContext);
 
-
-function TodoList({ id, title, /*settings,*/ tasks }: ITodoProps) {
-  const { data, dispatch } = useContext(GlobalContext);
-
-
-  const addTask = () => {
+  const addTask = (taskName: string) => {
     dispatch({
       type: 'ADD_TASK',
       payload: {
-        taskListId: '123456789',
+        taskListId: id,
         task: {
-          name:'terer',
+          name: taskName,
           completed: false,
         },
       },
     });
   };
 
-
-
+  const removeTask = (taskId: string) => {
+    dispatch({
+      type: 'REMOVE_TASK',
+      payload: {
+        taskId: taskId,
+        taskListId: id,
+      },
+    });
+  };
 
   return (
     <StyledTodoList>
-      <Title>{title}</Title>
-      {tasks.map((task, index) => (
-        <TodoItem key={`${id}-${index}`} {...task} />
-      ))}
-      <input type="text" value={''} autoFocus={true} placeholder="Enter new todo"/>
-      <button type="submit" onClick={() => {dispatch({
-      type: 'ADD_TASK',
-      payload: {
-        taskListId: id,
-        task: {
-          name: 'test',
-          completed: false,
-        },
-      },
-    })}}> Add task</button>
+      <Header>
+        <Text type="large" color="white" weight="500">
+          {title}
+        </Text>
+      </Header>
+      <div>
+        {tasks.map((task, index) => (
+          <TodoItem key={`${id}-${index}`} {...task} removeTask={removeTask} />
+        ))}
+        <TodoInput createNewTodo={addTask} />
+      </div>
     </StyledTodoList>
   );
 }
