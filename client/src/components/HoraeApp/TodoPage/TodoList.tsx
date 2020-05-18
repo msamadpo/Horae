@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext} from 'react';
 import GlobalContext from 'context/GlobalContext';
 import { Task } from 'context/GlobalReducer';
 import TodoItem from 'components/HoraeApp/TodoPage/TodoItem';
@@ -9,9 +9,9 @@ import styles from 'components/HoraeApp/AppNavbar/AppNavItem/TodoList.module.scs
 interface ITodoProps {
   id: string;
   title: string;
-  settings: {
-    color: string;
-  };
+  //settings: {
+  //  color: string;
+  //};
   tasks: Task[];
 }
 
@@ -39,13 +39,45 @@ const Title = styled.header`
   top: 50;
 `;
 
-function TodoList({ id, title, settings, tasks }: ITodoProps) {
+
+
+function TodoList({ id, title, /*settings,*/ tasks }: ITodoProps) {
+  const { data, dispatch } = useContext(GlobalContext);
+
+
+  const addTask = () => {
+    dispatch({
+      type: 'ADD_TASK',
+      payload: {
+        taskListId: '123456789',
+        task: {
+          name:'terer',
+          completed: false,
+        },
+      },
+    });
+  };
+
+
+
+
   return (
     <StyledTodoList>
       <Title>{title}</Title>
       {tasks.map((task, index) => (
         <TodoItem key={`${id}-${index}`} {...task} />
       ))}
+      <input type="text" value={''} autoFocus={true} placeholder="Enter new todo"/>
+      <button type="submit" onClick={() => {dispatch({
+      type: 'ADD_TASK',
+      payload: {
+        taskListId: id,
+        task: {
+          name: 'test',
+          completed: false,
+        },
+      },
+    })}}> Add task</button>
     </StyledTodoList>
   );
 }

@@ -1,19 +1,11 @@
 import React, { useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import TodoList from 'components/HoraeApp/TodoPage/TodoList';
-import TodoInput from 'components/HoraeApp/TodoPage/TodoInput';
 
 function TodoPage() {
   const { data, dispatch } = useContext(GlobalContext);
-<<<<<<< HEAD
-  const listData = data.todo_lists;
-  return (
-    <div>
-      {listData.map((item) => (
-        <TodoList {...item} />
-      ))}
-=======
   const tasks = data.todo_lists[0].tasks;
+  const taskList = data.todo_lists[0];
 
   const addTask = () => {
     dispatch({
@@ -57,14 +49,15 @@ function TodoPage() {
       <div>
         {tasks.map((task) => (
           <div>{task.name}</div>
+          /*<TodoList id={'sss'} title={taskList.title} tasks={tasks}></TodoList>*/
         ))}
       </div>
+      <TodoList id={'sss'} title={taskList.title} tasks={tasks}></TodoList>
       <div>
         <button onClick={addTask}>Add task</button>
         <button onClick={removeTask}>Remove task</button>
         <button onClick={editTask}>Edit task</button>
       </div>
->>>>>>> origin/master
     </div>
   );
 }

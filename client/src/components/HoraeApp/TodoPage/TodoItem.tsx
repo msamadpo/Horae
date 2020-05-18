@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useContext } from 'react';
 import styled from 'styled-components';
+import GlobalContext from 'context/GlobalContext';
+
 
 import styles from 'components/HoraeApp/TodoPage/TodoItem.module.scss';
 
@@ -53,6 +55,18 @@ const Input = styled.input`
 `;
 
 function TodoItem({ id, name, deadline = '', completed }: ITodoItemProps) {
+  const { data, dispatch } = useContext(GlobalContext);
+
+
+  const removeTask = () => {
+    dispatch({
+      type: 'REMOVE_TASK',
+      payload: {
+        taskListId: '123456789',
+        taskId: '343ERHFGIR4545',
+      },
+    });
+  };
   return (
     <StyledTodoItemBox>
       <label
@@ -61,6 +75,7 @@ function TodoItem({ id, name, deadline = '', completed }: ITodoItemProps) {
       >
         {name}
       </label>
+
       <Input id={id} type="checkbox" checked={completed} />
     </StyledTodoItemBox>
   );
