@@ -19,8 +19,15 @@ const StyledTodoItemBox = styled.div`
   box-shadow: 0px 0px 10px var(--color-shadow);
   cursor: pointer;
   display: grid;
-  grid-template-columns: 3rem 3fr 3rem 3rem;
+  grid-template-columns: 3rem 1fr 6rem;
+  align-items: center;
   grid-column-gap: var(--spacing-tiny);
+  &:hover {
+    .icon-container {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
 `;
 
 const CompleteButton = styled.div`
@@ -41,6 +48,15 @@ const StyledInput = styled.input`
   width: 100%;
   color: var(--color-text-subtitle);
 `;
+
+const IconContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  visibility: hidden;
+  transition: opacity 0.5s;
+  opacity: 0;
+`;
+
 function TodoItem({
   id,
   name,
@@ -104,12 +120,14 @@ function TodoItem({
           {name}
         </Text>
       )}
-      <span onClick={handleRemoveTask}>
-        <Icon type="trash" white={false} height={20} />
-      </span>
-      <span onClick={toggleEditMode}>
-        <Icon type="edit" white={false} height={20} />
-      </span>
+      <IconContainer className={isEditing ? '' : 'icon-container'}>
+        <span onClick={handleRemoveTask}>
+          <Icon type="trash" white={false} height={20} />
+        </span>
+        <span onClick={toggleEditMode}>
+          <Icon type="edit" white={false} height={20} />
+        </span>
+      </IconContainer>
     </StyledTodoItemBox>
   );
 }

@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import { Task } from 'context/GlobalReducer';
+import { EditTaskPayload } from 'context/GlobalReducer';
+
 import Text from 'components/Common/Text';
 import TodoItem from 'components/HoraeApp/TodoPage/TodoItem/TodoItem';
 import TodoInput from 'components/HoraeApp/TodoPage/TodoInput/TodoInput';
@@ -71,7 +73,16 @@ function TodoList({ id, title, tasks }: ITodoProps) {
       },
     });
 
-  }
+  // const actualEditTask = (taskId: string, taskPayload: EditTaskPayload) => {
+  //   dispatch({
+  //     type: 'EDIT_TASK',
+  //     payload: {
+  //       taskId: taskId,
+  //       taskListId: id,
+  //       task: taskPayload,
+  //     },
+  //   });
+  // }
 
   return (
     <StyledTodoList>
