@@ -126,6 +126,6 @@ const editTask = (state: GlobalState, action: Action) => {
   const newTaskLists = state.todo_lists.map((todoList) =>
     todoList.id === action.payload.taskListId ? newTaskList : todoList
   );
-  console.log('Dispatch REMOVE_TASK');
+  console.log('Dispatch EDIT_TASK');
   return { ...state, todo_lists: newTaskLists };
 };
