@@ -5,6 +5,9 @@ import whiteCalendar from 'assets/img/calendar-icon-white.svg';
 import defaultCalendar from 'assets/img/calendar-icon.svg';
 import whiteAvatar from 'assets/img/user-icon-white.svg';
 import defaultAvatar from 'assets/img/user-icon.svg';
+import trashcan from 'assets/img/trash-can.svg';
+import edit from 'assets/img/edit-pen.svg';
+
 
 interface IIconProps {
   type: string;
@@ -29,6 +32,14 @@ function Icon({ type, height, white = false }: IIconProps) {
     case 'avatar':
       return (
         <img src={white ? whiteAvatar : defaultAvatar} height={height} alt="" />
+      );
+    case 'trash':
+      return (
+        <img src={trashcan} height={height} alt="" />
+      );
+    case 'edit':
+      return (
+        <img src={edit} height={height} alt="" />
       );
     default:
       return <img src={defaultTodo} alt="" height={height} />;

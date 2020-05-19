@@ -19,7 +19,7 @@ interface ITodoInputProps {
   createNewTodo: (todoName: string) => void;
 }
 
-export default function TodoInput({ createNewTodo }: ITodoInputProps) {
+function TodoInput({ createNewTodo }: ITodoInputProps) {
   const [newTodoName, setNewTodoName] = useState<string>('');
 
   const handleChange = (event: React.SyntheticEvent<HTMLInputElement>) => {
@@ -48,3 +48,5 @@ export default function TodoInput({ createNewTodo }: ITodoInputProps) {
     </StyledInputContainer>
   );
 }
+
+export default TodoInput;

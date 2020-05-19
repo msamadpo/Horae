@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import { Task } from 'context/GlobalReducer';
 import Text from 'components/Common/Text';
-import TodoItem from 'components/HoraeApp/TodoPage/TodoItem';
-import TodoInput from 'components/HoraeApp/TodoPage/TodoInput';
+import TodoItem from 'components/HoraeApp/TodoPage/TodoItem/TodoItem';
+import TodoInput from 'components/HoraeApp/TodoPage/TodoInput/TodoInput';
 import styled from 'styled-components';
 
 // import styles from 'components/HoraeApp/AppNavbar/AppNavItem/TodoList.module.scss';
@@ -59,6 +59,20 @@ function TodoList({ id, title, tasks }: ITodoProps) {
     });
   };
 
+  const editTask = (taskName:string,taskId: string) => {
+    dispatch({
+      type: 'EDIT_TASK',
+      payload: {
+        taskId: taskId,
+        taskListId: id,
+        task: {
+          name: taskName,
+        },
+      },
+    });
+
+  }
+
   return (
     <StyledTodoList>
       <Header>
@@ -68,7 +82,7 @@ function TodoList({ id, title, tasks }: ITodoProps) {
       </Header>
       <div>
         {tasks.map((task, index) => (
-          <TodoItem key={`${id}-${index}`} {...task} removeTask={removeTask} />
+          <TodoItem key={`${id}-${index}`} {...task} removeTask={removeTask} editTask={editTask}/>
         ))}
         <TodoInput createNewTodo={addTask} />
       </div>

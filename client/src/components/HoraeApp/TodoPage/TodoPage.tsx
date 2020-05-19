@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
-import TodoList from 'components/HoraeApp/TodoPage/TodoList';
+import TodoList from 'components/HoraeApp/TodoPage/TodoList/TodoList';
 
 function TodoPage() {
   const { data, dispatch } = useContext(GlobalContext);
