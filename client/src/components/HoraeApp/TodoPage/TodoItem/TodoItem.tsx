@@ -70,6 +70,7 @@ function TodoItem({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editedName, setEditedName] = useState<string>(name);
+  
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
@@ -87,15 +88,26 @@ function TodoItem({
 
   const submitEditName = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keyCode = event.which || event.keyCode;
-    if (keyCode === 13) {
+    if (keyCode === 13  && editedName !== '') {
       editTask(editedName, id);
       setIsEditing(false);
+    }
+    if (keyCode === 13  && editedName === '') {
+      editTask(name, id);
+      setIsEditing(false);
+      setEditedName(name);
     }
   };
 
   const onBlurEditName = () => {
-    editTask(editedName, id);
-    setIsEditing(false);
+    if (editedName === '') {
+      editTask(name, id);
+      setIsEditing(false);
+      setEditedName(name);
+    } else{
+      editTask(editedName, id);
+      setIsEditing(false);
+    }
   };
 
   const toggleEditMode = () => {

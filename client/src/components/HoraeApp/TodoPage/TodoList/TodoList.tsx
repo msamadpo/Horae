@@ -72,11 +72,7 @@ function TodoList({ id, title, tasks }: ITodoProps) {
         },
       },
     });
-<<<<<<< HEAD
-  } 
-=======
   };
->>>>>>> 4b92fddc9a8d3ff363cd5b0ffb44b657a82a76a2
 
   // const actualEditTask = (taskId: string, taskPayload: EditTaskPayload) => {
   //   dispatch({
