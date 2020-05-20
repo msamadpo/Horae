@@ -21,7 +21,7 @@ router.post("/signupWithEmail", bodyParser.json(), (req, res) => {
     let email       = req.body.email;
     let phoneNumber = req.body.phoneNumber;
     let username    = req.body.username
-    let password    = req.body.password;
+    // let password    = req.body.password;
 
     firebase.auth().createUserWithEmailAndPassword(email,password).then(function(userRecord){
       console.log(userRecord.user);
