@@ -16,10 +16,10 @@ router.post("/signupWithEmail", function(req, res) {
     let firstName   = req.body.firstName;
     let lastName    = req.body.lastName;
     let nickname    = req.body.nickname;
-    var email       = req.body.email;
+    let email       = req.body.email;
     let phoneNumber = req.body.phoneNumber;
     let username    = req.body.username
-    var password    = req.body.password;
+    let password    = req.body.password;
     
     firebase.auth().createUserWithEmailAndPassword(email,password).then(function(userRecord){
       console.log(userRecord.user);
@@ -29,8 +29,8 @@ router.post("/signupWithEmail", function(req, res) {
         nickname,
         email,
         phoneNumber,
-        password,
-        username
+        username,
+        
       });
       res.status(200).end();
     })
