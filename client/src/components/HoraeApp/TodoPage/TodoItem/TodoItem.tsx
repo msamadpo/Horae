@@ -12,7 +12,7 @@ interface ITodoItemProps {
   editTask: (taskName: string, id: string) => void;
 }
 
-const StyledTodoItemBox = styled.div`
+const StyledTodoItemBox = styled.div<{ completed: boolean }>`
   margin: var(--spacing-small);
   padding: var(--spacing-small);
   border-radius: 1rem;
@@ -22,6 +22,8 @@ const StyledTodoItemBox = styled.div`
   grid-template-columns: 3rem 1fr 6rem;
   align-items: center;
   grid-column-gap: var(--spacing-tiny);
+  ${(props) =>
+    props.completed ? `background-color: var(--color-shadow);` : ''}
   &:hover {
     .icon-container {
       visibility: visible;
@@ -85,7 +87,7 @@ function TodoItem({
 
   const submitEditName = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keyCode = event.which || event.keyCode;
-    if (keyCode == 13) {
+    if (keyCode === 13) {
       editTask(editedName, id);
       setIsEditing(false);
     }
@@ -96,12 +98,12 @@ function TodoItem({
     setIsEditing(false);
   };
 
-  const toggleEditMode = (event: React.MouseEvent) => {
+  const toggleEditMode = () => {
     setIsEditing(!isEditing);
   };
 
   return (
-    <StyledTodoItemBox>
+    <StyledTodoItemBox completed={completed}>
       <CompleteButton />
       {isEditing ? (
         <StyledInput
