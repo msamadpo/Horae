@@ -61,7 +61,7 @@ function TodoList({ id, title, tasks }: ITodoProps) {
     });
   };
 
-  const editTask = (taskName:string,taskId: string) => {
+  const editTask = (taskName: string, taskId: string) => {
     dispatch({
       type: 'EDIT_TASK',
       payload: {
@@ -72,6 +72,7 @@ function TodoList({ id, title, tasks }: ITodoProps) {
         },
       },
     });
+  };
 
   // const actualEditTask = (taskId: string, taskPayload: EditTaskPayload) => {
   //   dispatch({
@@ -93,7 +94,12 @@ function TodoList({ id, title, tasks }: ITodoProps) {
       </Header>
       <div>
         {tasks.map((task, index) => (
-          <TodoItem key={`${id}-${index}`} {...task} removeTask={removeTask} editTask={editTask}/>
+          <TodoItem
+            key={task.id}
+            {...task}
+            removeTask={removeTask}
+            editTask={editTask}
+          />
         ))}
         <TodoInput createNewTodo={addTask} />
       </div>
