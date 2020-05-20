@@ -9,7 +9,7 @@ const todoListRoutes = require('./routes/todolist');
 /* Probably will need separate routers for events and todos */
 
 // Middleware
-app.use(bodyParser.json({ type: 'application/*+json' }));
+app.use(bodyParser.json());
 
 // Routes
 app.use('/api/avatar', avatarRoutes);
