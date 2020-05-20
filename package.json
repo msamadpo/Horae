@@ -13,6 +13,8 @@
     "concurrently": "^5.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "firebase": "^7.14.3",
+    "morgan": "^1.10.0",
     "react-router-dom": "^5.1.2"
   },
   "scripts": {
@@ -21,6 +23,7 @@
     "dev": "concurrently \"yarn run server\" \"yarn run client\""
   },
   "devDependencies": {
-    "nodemon": "^2.0.3"
+    "nodemon": "^2.0.3",
+    "typescript": "^3.8.3"
   }
 }

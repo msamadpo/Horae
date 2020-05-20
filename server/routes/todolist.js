@@ -1,11 +1,27 @@
+require('dotenv').config()
 const express = require('express');
-
 const router = express.Router();
+const server = require('../server');
+const firebase = require('../base.js');
+
 
 // CREATE a TodoList
-router.post('/', (req, res) => {
-  res.send(`POST request to ${req.baseUrl}`);
+router.post('/createTodo', server.jsonParser, (req, res) => {
+  var todoList = {
+    title: req.body.title,
+    description: req.body.description,
+    tasks: task
+  };
+  console.log(todoList);
+
+  var data =  firebase.database.ref('todo/').push();
+  var send = data.set(todoList);
+  var key = data.key;
+  res.send(key);
+  
 });
+
+
 
 // READ all TodoLists
 router.get('/', (req, res) => {
@@ -19,8 +35,13 @@ router.get('/:todoListId', (req, res) => {
 });
 
 // UPDATE a TodoList
+
+
 router.patch('/:todoListId', (req, res) => {
+
+
   console.log('todoListId:', req.params.todoListId);
+  
   res.send(`PATCH request to ${req.baseUrl}`);
 });
 
@@ -30,3 +51,4 @@ router.delete('/', (req, res) => {
 });
 
 module.exports = router;
+
