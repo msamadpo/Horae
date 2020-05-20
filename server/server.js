@@ -1,7 +1,7 @@
 const express = require('express');
+const logger = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
-const firebase = require("firebase");
 
 // Import Routes
 const authRoutes = require('./routes/auth');
@@ -12,7 +12,7 @@ const todoListRoutes = require('./routes/todolist');
 
 // Middleware
 app.use(bodyParser.json({ type: 'application/*+json' }));
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(logger('dev'));
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -22,3 +22,4 @@ app.use('/api/todolist', todoListRoutes);
 
 const PORT = process.env.port || 5000;
 app.listen(PORT, () => console.log(`Sever running on port ${PORT}...`));
+

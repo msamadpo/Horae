@@ -1,7 +1,7 @@
 const express = require('express');
-const router = express.Router()
+const router = express.Router();
 const firebase = require("../firebase");
-
+const bodyParser = require('body-parser');
 
 router.post("/signinWithEmail", function(request, response){
 });
@@ -12,7 +12,9 @@ router.post("/signinWithGoogle", function(request, response){
 })
 
 // To test this route on POSTMAN, Choose Body -> form-urlencoded
-router.post("/signupWithEmail", function(req, res) {
+// Example: localhost:5000/api/auth/signupWithEmail
+router.post("/signupWithEmail", bodyParser.json(), (req, res) => {
+
     let firstName   = req.body.firstName;
     let lastName    = req.body.lastName;
     let nickname    = req.body.nickname;
@@ -20,7 +22,7 @@ router.post("/signupWithEmail", function(req, res) {
     let phoneNumber = req.body.phoneNumber;
     let username    = req.body.username
     let password    = req.body.password;
-    
+
     firebase.auth().createUserWithEmailAndPassword(email,password).then(function(userRecord){
       console.log(userRecord.user);
       firebase.database().ref('users/' + userRecord.user.uid).set({
@@ -30,7 +32,6 @@ router.post("/signupWithEmail", function(req, res) {
         email,
         phoneNumber,
         username,
-        
       });
       res.status(200).end();
     })
