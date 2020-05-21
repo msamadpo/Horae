@@ -3,7 +3,7 @@ import GlobalContext from 'context/GlobalContext';
 
 function TodoPage() {
   const { data, dispatch } = useContext(GlobalContext);
-  const tasks = data.todo_lists[0].tasks;
+  const tasks = data.todo_lists;
 
   const addTask = () => {
     dispatch({
@@ -19,13 +19,22 @@ function TodoPage() {
   };
 
   const editTask = () => {
+    // dispatch({
+    //   type: 'EDIT_TASK',
+    //   payload: {
+    //     taskListId: '123456789',
+    //     taskId: '343ERHFGIR4545',
+    //     task: {
+    //       name: 'Edited Spinach',
+    //     },
+    //   },
+    // });
     dispatch({
-      type: 'EDIT_TASK',
+      type: 'EDIT_TASK_LIST',
       payload: {
         taskListId: '123456789',
-        taskId: '343ERHFGIR4545',
-        task: {
-          name: 'Edited Spinach',
+        updates: {
+          title: 'UPDATED TASK LIST',
         },
       },
     });
@@ -46,7 +55,7 @@ function TodoPage() {
       Todo Page
       <div>
         {tasks.map((task) => (
-          <div>{task.name}</div>
+          <div>{task.title}</div>
         ))}
       </div>
       <div>

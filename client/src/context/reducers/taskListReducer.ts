@@ -31,6 +31,23 @@ export const addTaskList = (state: GlobalState, action: Action) => {
   return { ...state, todo_lists: newTaskLists };
 };
 
+export const editTaskList = (state: GlobalState, action: Action) => {
+  if (action.type !== 'EDIT_TASK_LIST') {
+    return state;
+  }
+  const newTaskList = {
+    ...state.todo_lists.filter(
+      (list) => list.id === action.payload.taskListId
+    )[0],
+    ...action.payload.updates,
+  };
+  const newTaskLists = state.todo_lists.map((list) =>
+    list.id === action.payload.taskListId ? newTaskList : list
+  );
+  console.log('Dispatch EDIT_TASK_LIST');
+  return { ...state, todo_lists: newTaskLists };
+};
+
 // export const removeTask = (state: GlobalState, action: Action) => {
 //   if (action.type !== 'REMOVE_TASK') {
 //     return state;
