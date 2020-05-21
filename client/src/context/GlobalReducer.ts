@@ -5,7 +5,11 @@ import {
   addTask,
   removeTask,
   editTask,
-} from 'context/reducers/taskReducers';
+} from 'context/reducers/taskReducer';
+import {
+  NewTaskListPayload,
+  addTaskList,
+} from 'context/reducers/taskListReducer';
 
 export type GlobalState = typeof mockData;
 export type Action =
@@ -14,7 +18,9 @@ export type Action =
   | {
       type: 'EDIT_TASK';
       payload: { taskListId: string; taskId: string; task: EditTaskPayload };
-    };
+    }
+  | { type: 'ADD_TASK_LIST'; payload: { taskList: NewTaskListPayload } };
+
 export default function globalReducer(
   state: GlobalState,
   action: Action
@@ -26,6 +32,8 @@ export default function globalReducer(
       return removeTask(state, action);
     case 'EDIT_TASK':
       return editTask(state, action);
+    case 'ADD_TASK_LIST':
+      return addTaskList(state, action);
     default:
       return state;
   }

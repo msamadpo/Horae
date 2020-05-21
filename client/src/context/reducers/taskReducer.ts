@@ -1,4 +1,11 @@
-import type { GlobalState, Action } from 'context/GlobalReducer';
+import { GlobalState, Action } from 'context/GlobalReducer';
+
+export type Task = {
+  id: string;
+  name: string;
+  deadline: string;
+  completed: boolean;
+};
 
 export type NewTaskPayload = {
   name: string;
