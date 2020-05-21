@@ -15,6 +15,8 @@ import Text from 'components/Common/Text';
 import AppNavbar from 'components/HoraeApp/AppNavbar';
 import Calendar from 'components/HoraeApp/Calendar';
 
+import CalendarWeek from 'components/HoraeApp/CalendarPage/CalendarWeek';
+
 const ITEMS = [
   {
     title: 'Calendar',
@@ -38,7 +40,14 @@ const StyledApp = styled.div`
 `;
 
 const StyledAppBody = styled.div`
+<<<<<<< Updated upstream
   padding: var(--spacing-large) var(--spacing-xlarge);
+=======
+  padding: var(--spacing-large) var(--spacing-base);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+>>>>>>> Stashed changes
 `;
 
 function HoraeApp() {
@@ -54,10 +63,17 @@ function HoraeApp() {
                 Todo
               </Text>
             </Route>
+<<<<<<< Updated upstream
             <Route path="/avatar" exact>
               <Text weight="400" type="heading1">
                 Avatar
               </Text>
+=======
+            <Route path={['/calendar', '/calendar/week']} exact>
+              <CalendarPage>
+                <CalendarWeek />
+              </CalendarPage>
+>>>>>>> Stashed changes
             </Route>
             <Route path="/">
               <Redirect to="/calendar" />
