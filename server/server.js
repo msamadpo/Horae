@@ -1,20 +1,41 @@
+
 const express = require('express');
+const logger = require('morgan');
 const bodyParser = require('body-parser');
-const app = express();
+const app= express();
 
-// Import Routes
+module.exports = bodyParser.json()
+
+//importing routes
 const avatarRoutes = require('./routes/avatar');
+
+//calendar
 const calendarRoutes = require('./routes/calendar');
+
+
 const todoListRoutes = require('./routes/todolist');
-/* Probably will need separate routers for events and todos */
 
-// Middleware
+//Middleware
 app.use(bodyParser.json({ type: 'application/*+json' }));
+app.use(logger('dev'));
 
-// Routes
+
+//routes
+app.get('/homepage', (req, res) => {
+    res.send("Homepage (only for authorized personel)");
+});
+
+app.get("/", (req, res) => {
+    res.send("Welcome to Horea landing page!!");
+});
+
 app.use('/api/avatar', avatarRoutes);
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/todolist', todoListRoutes);
-
-const PORT = process.env.port || 5000;
+const  PORT = process.env.port || 5000;
 app.listen(PORT, () => console.log(`Sever running on port ${PORT}...`));
+
+
+
+
+

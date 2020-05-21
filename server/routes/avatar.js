@@ -2,6 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
+
+
 // CREATE an avatar
 router.post('/', (req, res) => {
   res.send(`POST request to ${req.baseUrl}`);

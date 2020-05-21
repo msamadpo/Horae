@@ -1,50 +1,90 @@
 const express = require('express');
 
 const router = express.Router();
+const firebase = require('../config/firebase');
+const server = require('../server');
 
-const CALENDARS = [
-  {
-    id: '5d32b4b2fd13e359f9d0c593',
-    title: 'Work',
-    settings: { color: 'red' },
-    events: [
-      {
-        id: '1d3ac4e2gd13a359f9d0c593',
-        name: 'Sun God',
-        date: 'Sat May 02 2020 20:02:32 GMT-0700 (Pacific Daylight Time)',
-        duration: 1,
-        location: '',
-        note: '',
-      },
-    ],
-  },
-];
+
+const CALENDAR = (calendarId, name, color)=>{
+    return {
+        calendarId: calendarId,
+        name: name,
+        settings: {
+            color: color
+        }
+    }
+}
+
+
+const db = firebase.database();
 
 // CREATE a calendar
-router.post('/', (req, res) => {
-  res.send(`POST request to ${req.baseUrl}`);
+router.post('/',server, (req, res) => {
+    const {name, color} = req.body;
+    const calendarId = db.ref('calendar/').push().key; //getting key
+    db.ref('calendar/'+ calendarId)
+    .set(CALENDAR(calendarId,name, color))
+    .then(()=>{ 
+        res.json({calendarId: calendarId})
+    })
+    .catch((err)=> res.json({ error: err.message }));
+     
 });
+
+
 
 // READ all calendars
 router.get('/', (req, res) => {
-  res.json(CALENDARS);
+    db.ref('/calendar').once('value')
+    .then((data)=> {
+         if (data.val() != null) {res.json(data.val());}
+         else {res.send('DOESNT EXIST')}
+    })
+    .catch((err)=> res.json({ err: err.message }));
 });
 
 // READ one calendar
 router.get('/:calendarId', (req, res) => {
-  console.log('calendarId:', req.params.calendarId);
-  res.send(`GET request to ${req.baseUrl}`);
+
+    const calendarId =req.params.calendarId;
+
+    db.ref('calendar/'+ calendarId).once('value').then((data)=>{
+        if(data.val() != null) {
+            res.json(data.val());
+        }
+        else
+             res.send('DOESNT EXIST!')
+        });
+
 });
 
 // UPDATE a calendar
-router.patch('/:calendarId', (req, res) => {
-  console.log('calendarId:', req.params.calendarId);
-  res.send(`PATCH request to ${req.baseUrl}`);
+router.patch('/:calendarId', server, (req, res) => {
+    const calendarId = req.params.calendarId;
+    const {name, color} = req.body
+
+    db.ref('calendar/'+ calendarId).update(
+        {name: name,
+        settings: {
+            color: color
+        }
+    })
+    .then(()=> res.json({status: 200, message: 'Successfully updated calendar' }))
+    .catch((err)=>res.json({error: err.message }))
+    
 });
+
 
 // DELETE a calendar
-router.delete('/', (req, res) => {
-  res.send(`DELETE request to ${req.baseUrl}`);
+router.delete('/:calendarId', (req, res) => {
+    const calendarId = req.params.calendarId;
+
+    db.ref('calendar/' + calendarId).remove()
+    .then( ()=> res.json({status: 200, message: 'Successfully deleted calendar' }))
+    .catch((err) => res.json({error: err.message }));
+
 });
 
-module.exports = router;
+module.exports= router
+
+
