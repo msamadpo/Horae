@@ -26,7 +26,7 @@
 
   &.active {
     background-color: var(--color-primary);
-    box-shadow: 0px 10px 16px 0px var(--color-primary);
+    box-shadow: 0px 10px 16px 0px rgba(255, 90, 95, 0.5);
     span {
       color: var(--color-white);
     }

@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// import DateDisplay from 'components/HoraeApp/Header/DateDisplay';
+import DateDisplay from 'components/HoraeApp/Header/DateDisplay';
 
 const StyledHeader = styled.div`
-  margin-bottom: var(--spacing-base);
+  padding-bottom: var(--spacing-xlarge);
 `;
 
 function Header() {
-  return <StyledHeader>{/* <DateDisplay /> */}</StyledHeader>;
+  return (
+    <StyledHeader>
+      <DateDisplay />
+    </StyledHeader>
+  );
 }
 
 export default Header;

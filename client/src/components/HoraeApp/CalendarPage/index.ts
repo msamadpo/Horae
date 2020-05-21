@@ -1,1 +1,1 @@
-export { default } from './CalendarPage';
+export { default } from 'components/HoraeApp/CalendarPage/CalendarPage';

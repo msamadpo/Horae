@@ -7,7 +7,6 @@ import Text from 'components/Common/Text';
 interface ICalendarPageProps {
   children: React.ReactNode;
 }
-
 const PageBody = styled.div`
   display: flex;
   flex-direction: column;
