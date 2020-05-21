@@ -10,7 +10,8 @@ type TextType =
   | 'heading3'
   | 'large'
   | 'regular'
-  | 'small';
+  | 'small'
+  | 'tiny';
 
 interface ITextProps {
   type?: TextType;

@@ -17,7 +17,7 @@
           "id": "5df120015f1d26010ec56b01",
           "name": "Sun God",
           "description": "",
-          "date": "Sat May 02 2020 GMT-0700 (PST)",
+          "date": "May 02 2020 ",
           "duration": 2,
           "location": "Zoom"
         },
@@ -25,7 +25,7 @@
           "id": "5df120015f1d26010ec56b01",
           "name": "Midterm 1",
           "description": "",
-          "date": "Sat May 22 2020 GMT-0700 (PST)",
+          "date": "May 22 2020 ",
           "duration": 1,
           "location": "Zoom"
         }
@@ -43,19 +43,19 @@
         {
           "id": "343ERHFGIR4545",
           "name": "Spinach",
-          "deadline": "Sat May 08 2020 20:02:32 GMT-0700 (PST)",
+          "deadline": "May 08 2020",
           "completed": true
         },
         {
           "id": "343ERH12R4545",
           "name": "Homework 1",
-          "deadline": "Sat May 12 2020 20:02:32 GMT-0700 (PST)",
+          "deadline": "May 12 2020",
           "completed": false
         },
         {
           "id": "343ERadFGIR4545",
           "name": "Gym",
-          "deadline": "Sat May 14 2020 20:02:32 GMT-0700 (PST)",
+          "deadline": "May 14 2020",
           "completed": true
         }
       ]

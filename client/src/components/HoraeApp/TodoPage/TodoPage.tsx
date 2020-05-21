@@ -1,6 +1,17 @@
 import React, { useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import TodoList from 'components/HoraeApp/TodoPage/TodoList/TodoList';
+import styled from 'styled-components';
+
+
+const CompleteButton = styled.div`
+  min-width: 2.25rem;
+  max-width: 2.25rem;
+  min-height: 2.25rem;
+  max-height: 2.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-nav-item-text);
+`;
 
 function TodoPage() {
   const { data, dispatch } = useContext(GlobalContext);
@@ -59,7 +70,8 @@ function TodoPage() {
     //   </div>
     // </div>
 
-    <TodoList {...taskList} />
+
+    <TodoList {...taskList}> </TodoList>
   );
 }
 

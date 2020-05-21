@@ -23,7 +23,7 @@ const StyledTodoList = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
-  max-width: 35rem;
+  max-width: 36rem;
   overflow: hidden;
   box-shadow: 0px 2px 16px 0px rgba(219, 219, 219, 0.5);
 `;
@@ -73,6 +73,32 @@ function TodoList({ id, title, tasks }: ITodoProps) {
     });
   };
 
+  const completeTask = (taskId: string, completed: boolean) => {
+    dispatch({
+      type: 'EDIT_TASK',
+      payload: {
+        taskId: taskId,
+        taskListId: id,
+        task: {
+          completed: completed,
+        },
+      },
+    });
+  };
+
+  const editDeadline = (taskId: string, deadline:string) => {
+    dispatch({
+      type: 'EDIT_TASK',
+      payload: {
+        taskId: taskId,
+        taskListId: id,
+        task: {
+          deadline: deadline,
+        },
+      },
+    });
+  };
+
   // const actualEditTask = (taskId: string, taskPayload: EditTaskPayload) => {
   //   dispatch({
   //     type: 'EDIT_TASK',
@@ -98,6 +124,8 @@ function TodoList({ id, title, tasks }: ITodoProps) {
             {...task}
             removeTask={removeTask}
             editTask={editTask}
+            completeTask={completeTask}
+            editDeadline={editDeadline}
           />
         ))}
         <TodoInput createNewTodo={addTask} />
