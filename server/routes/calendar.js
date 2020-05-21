@@ -56,7 +56,7 @@ router.get('/:calendarId', (req, res) => {
              res.send('DOESNT EXIST!')
         });
 
-});
+}); 
 
 // UPDATE a calendar
 router.patch('/:calendarId', server, (req, res) => {
