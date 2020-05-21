@@ -52,6 +52,7 @@ router.get('/:calendarId', (req, res) => {
         if(data.val() != null) {
             res.json(data.val());
         }
+        //basically if the key doesnt exist
         else
              res.send('DOESNT EXIST!')
         });
