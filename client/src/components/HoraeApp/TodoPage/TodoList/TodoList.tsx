@@ -21,6 +21,7 @@ interface ITodoProps {
 // TODO: Remove this code once it's no longer needed as a reference
 const StyledTodoList = styled.div`
   display: flex;
+  margin: var(--spacing-base);
   flex-direction: column;
   border-radius: 1rem;
   max-width: 36rem;
@@ -61,15 +62,13 @@ function TodoList({ id, title, tasks }: ITodoProps) {
     });
   };
 
-  const editTask = (taskName: string, taskId: string) => {
+  const editTask = (taskId: string, updates: EditTaskPayload) => {
     dispatch({
       type: 'EDIT_TASK',
       payload: {
         taskId: taskId,
         taskListId: id,
-        task: {
-          name: taskName,
-        },
+        task: updates,
       },
     });
   };
@@ -82,19 +81,6 @@ function TodoList({ id, title, tasks }: ITodoProps) {
         taskListId: id,
         task: {
           completed: completed,
-        },
-      },
-    });
-  };
-
-  const editDeadline = (taskId: string, deadline: string) => {
-    dispatch({
-      type: 'EDIT_TASK',
-      payload: {
-        taskId: taskId,
-        taskListId: id,
-        task: {
-          deadline: deadline,
         },
       },
     });
@@ -125,8 +111,6 @@ function TodoList({ id, title, tasks }: ITodoProps) {
             {...task}
             removeTask={removeTask}
             editTask={editTask}
-            completeTask={completeTask}
-            editDeadline={editDeadline}
           />
         ))}
         <TodoInput createNewTodo={addTask} />

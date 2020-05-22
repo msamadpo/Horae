@@ -3,20 +3,14 @@ import GlobalContext from 'context/GlobalContext';
 import TodoList from 'components/HoraeApp/TodoPage/TodoList/TodoList';
 import styled from 'styled-components';
 
-
-const CompleteButton = styled.div`
-  min-width: 2.25rem;
-  max-width: 2.25rem;
-  min-height: 2.25rem;
-  max-height: 2.25rem;
-  border-radius: 50%;
-  border: 1px solid var(--color-nav-item-text);
+const TodoPageBody = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 function TodoPage() {
   const { data, dispatch } = useContext(GlobalContext);
-  const tasks = data.todo_lists[0].tasks;
-  const taskList = data.todo_lists[0];
+  const taskLists = data.todo_lists;
 
   const addTask = () => {
     dispatch({
@@ -69,9 +63,11 @@ function TodoPage() {
     //     <button onClick={editTask}>Edit task</button>
     //   </div>
     // </div>
-
-
-    <TodoList {...taskList}> </TodoList>
+    <TodoPageBody>
+      {taskLists.map((taskList) => (
+        <TodoList {...taskList} />
+      ))}
+    </TodoPageBody>
   );
 }
 

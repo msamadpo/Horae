@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Text from 'components/Common/Text';
 import Icon from 'components/Common/Icon';
+import { EditTaskPayload } from 'context/reducers/taskReducer';
 
 interface ITodoItemProps {
   id: string;
@@ -9,9 +10,7 @@ interface ITodoItemProps {
   deadline?: string;
   completed: boolean;
   removeTask: (id: string) => void;
-  editTask: (taskName: string, id: string) => void;
-  completeTask: (taskid: string, completed: boolean) => void;
-  editDeadline: (taskid: string, deadline: string) => void;
+  editTask: (taskId: string, updates: EditTaskPayload) => void;
 }
 
 const StyledTodoItemBox = styled.div<{ completed: boolean }>`
@@ -24,10 +23,11 @@ const StyledTodoItemBox = styled.div<{ completed: boolean }>`
   grid-template-columns: 1fr 4fr 2.5fr 5rem;
   align-items: center;
   grid-column-gap: var(--spacing-tiny);
+  transition: background-color 0.4s;
   ${(props) =>
-    props.completed
-      ? `background-color: var(--color-shadow);box-shadow: 0px 0px 0px;`
-      : ''}
+    props.completed &&
+    `background-color: #e8e8e8;
+         box-shadow: 0px 0px 0px;`}
   &:hover {
     .icon-container {
       visibility: visible;
@@ -44,17 +44,18 @@ const StyledCompleteButton = styled.div<{ completed: boolean }>`
   border-radius: 50%;
   border: 1px solid var(--color-nav-item-text);
   ${(props) =>
-    props.completed
-      ? `background-color:#c1bfbf;
+    props.completed &&
+    `background-color:#c1bfbf;
    border: none;
-   transition: 1.5s;
-  `
-      : ''}
+   transition: 0.4s;`}
 `;
 const StyledCheckmark = styled.svg<{ completed: boolean }>`
   fill: none;
   ${(props) =>
-    props.completed ? ` stroke: white; stroke-width: 2px;transition: 1s;` : ''}
+    props.completed &&
+    `stroke: white; 
+    stroke-width: 2px;
+    transition: 0.4s;`}
 `;
 
 const StyledInput = styled.input<{ completed: boolean }>`
@@ -66,7 +67,30 @@ const StyledInput = styled.input<{ completed: boolean }>`
   width: 100%;
   color: var(--color-text-subtitle);
   ${(props) =>
-    props.completed ? `background-color: transparent; color:white;` : ''}
+    props.completed &&
+    `background-color: transparent;
+    color: white;`}
+`;
+
+const StyledLineThrough = styled.span<{ completed: boolean }>`
+  position: relative;
+  width: max-content;
+  ${(props) =>
+    props.completed &&
+    `
+  &::after {
+    max-width: 100%;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    background-color: var(--color-text-subtitle);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+`}
 `;
 
 const StyledDeadline = styled.input<{ completed: boolean }>`
@@ -78,7 +102,7 @@ const StyledDeadline = styled.input<{ completed: boolean }>`
   width: 100%;
   color: var(--color-text-subtitle);
   padding-bottom: 11px;
-  ${(props) => (props.completed ? `background-color: transparent` : '')}
+  ${(props) => props.completed && `background-color: transparent`}
 `;
 
 const IconContainer = styled.div`
@@ -96,8 +120,6 @@ function TodoItem({
   completed,
   removeTask,
   editTask,
-  completeTask,
-  editDeadline,
 }: ITodoItemProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -118,32 +140,38 @@ function TodoItem({
     setEditedName(event.currentTarget.value);
   };
 
-  const submitEditName = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const submitEdits = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keyCode = event.which || event.keyCode;
-    if (keyCode === 13 && editedName !== '') {
-      editTask(editedName, id);
+    if (keyCode === 13) {
       setIsEditing(false);
-    }
-    if (keyCode === 13 && editedName === '') {
-      editTask(name, id);
-      setIsEditing(false);
-      setEditedName(name);
+      if (editedName === '') {
+        setEditedName(name);
+      } else {
+        editTask(id, {
+          name: editedName,
+          deadline: editedDeadline,
+        });
+      }
     }
   };
 
-  const onBlurEditName = (event: React.FocusEvent<HTMLInputElement>) => {
+  const onBlurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
     const clickedOnInput = event?.relatedTarget instanceof HTMLInputElement;
     if (clickedOnInput) {
       return;
     }
     if (editedName === '') {
-      editTask(name, id);
-      setIsEditing(false);
       setEditedName(name);
-    } else {
-      editTask(editedName, id);
-      setIsEditing(false);
+    } else if (editedDeadline === '') {
+      setEditedDeadline(deadline);
+    } else if (editedName !== name && editedDeadline !== deadline) {
+      editTask(id, { name: editedName, deadline: editedDeadline });
+    } else if (editedDeadline !== deadline) {
+      editTask(id, { deadline: editedDeadline });
+    } else if (editedName !== name) {
+      editTask(id, { name: editedName });
     }
+    setIsEditing(false);
   };
 
   const toggleEditMode = () => {
@@ -151,34 +179,15 @@ function TodoItem({
   };
 
   const handleCompleted = () => {
-    completeTask(id, !completed);
+    editTask(id, {
+      completed: !completed,
+    });
   };
 
   const handleDeadlineName = (
     event: React.SyntheticEvent<HTMLInputElement>
   ) => {
     setEditedDeadline(event.currentTarget.value);
-  };
-
-  const submitEditDeadline = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const keyCode = event.which || event.keyCode;
-    if (keyCode === 13) {
-      editDeadline(id, editedDeadline);
-      setIsEditing(false);
-    }
-  };
-
-  const onBlurDeadline = (event: React.FocusEvent<HTMLInputElement>) => {
-    const clickedOnInputName = event?.relatedTarget instanceof HTMLInputElement;
-    if (clickedOnInputName) {
-      return;
-    }
-    if (editedDeadline === '') {
-      editDeadline(id, deadline);
-      setEditedDeadline(deadline);
-      setIsEditing(false);
-    }
-    setIsEditing(false);
   };
 
   return (
@@ -193,44 +202,33 @@ function TodoItem({
           type="text"
           onChange={handleEditName}
           value={editedName}
-          onKeyPress={submitEditName}
-          onBlur={onBlurEditName}
+          onKeyPress={submitEdits}
+          onBlur={onBlurHandler}
           ref={inputRef}
           completed={completed}
         />
       ) : (
-        <Text
-          type="small"
-          styleProp={`${
-            completed
-              ? ' font-weight:400; color:#444444; opacity: 0.3;'
-              : 'unset'
-          }`}
-        >
-          {name}
-        </Text>
+        <StyledLineThrough completed={completed}>
+          <Text
+            type="small"
+            color={completed ? 'var(--color-text-subtitle)' : ''}
+          >
+            {name}
+          </Text>
+        </StyledLineThrough>
       )}
       {isEditing ? (
         <StyledDeadline
           type="text"
           onChange={handleDeadlineName}
           value={editedDeadline}
-          onKeyPress={submitEditDeadline}
-          onBlur={onBlurDeadline}
+          onKeyPress={submitEdits}
+          onBlur={onBlurHandler}
           ref={inputRef}
           completed={completed}
         />
       ) : (
-        <Text
-          type="tiny"
-          styleProp={`${
-            completed
-              ? ' font-weight:100; color:grey; opacity:0.40;'
-              : 'opacity:0.80;'
-          }`}
-        >
-          {deadline}
-        </Text>
+        <Text type="tiny">{deadline}</Text>
       )}
 
       <IconContainer className={isEditing ? '' : 'icon-container'}>
