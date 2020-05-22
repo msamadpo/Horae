@@ -40,9 +40,10 @@ const indexEventsByDate = (currentDates: Date[], calendars: Calendar[]) => {
   const indexedEvents = new Map<string, CalendarEventItemType[]>();
   calendars.forEach((calendar) => {
     calendar.events.forEach((event) => {
-      const dateKey = currentDates
-        .filter((date) => isSameDay(date, Date.parse(event.date)))[0]
-        .toString();
+      const date = currentDates.filter((date) =>
+        isSameDay(date, Date.parse(event.date))
+      )[0];
+      const dateKey = date.toString() || 'other';
       if (indexedEvents.has(dateKey)) {
         indexedEvents
           .get(dateKey)

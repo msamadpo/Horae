@@ -13,26 +13,29 @@ const StyledItem = styled.div<{ color: string }>`
   margin: 1rem;
 `;
 
-function CalendarEventItem(props: CalendarEventItemProps) {
-  const date = new Date(Date.parse(props.date));
-  const startTime = date.toLocaleString('en-US', {
+function CalendarEventItem({
+  name,
+  date,
+  color,
+  duration,
+}: CalendarEventItemProps) {
+  const currDate = new Date(Date.parse(date));
+  const startTime = currDate.toLocaleString('en-US', {
     hour: 'numeric',
     minute: 'numeric',
     hour12: true,
   });
-  const endTime = add(date, {
-    hours: props.duration,
+  const endTime = add(currDate, {
+    hours: duration,
   }).toLocaleString('en-US', {
     hour: 'numeric',
     minute: 'numeric',
     hour12: true,
   });
   return (
-    <StyledItem
-      color={'--color-primary-' + `${Math.floor(Math.random() * 7) + 1}`}
-    >
+    <StyledItem color={color}>
       <Text color="white" type="regular" weight="400">
-        {props.name}
+        {name}
       </Text>
       <div>
         <Text color="white" type="tiny" weight="300">
