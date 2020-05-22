@@ -1,66 +1,59 @@
 const express = require('express');
 const router = express.Router();
-const firebase = require("../firebase");
+const firebase = require("../config/firebase");
 const bodyParser = require('body-parser');
 
-router.post("/signinWithEmail", function(request, response){
+const JSONParser = bodyParser.json();
+
+// To test this route on POSTMAN, Choose Body -> raw + JSON
+// Example: localhost:5000/api/auth/signin
+// If sign in successfully, response sends back status 200
+// If sign in fail, response sends back status 200, errorCode and errorMessage 
+router.post("/signin", JSONParser, (req, res) => {
+  let email       = req.body.email;
+  let password    = req.body.password;
+  
+  firebase.auth().signInWithEmailAndPassword(email, password)
+  .then(() => res.status(200).end()) 
+  .catch((error) => {
+    res.json({
+      code: error.code, 
+      message: error.message
+    });
+  });
 });
 
-router.post("/signinWithGoogle", function(request, response){
-    let googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-    
-})
 
-// To test this route on POSTMAN, Choose Body -> form-urlencoded
-// Example: localhost:5000/api/auth/signupWithEmail
-router.post("/signupWithEmail", bodyParser.json(), (req, res) => {
 
-    let firstName   = req.body.firstName;
-    let lastName    = req.body.lastName;
-    let nickname    = req.body.nickname;
-    let email       = req.body.email;
-    let phoneNumber = req.body.phoneNumber;
-    let username    = req.body.username
-    // let password    = req.body.password;
-
-    firebase.auth().createUserWithEmailAndPassword(email,password).then(function(userRecord){
-      console.log(userRecord.user);
-      firebase.database().ref('users/' + userRecord.user.uid).set({
-        firstName,
-        lastName,
-        nickname,
-        email,
-        phoneNumber,
-        username,
-      });
-      res.status(200).end();
-    })
-    .catch(function(error){
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      res.send({errorCode, errorMessage});
+// To test this route on POSTMAN, Choose Body -> raw + JSON
+// Example: localhost:5000/api/auth/signup
+// If sign up successfully, response sends back status 200
+// If sign up fail due to incorrect username or password but request has been processed by firebase,
+//    response sends back status 200, code and message.
+router.post("/signup", JSONParser, (req, res) => {
+  const { firstName, lastName, nickname, email, phoneNumber, username, password } = req.body;
+  
+  firebase.auth().createUserWithEmailAndPassword(email,password).then(function(userRecord){
+    const { uid } = userRecord.user;
+    firebase.database().ref('users/' + uid).set({
+      id : uid,
+      firstName,
+      lastName,
+      nickname,
+      email,
+      phoneNumber,
+      username,
     });
+    res.status(200).end();
+  })
+  .catch((error) => {
+    res.json({
+      code: error.code, 
+      message: error.message
+    });
+  });
 })
 
-router.post("/signupWithGoogle", function(request, response){
-    let googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(googleAuthProvider).then(function(data) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.data;
-        console.log(user);
-      }).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(error.message);
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-      });
-})
+
 
 module.exports = router;
