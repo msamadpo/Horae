@@ -37,13 +37,14 @@ const Header = styled.div`
 function TodoList({ id, title, tasks }: ITodoProps) {
   const { dispatch } = useContext(GlobalContext);
 
-  const addTask = (taskName: string) => {
+  const addTask = (taskName: string, deadline: string) => {
     dispatch({
       type: 'ADD_TASK',
       payload: {
         taskListId: id,
         task: {
           name: taskName,
+          deadline: deadline,
           completed: false,
         },
       },
@@ -86,7 +87,7 @@ function TodoList({ id, title, tasks }: ITodoProps) {
     });
   };
 
-  const editDeadline = (taskId: string, deadline:string) => {
+  const editDeadline = (taskId: string, deadline: string) => {
     dispatch({
       type: 'EDIT_TASK',
       payload: {
