@@ -10,24 +10,53 @@
       "id": "5d32b4b2fd13e359",
       "title": "Work",
       "settings": {
-        "color": "blue"
+        "color": "#ff5a5f"
       },
       "events": [
         {
           "id": "5df120015f1d26010ec56b01",
+          "name": "New World",
+          "description": "",
+          "date": "Thu May 21 2020 18:14:11 GMT-0700 (Pacific Daylight Time)",
+          "duration": 1.5,
+          "location": "Zoom",
+          "calendarId": "5d32b4b2fd13e359"
+        },
+        {
+          "id": "5df120015f1d26010ec56b01",
           "name": "Sun God",
           "description": "",
-          "date": "Sat May 02 2020 GMT-0700 (PST)",
+          "date": "Thu May 21 2020 18:14:11 GMT-0700 (Pacific Daylight Time)",
           "duration": 2,
-          "location": "Zoom"
+          "location": "Zoom",
+          "calendarId": "5d32b4b2fd13e359"
+        },
+        {
+          "id": "5df120015f1d26010ec56b01",
+          "name": "Moonlight Festival",
+          "description": "",
+          "date": "Fri May 22 2020 18:14:11 GMT-0700 (Pacific Daylight Time)",
+          "duration": 2,
+          "location": "Zoom",
+          "calendarId": "5d32b4b2fd13e359"
+        },
+        {
+          "id": "5df120015f1d26010ec56b01",
+          "name": "Midterm for CSE 110",
+          "description": "",
+          "date": "Sat May 22 2020 18:14:11 GMT-0700 (Pacific Daylight Time)",
+          "duration": 2,
+          "location": "Zoom",
+          "calendarId": "5d32b4b2fd13e359"
         },
         {
           "id": "5df120015f1d26010ec56b01",
           "name": "Midterm 1",
           "description": "",
-          "date": "Sat May 22 2020 GMT-0700 (PST)",
+          "date": "Mon May 18 2020 00:00:00 GMT-0700 (Pacific Daylight Time)",
           "duration": 1,
-          "location": "Zoom"
+          "location": "Zoom",
+          "calendarId": "5d32b4b2fd13e359"
         }
       ]
     }
