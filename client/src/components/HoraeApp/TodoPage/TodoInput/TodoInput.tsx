@@ -71,7 +71,6 @@ function TodoInput({ createNewTodo }: ITodoInputProps) {
         onChange={handleDeadline}
         value={newDeadline}
       />
-      {/* <button onClick={makeNewTodo}>Add Todo</button> */}
     </StyledInputContainer>
   );
 }
