@@ -5,8 +5,10 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const app= express();
 const firebase = require('firebase');
-//const calendar = require("./routes/calendar.js");
 
+module.exports = bodyParser.json();
+//const calendar = require("./routes/calendar.js");
+/*
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
     authDomain: process.env.AUTH_DOMAIN,
@@ -17,13 +19,14 @@ const firebaseConfig = {
     appId: process.env.APP_ID,
 
 };
+*/
 
-firebase.initializeApp(firebaseConfig);
+//firebase.initializeApp(firebaseConfig);
 
-const database = firebase.database();
+//const database = firebase.database();
 
-module.exports = firebase;
-module.exports.database = database;
+//module.exports = firebase;
+//module.exports.database = database;
 
 //importing routes
 const avatarRoutes = require('./routes/avatar');
@@ -47,12 +50,13 @@ app.get("/api/register", (req, res) => {
     writeUserData(1245345, "Anh Pham", "team@thehub.com");
 });
 
-
+/*
 //Avatar stuff
 app.get("/api/createAvatar", (req, res) => {
     avatarRoutes.createAvatar();
     res.send("Sent Avatar to FB");
 });
+*/
 
 
 
