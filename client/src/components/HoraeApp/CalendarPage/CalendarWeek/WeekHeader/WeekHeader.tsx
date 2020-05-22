@@ -35,17 +35,59 @@ const DayDateContainer = styled.div`
 `;
 interface IWeekHeader {
   dates: Date[];
+  changeWeeks: (numWeeks: number) => void;
 }
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-function WeekHeader({ dates }: IWeekHeader) {
+const composeDateString = (
+  startDate: string,
+  startDay: number,
+  endDate: string,
+  endDay: number
+) => {
+  const endDateString = endDate === startDate ? '' : endDate;
+  return `${startDate} ${
+    startDay + dateOrdinalHelper(startDay)
+  } – ${endDateString} ${endDay + dateOrdinalHelper(endDay)}`;
+};
+
+const dateOrdinalHelper = (day: number): string => {
+  return '';
+  // if (day > 3 && day < 21) return 'th';
+  // switch (day % 10) {
+  //   case 1:
+  //     return 'st';
+  //   case 2:
+  //     return 'nd';
+  //   case 3:
+  //     return 'rd';
+  //   default:
+  //     return 'th';
+  // }
+};
+
+function WeekHeader({ dates, changeWeeks }: IWeekHeader) {
+  const [startDate, startDay] = [
+    dates[0].toLocaleString('default', {
+      month: 'short',
+    }),
+    dates[0].getDate(),
+  ];
+  const [endDate, endDay] = [
+    dates[dates.length - 1].toLocaleString('default', {
+      month: 'short',
+    }),
+    dates[dates.length - 1].getDate(),
+  ];
   return (
     <div>
       <Text type="large" styleProp="margin-left: 6px;">
-        {dates[0].toLocaleString('default', { month: 'long' })}{' '}
-        {dates[0].getFullYear()}
+        {composeDateString(startDate, startDay, endDate, endDay)}
       </Text>
       <CalendarDays>
+        <div onClick={() => changeWeeks(-1)}>
+          <Text type="large">-</Text>
+        </div>
         {dates.map((date, index) => (
           <DayDateContainer key={date.toString()}>
             <Text type="small">{DAYS[index % DAYS.length]}</Text>
@@ -56,6 +98,9 @@ function WeekHeader({ dates }: IWeekHeader) {
             </Today>
           </DayDateContainer>
         ))}
+        <div onClick={() => changeWeeks(1)}>
+          <Text type="large">+</Text>
+        </div>
       </CalendarDays>
     </div>
   );

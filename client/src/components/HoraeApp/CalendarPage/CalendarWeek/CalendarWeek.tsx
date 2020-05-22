@@ -1,7 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import styled from 'styled-components';
-import { addDays, subDays, eachDayOfInterval, isSameDay } from 'date-fns';
+import {
+  addDays,
+  subDays,
+  eachDayOfInterval,
+  isSameDay,
+  addWeeks,
+} from 'date-fns';
 import WeekHeader from 'components/HoraeApp/CalendarPage/CalendarWeek/WeekHeader';
 import { CalendarEvent, Calendar } from 'context/reducers/calendarEventReducer';
 import CalendarItem from 'components/HoraeApp/CalendarPage/CalendarWeek/CalendarEventItem';
@@ -43,7 +49,7 @@ const indexEventsByDate = (currentDates: Date[], calendars: Calendar[]) => {
       const date = currentDates.filter((date) =>
         isSameDay(date, Date.parse(event.date))
       )[0];
-      const dateKey = date.toString() || 'other';
+      const dateKey = date?.toString() || 'other';
       if (indexedEvents.has(dateKey)) {
         indexedEvents
           .get(dateKey)
@@ -59,8 +65,9 @@ const indexEventsByDate = (currentDates: Date[], calendars: Calendar[]) => {
 };
 
 function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
-  const lastSunday = subDays(startDate, startDate.getDay());
-  const comingSaturday = addDays(startDate, 6 - startDate.getDay());
+  const [start, setStart] = useState<Date>(startDate);
+  const lastSunday = subDays(start, start.getDay());
+  const comingSaturday = addDays(start, 6 - start.getDay());
   const currentDates = eachDayOfInterval({
     start: lastSunday,
     end: comingSaturday,
@@ -74,9 +81,13 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
     setIndexedEvents(indexEventsByDate(currentDates, data.calendars));
   }, [data, data.calendars]);
 
+  const changeWeeks = (numWeeks: number) => {
+    setStart(addWeeks(start, numWeeks));
+  };
+
   return (
     <Container>
-      <WeekHeader dates={currentDates} />
+      <WeekHeader dates={currentDates} changeWeeks={changeWeeks} />
       <WeekBody>
         <ColumnContainer>
           {currentDates.map((date, index) => (
