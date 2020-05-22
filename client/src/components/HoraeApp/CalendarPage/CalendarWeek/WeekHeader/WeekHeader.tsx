@@ -47,10 +47,8 @@ function WeekHeader({ dates }: IWeekHeader) {
       </Text>
       <CalendarDays>
         {dates.map((date, index) => (
-          <DayDateContainer>
-            <Text type="small" key={date.toString()}>
-              {DAYS[index % DAYS.length]}
-            </Text>
+          <DayDateContainer key={date.toString()}>
+            <Text type="small">{DAYS[index % DAYS.length]}</Text>
             <Today active={isToday(date)}>
               <Text type="small" color={isToday(date) ? 'white' : ''}>
                 {date.getDate()}

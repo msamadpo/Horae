@@ -73,17 +73,15 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
     setIndexedEvents(indexEventsByDate(currentDates, data.calendars));
   }, [data, data.calendars]);
 
-  console.log(currentDates);
-
   return (
     <Container>
       <WeekHeader dates={currentDates} />
       <WeekBody>
         <ColumnContainer>
           {currentDates.map((date, index) => (
-            <CalendarColumns key={index}>
+            <CalendarColumns key={date.toString()}>
               {indexedEvents?.get(date.toString())?.map((event) => (
-                <CalendarItem {...event} />
+                <CalendarItem {...event} key={event.id} />
               ))}
             </CalendarColumns>
           ))}
