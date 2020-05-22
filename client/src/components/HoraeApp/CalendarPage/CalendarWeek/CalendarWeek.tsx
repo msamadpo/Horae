@@ -82,6 +82,9 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
   }, [data, data.calendars]);
 
   const changeWeeks = (numWeeks: number) => {
+    if (numWeeks == 0) {
+      setStart(startDate);
+    }
     setStart(addWeeks(start, numWeeks));
   };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Text from 'components/Common/Text';
+import Icon from 'components/Common/Icon';
 import { isToday } from 'date-fns';
 
 const Today = styled.span<{ active: boolean }>`
@@ -66,6 +67,13 @@ const dateOrdinalHelper = (day: number): string => {
   // }
 };
 
+const StyledWeekToggler = styled.span`
+  display: grid;
+  grid-template-columns: 3rem 18rem 3rem;
+  align-items: center;
+  justify-items: center;
+`;
+
 function WeekHeader({ dates, changeWeeks }: IWeekHeader) {
   const [startDate, startDay] = [
     dates[0].toLocaleString('default', {
@@ -81,13 +89,14 @@ function WeekHeader({ dates, changeWeeks }: IWeekHeader) {
   ];
   return (
     <div>
-      <Text type="large" styleProp="margin-left: 6px;">
-        {composeDateString(startDate, startDay, endDate, endDay)}
-      </Text>
+      <StyledWeekToggler>
+        <Icon type="chevron-left" height={20} onClick={() => changeWeeks(-1)} />
+        <Text type="large">
+          {composeDateString(startDate, startDay, endDate, endDay)}
+        </Text>
+        <Icon type="chevron-right" height={20} onClick={() => changeWeeks(1)} />
+      </StyledWeekToggler>
       <CalendarDays>
-        <div onClick={() => changeWeeks(-1)}>
-          <Text type="large">-</Text>
-        </div>
         {dates.map((date, index) => (
           <DayDateContainer key={date.toString()}>
             <Text type="small">{DAYS[index % DAYS.length]}</Text>
@@ -98,9 +107,6 @@ function WeekHeader({ dates, changeWeeks }: IWeekHeader) {
             </Today>
           </DayDateContainer>
         ))}
-        <div onClick={() => changeWeeks(1)}>
-          <Text type="large">+</Text>
-        </div>
       </CalendarDays>
     </div>
   );
