@@ -1,53 +1,76 @@
-require('dotenv').config()
 const express = require('express');
 const router = express.Router();
+
+const { firebase } = require('../config/firebase');
 const server = require('../server');
-const firebase = require('../base.js');
 
 
 // CREATE a TodoList
-router.post('/createTodo', server.jsonParser, (req, res) => {
-  var todoList = {
-    title: req.body.title,
-    description: req.body.description,
-    tasks: task
-  };
-  console.log(todoList);
-
-  var data =  firebase.database.ref('todo/').push();
-  var send = data.set(todoList);
-  var key = data.key;
-  res.send(key);
-  
+router.post('/',(req, res) => {
+const {title, description, settings} = req.body;
+const todoList = { title, description, settings, tasks: [], numOfTasks: 0 };
+const data = firebase.database().ref('todo/').push();
+data
+  .set({...todoList, id: data.key})
+  .then(()=>{
+    res.json({
+      key: data.key
+    });
+  })
+  .catch((err)=>res.json({error: err.message}));
 });
 
 
 
 // READ all TodoLists
 router.get('/', (req, res) => {
-  res.send(`GET request to ${req.baseUrl}`);
+ firebase
+    .database()
+    .ref('todo/')
+    .once('value')
+    .then((data)=> res.json(data.val()))
+    .catch((err)=> res.json({err: err.message}));
 });
 
 // READ one TodoList
 router.get('/:todoListId', (req, res) => {
-  console.log('todoListId:', req.params.todoListId);
-  res.send(`GET request to ${req.baseUrl}`);
+  firebase
+    .database()
+    .ref('todo/' + req.params.todoListId)
+    .once('value')
+    .then((data) => res.json(data.val()))
+    .catch((err) => res.json({ err: err.message }));
 });
+
 
 // UPDATE a TodoList
 
 
 router.patch('/:todoListId', (req, res) => {
-
-
-  console.log('todoListId:', req.params.todoListId);
-  
-  res.send(`PATCH request to ${req.baseUrl}`);
+  const { title, description, settings } = req.body;
+  const updates = { title, description, settings };
+  firebase
+    .database()
+    .ref('todo/' + req.params.todoListId)
+    .update(updates)
+    .then(() =>
+      res.json({ status: 200, message: 'Successfully updated document' })
+    )
+    .catch((err) => res.json({ error: err.message }));
 });
 
 // DELETE a TodoList
 router.delete('/', (req, res) => {
-  res.send(`DELETE request to ${req.baseUrl}`);
+ router.delete('/:todoListId', (req, res) =>{
+   firebase
+    .database()
+    .ref('todo/'+req.params.todoListId)
+    .remove()
+    .then(()=>
+    res.json({status: 200, message: 'Successfully deleted document'})
+    )
+    .catch((err)=>res.json({error: err.message}));
+ })
 });
 
 module.exports = router;

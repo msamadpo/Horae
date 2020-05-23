@@ -5,8 +5,8 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const app= express();
 
-const jsonParser = bodyParser.json();
-module.exports.jsonParser = jsonParser;
+//const jsonParser = bodyParser.json();
+//module.exports.jsonParser = jsonParser;
 
 
 //importing routes
@@ -15,7 +15,7 @@ const calendarRoutes = require('./routes/calendar');
 const todoListRoutes = require('./routes/todolist');
 
 //Middleware
-app.use(bodyParser.json({ type: 'application/*+json' }));
+app.use(bodyParser.json());
 app.use(logger('dev'));
 
 //routes
