@@ -13,6 +13,8 @@ const app= express();
 const avatarRoutes = require('./routes/avatar');
 const calendarRoutes = require('./routes/calendar');
 const todoListRoutes = require('./routes/todolist');
+const taskRoutes = require('./routes/task');
+
 
 //Middleware
 app.use(bodyParser.json());
@@ -35,6 +37,8 @@ app.get("/api/register", (req, res) => {
 app.use('/api/avatar', avatarRoutes);
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/todolist', todoListRoutes);
+app.use('/api/todolist/task', taskRoutes);
+
 const  PORT = process.env.port || 5000;
 app.listen(PORT, () => console.log(`Sever running on port ${PORT}...`));
 

@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 const { firebase } = require('../config/firebase');
-const server = require('../server');
+
 
 
 // CREATE a TodoList
 router.post('/',(req, res) => {
+  console.log("Creating TodoList");
 const {title, description, settings} = req.body;
 const todoList = { title, description, settings, tasks: [], numOfTasks: 0 };
 const data = firebase.database().ref('todo/').push();
@@ -24,6 +25,7 @@ data
 
 // READ all TodoLists
 router.get('/', (req, res) => {
+  console.log("Reading ALL TodoList");
  firebase
     .database()
     .ref('todo/')
@@ -34,6 +36,7 @@ router.get('/', (req, res) => {
 
 // READ one TodoList
 router.get('/:todoListId', (req, res) => {
+  console.log("Reading ONE TodoList");
   firebase
     .database()
     .ref('todo/' + req.params.todoListId)
@@ -47,6 +50,7 @@ router.get('/:todoListId', (req, res) => {
 
 
 router.patch('/:todoListId', (req, res) => {
+  console.log("Updating ONE TodoList");
   const { title, description, settings } = req.body;
   const updates = { title, description, settings };
   firebase
@@ -60,8 +64,8 @@ router.patch('/:todoListId', (req, res) => {
 });
 
 // DELETE a TodoList
-router.delete('/', (req, res) => {
  router.delete('/:todoListId', (req, res) =>{
+  console.log("Deleting ONE TodoList");
    firebase
     .database()
     .ref('todo/'+req.params.todoListId)
@@ -70,8 +74,7 @@ router.delete('/', (req, res) => {
     res.json({status: 200, message: 'Successfully deleted document'})
     )
     .catch((err)=>res.json({error: err.message}));
- })
-});
+ });
 
 module.exports = router;
 
