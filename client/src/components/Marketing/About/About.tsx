@@ -34,7 +34,7 @@ function About() {
     >
       <div style={{ display: 'flex' }}>
         {ITEMS.map((itemProps) => (
-          <AboutItem {...itemProps} />
+          <AboutItem key={itemProps.name} {...itemProps} />
         ))}
       </div>
     </Section>
