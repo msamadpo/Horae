@@ -5,9 +5,8 @@ const { firebase } = require('../config/firebase');
 
 
 router.post('/:userId/:todoListId',(req, res) => {
-    console.log("Creating Event");
-    const {userId, todoListId} = req.params;
-    const {name, deadline} = req.body;
+    console.log("Creating Event")
+    const {userId, todoListId, name, deadline} = req.body;
     const task = { name, order: null, deadline, completed: false};
     const data = firebase.database().ref('users/'+userId+'/todo/'+ todoListId +'/tasks').push();
 
