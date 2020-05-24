@@ -21,10 +21,9 @@ const EVENTS = (eventId, name,date,duration,location,note)=>{
 
 
 //CREATE an event inside calendar
-router.post('/:uid/:calendarId' ,server, (req, res) => {
+router.post('/' ,server, (req, res) => {
 
-    const {uid,calendarId} = req.params;
-    const {name,date,duration,location,note}= req.body
+    const {uid,calendarId, name,date,duration,location,note}= req.body
    
     const eventId = db.ref('users/'+ uid + '/calendar/' + calendarId + '/events').push().key
 

@@ -1,6 +1,6 @@
 require('dotenv').config();
+
 const firebase = require('firebase');
-//const calendar = require("./routes/calendar.js");
 
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -15,5 +15,5 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-//exporting firebase reference
 module.exports = firebase;
+

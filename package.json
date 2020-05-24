@@ -23,6 +23,7 @@
     "dev": "concurrently \"yarn run server\" \"yarn run client\""
   },
   "devDependencies": {
-    "nodemon": "^2.0.3"
+    "nodemon": "^2.0.3",
+    "typescript": "^3.8.3"
   }
 }

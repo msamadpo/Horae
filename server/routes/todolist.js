@@ -3,59 +3,89 @@ const express = require('express');
 const router = express.Router();
 const firebase = require('../config/firebase');
 
-var database = firebase.database;
 
 
-var d = new Date("October 13, 2014 11:13:00");
-var task_1 = {id: 6548415184, name: "shirt", prority_level: "High", deadline: d, completed: true};
-var task_2 = {id: 1531535063, name: "shoes", prority_level: "Low", deadline: d, completed: false};
-var tasks = [task_1, task_2]
 
-const TODO_LIST = {
-    title: "Shooping",
-    description: "Items to buy",
-    todo_tasks : tasks
-};
-
-//writeUserData("220acaff8aab328e6b3a725f93e6cdf1", "Grocery", "Items to buy for dinner tonight", tasks);
 // CREATE a TodoList
-function writeTodoData() {
-    firebase.database.ref('todo/').push().set(TODO_LIST);
-}
+router.post('/',(req, res) => {
+console.log("Creating TodoList");
 
-function writeTodoDataPost(todo){
-    firebase.database.ref('todo/').push().set(todo);
-
-}
-
-router.post('/', (req, res) => {
-    res.send(`POST request to ${req.baseUrl}`);
+const {userId, title, description, settings} = req.body;
+const todoList = { title, description, settings, tasks: [], numOfTasks: 0 };
+const data = firebase.database().ref('users/' +userId+ '/todo/').push();
+data
+  .set({...todoList, id: data.key})
+  .then(()=>{
+    res.json({
+      key: data.key
+    });
+  })
+  .catch((err)=>res.json({error: err.message}));
 });
 
+
 // READ all TodoLists
-router.get('/', (req, res) => {
-    res.send(`GET request to ${req.baseUrl}`);
+router.get('/:userId', (req, res) => {
+  console.log("Reading ALL TodoList");
+  const userId = req.params.userId;
+
+ firebase
+    .database()
+    .ref('users/'+userId+'/todo/')
+    .once('value')
+    .then((data)=> res.json(data.val()))
+    .catch((err)=> res.json({err: err.message}));
 });
 
 // READ one TodoList
-router.get('/:todoListId', (req, res) => {
-    console.log('todoListId:', req.params.todoListId);
-    res.send(`GET request to ${req.baseUrl}`);
+router.get('/:userId/:todoListId', (req, res) => {
+  console.log("Reading ONE TodoList");
+  const userId = req.params.userId; 
+  const todoListId = req.params.todoList;
+  firebase
+    .database()
+    .ref('users/'+userId+'/todo/' + todoListId)
+    .once('value')
+    .then((data) => res.json(data.val()))
+    .catch((err) => res.json({ err: err.message }));
 });
 
+
 // UPDATE a TodoList
-router.patch('/:todoListId', (req, res) => {
-    console.log('todoListId:', req.params.todoListId);
-    res.send(`PATCH request to ${req.baseUrl}`);
+router.patch('/:userId/:todoListId', (req, res) => {
+  console.log("Updating ONE TodoList");
+  const userId = req.params.userId; 
+  const todoListId = req.params.todoList;
+
+
+  const { title, description, settings } = req.body;
+  const updates = { title, description, settings };
+  firebase
+    .database()
+    .ref('users/'+userId+'/todo/' + todoListId)
+    .update(updates)
+    .then(() =>
+      res.json({ status: 200, message: 'Successfully updated document' })
+    )
+    .catch((err) => res.json({ error: err.message }));
 });
 
 // DELETE a TodoList
-router.delete('/', (req, res) => {
-    res.send(`DELETE request to ${req.baseUrl}`);
-});
+ router.delete('/:userId/:todoListId', (req, res) =>{
+  console.log("Deleting ONE TodoList");
+  const userId = req.params.userId; 
+  const todoListId = req.params.todoList;
+
+   firebase
+    .database()
+    .ref('users/'+userId+'/todo/' + todoListId)
+    .remove()
+    .then(()=>
+    res.json({status: 200, message: 'Successfully deleted document'})
+    )
+    .catch((err)=>res.json({error: err.message}));
+ });
 
 module.exports = router;
-module.exports.todo_list = TODO_LIST;
-module.exports.writeTodoData = writeTodoData;
-module.exports.writeTodoDataPost = writeTodoDataPost;
+
 

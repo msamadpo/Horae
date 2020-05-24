@@ -1,6 +1,6 @@
 const express = require('express');
-
 const router = express.Router();
+
 const firebase = require('../config/firebase');
 const server = require('../server');
 
@@ -19,10 +19,9 @@ const CALENDAR = (calendarId, name, color)=>{
 const db = firebase.database();
 
 // CREATE a calendar
-router.post('/:uid',server, (req, res) => {
-    const uid = req.params.uid;
-    const {name, color} = req.body;
-    const calendarId = db.ref('users/'+ uid + 'calendar/').push().key; //getting key
+router.post('/',server, (req, res) => {
+    const {uid, name, color} = req.body;
+    const calendarId = db.ref('users/'+ uid + '/calendar/').push().key; //getting key
     db.ref('users/'+ uid + '/calendar/'+ calendarId)
     .set(CALENDAR(calendarId,name, color))
     .then(()=>{ 
@@ -37,7 +36,7 @@ router.post('/:uid',server, (req, res) => {
 // READ all calendars
 router.get('/:uid', (req, res) => {
     const uid = req.params.uid;
-    db.ref('/users/'+uid+'/calendar').once('value')
+    db.ref('users/'+uid+'/calendar').once('value')
     .then((data)=> {
          if (data.val() != null) {res.json(data.val());}
          else {res.send('DOESNT EXIST')}
@@ -87,6 +86,6 @@ router.delete('/:uid/:calendarId', (req, res) => {
 
 });
 
-module.exports= router
 
+module.exports= router;
 
