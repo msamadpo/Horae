@@ -42,6 +42,8 @@ router.patch('/:userId/:todoListId/:taskId', (req, res) => {
       )
       .catch((err) => res.json({ error: err.message }));
 
+      //Add coins to user
+
     }
 
     else{
@@ -61,7 +63,7 @@ router.patch('/:userId/:todoListId/:taskId', (req, res) => {
   });
 
 
-  router.patch('/:userId/:todoListId/:taskId', (req, res) => {
+  router.delete('/:userId/:todoListId/:taskId', (req, res) => {
     console.log("Deleting ONE Task");
 
     const {userId, todoListId, taskId} = req.params;
