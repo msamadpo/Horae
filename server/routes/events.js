@@ -19,15 +19,16 @@ const EVENTS = (eventId, name,date,duration,location,note)=>{
 };
 
 
-//CREATE an event inside calendar
-router.post('/:calendarId' ,server, (req, res) => {
 
-    const calendarId = req.params.calendarId;
+//CREATE an event inside calendar
+router.post('/:uid/:calendarId' ,server, (req, res) => {
+
+    const {uid,calendarId} = req.params;
     const {name,date,duration,location,note}= req.body
    
-    const eventId = db.ref('calendar/' + calendarId + '/events').push().key
+    const eventId = db.ref('users/'+ uid + '/calendar/' + calendarId + '/events').push().key
 
-    db.ref('calendar/'+ calendarId + '/events/'+ eventId)
+    db.ref('users/'+ uid + '/calendar/'+ calendarId + '/events/'+ eventId)
     .set(EVENTS(eventId,name,date,duration,location,note))
     .then(()=>{ 
         res.json({eventId: eventId})
@@ -39,20 +40,21 @@ router.post('/:calendarId' ,server, (req, res) => {
 
 
 //READ all Events in a calandar
-router.get('/:calendarId', (req, res) => {
-    const calendarId = req.params.calendarId;
-    db.ref('calendar/' + calendarId + '/events/').once('value')
+router.get('/:uid/:calendarId', (req, res) => {
+    const {uid,calendarId} = req.params;
+    db.ref('users/'+ uid + '/calendar/' + calendarId + '/events/').once('value')
     .then((data)=> {
          if (data.val() != null) {res.json(data.val());}
          else {res.send('DOESNT EXIST')}
     })
     .catch((err)=> res.json({ err: err.message }));
 });
+
 
 //READ an event from calendar
-router.get('/:calendarId/:eventId', (req, res) => {
-    const {calendarId, eventId} = req.params;
-    db.ref('calendar/' + calendarId + '/events/'+ eventId).once('value')
+router.get('/:uid/:calendarId/:eventId', (req, res) => {
+    const {uid,calendarId, eventId} = req.params;
+    db.ref('users/' + uid + '/calendar/' + calendarId + '/events/'+ eventId).once('value')
     .then((data)=> {
          if (data.val() != null) {res.json(data.val());}
          else {res.send('DOESNT EXIST')}
@@ -60,12 +62,13 @@ router.get('/:calendarId/:eventId', (req, res) => {
     .catch((err)=> res.json({ err: err.message }));
 });
 
+
 //UPDATE an event inside calendar
-router.patch('/:calendarId/:eventId', server, (req, res)=>{
-    const {calendarId,eventId} = req.params;
+router.patch('/:uid/:calendarId/:eventId', server, (req, res)=>{
+    const {calendarId,eventId,uid} = req.params;
     const{name,date,duration,location,note} = req.body
 
-    db.ref('calendar/'+ calendarId+ '/events/'+ eventId).update(
+    db.ref('users/' + uid + '/calendar/'+ calendarId+ '/events/'+ eventId).update(
         {
             name: name,
             date: date,
@@ -77,14 +80,13 @@ router.patch('/:calendarId/:eventId', server, (req, res)=>{
     .then(()=> res.json({status: 200, message: 'Successfully updated event' }))
     .catch((err)=>res.json({error: err.message }))
 
-
 });
 
-router.delete('/:calendarId/:eventId', server, (req, res)=>{
-    const {calendarId,eventId} = req.params;
+router.delete('/:uid/:calendarId/:eventId', server, (req, res)=>{
+    const {uid, calendarId,eventId} = req.params;
     const{name,date,duration,location,note} = req.body
 
-    db.ref('calendar/'+ calendarId+ '/events/'+ eventId).remove()
+    db.ref('users/' + uid + '/calendar/'+ calendarId+ '/events/'+ eventId).remove()
     .then(()=> res.json({status: 200, message: 'Successfully deleted event' }))
     .catch((err)=>res.json({error: err.message }))
 
