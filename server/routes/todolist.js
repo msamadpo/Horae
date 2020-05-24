@@ -6,11 +6,13 @@ const { firebase } = require('../config/firebase');
 
 
 // CREATE a TodoList
-router.post('/',(req, res) => {
+router.post('/:userId',(req, res) => {
   console.log("Creating TodoList");
+  const userId = req.params.userId;
+
 const {title, description, settings} = req.body;
 const todoList = { title, description, settings, tasks: [], numOfTasks: 0 };
-const data = firebase.database().ref('todo/').push();
+const data = firebase.database().ref('users/' +userId+ '/todo/').push();
 data
   .set({...todoList, id: data.key})
   .then(()=>{
@@ -24,7 +26,7 @@ data
 
 
 // READ all TodoLists
-router.get('/', (req, res) => {
+router.get('/:userId', (req, res) => {
   console.log("Reading ALL TodoList");
  firebase
     .database()
@@ -35,7 +37,7 @@ router.get('/', (req, res) => {
 });
 
 // READ one TodoList
-router.get('/:todoListId', (req, res) => {
+router.get('/:userId/:todoListId', (req, res) => {
   console.log("Reading ONE TodoList");
   firebase
     .database()
@@ -49,7 +51,7 @@ router.get('/:todoListId', (req, res) => {
 // UPDATE a TodoList
 
 
-router.patch('/:todoListId', (req, res) => {
+router.patch('/:userId/:todoListId', (req, res) => {
   console.log("Updating ONE TodoList");
   const { title, description, settings } = req.body;
   const updates = { title, description, settings };
@@ -64,7 +66,7 @@ router.patch('/:todoListId', (req, res) => {
 });
 
 // DELETE a TodoList
- router.delete('/:todoListId', (req, res) =>{
+ router.delete('/:userId/:todoListId', (req, res) =>{
   console.log("Deleting ONE TodoList");
    firebase
     .database()
