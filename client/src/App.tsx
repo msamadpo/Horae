@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import HoraeApp from 'components/HoraeApp';
+import Marketing from 'components/Marketing';
 import mockData from 'assets/data/mockUserData.json';
 
 import globalReducer from 'context/GlobalReducer';
@@ -11,7 +12,7 @@ function App() {
   const [state, dispatch] = useReducer(globalReducer, mockData);
   return (
     <GlobalContext.Provider value={{ data: state, dispatch }}>
-      <HoraeApp />
+      <Marketing />
     </GlobalContext.Provider>
   );
 }
