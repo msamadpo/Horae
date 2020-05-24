@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const StyledInputContainer = styled.div`
   margin: var(--spacing-base);
+  color: blue;
 `;
 
 const StyledInput = styled.input`
