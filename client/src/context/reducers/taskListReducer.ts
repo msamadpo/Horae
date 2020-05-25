@@ -28,6 +28,7 @@ export const addTaskList = (state: GlobalState, action: Action) => {
   };
   const newTaskLists = [...state.todo_lists, newTaskList];
   console.log('Dispatch ADD_TASK_LIST');
+  console.log({ ...state, todo_lists: newTaskLists });
   return { ...state, todo_lists: newTaskLists };
 };
 

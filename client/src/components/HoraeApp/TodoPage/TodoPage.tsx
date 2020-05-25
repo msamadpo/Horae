@@ -4,7 +4,6 @@ import TodoList from 'components/HoraeApp/TodoPage/TodoList/TodoList';
 import TodoLists from 'components/HoraeApp/TodoPage/TodoLists/TodoLists';
 import styled from 'styled-components';
 
-
 const StyledButtonBox = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -42,10 +41,9 @@ const StyledTodoListsButton = styled.button`
 
 function TodoPage() {
   const { data, dispatch } = useContext(GlobalContext);
-  const tasks = data.todo_lists[0].tasks;
-  const taskList = data.todo_lists[0];
-  const [isOpen, setIsOpen] = useState<boolean>(false);  
+  const lists = data.todo_lists;
 
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const addTask = () => {
     dispatch({
@@ -88,30 +86,19 @@ function TodoPage() {
   };
 
   return (
-    // <div>
-    //   Todo Page
-    //   {/* <div>
-    //     {tasks.map((task) => (
-    //       <div>{task.name}</div>
-    //     ))}
-    //   </div> */}
-    //   <TodoList {...taskList} />
-    //   <div>
-    //     <button onClick={addTask}>Add task</button>
-    //     <button onClick={removeTask}>Remove task</button>
-    //     <button onClick={editTask}>Edit task</button>
-    //   </div>
-    // </div>
-    <div>
-      {/* <TodoList {...taskList} /> */}
+    <div
+      style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 1fr)' }}
+    >
+      {lists.map((list) => (
+        <TodoList {...list} />
+      ))}
       <StyledButtonBox>
-        <StyledTodoListsButton onClick={toggleOpenMode} > Todo List </StyledTodoListsButton>
-          <StyledPopupBox>
-            { isOpen && (<TodoLists {...taskList}/> )}
-          </StyledPopupBox>
-        </StyledButtonBox>
+        <StyledTodoListsButton onClick={toggleOpenMode}>
+          Todo List
+        </StyledTodoListsButton>
+        <StyledPopupBox>{isOpen && <TodoLists {...lists[0]} />}</StyledPopupBox>
+      </StyledButtonBox>
     </div>
-
   );
 }
 
