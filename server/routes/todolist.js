@@ -41,7 +41,7 @@ router.get('/:userId', (req, res) => {
 router.get('/:userId/:todoListId', (req, res) => {
   console.log("Reading ONE TodoList");
   const userId = req.params.userId; 
-  const todoListId = req.params.todoList;
+  const todoListId = req.params.todoListId;
   firebase
     .database()
     .ref('users/'+userId+'/todo/' + todoListId)
@@ -57,7 +57,7 @@ router.get('/:userId/:todoListId', (req, res) => {
 router.patch('/:userId/:todoListId', (req, res) => {
   console.log("Updating ONE TodoList");
   const userId = req.params.userId; 
-  const todoListId = req.params.todoList;
+  const todoListId = req.params.todoListId;
 
 
   const { title, description, settings } = req.body;
@@ -76,11 +76,11 @@ router.patch('/:userId/:todoListId', (req, res) => {
  router.delete('/:userId/:todoListId', (req, res) =>{
   console.log("Deleting ONE TodoList");
   const userId = req.params.userId; 
-  const todoListId = req.params.todoList;
+  const todoListId = req.params.todoListId;
 
    firebase
     .database()
-    .ref('users/'+userId+'/todo/' + todoListId)
+    .ref('users/'+userId+'/todo/'+ todoListId)
     .remove()
     .then(()=>
     res.json({status: 200, message: 'Successfully deleted document'})
