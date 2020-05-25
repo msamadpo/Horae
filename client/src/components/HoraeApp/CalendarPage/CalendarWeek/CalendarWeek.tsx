@@ -7,6 +7,7 @@ import {
   eachDayOfInterval,
   isSameDay,
   addWeeks,
+  isBefore,
 } from 'date-fns';
 import WeekHeader from 'components/HoraeApp/CalendarPage/CalendarWeek/WeekHeader';
 import { CalendarEvent, Calendar } from 'context/reducers/calendarEventReducer';
@@ -42,14 +43,11 @@ interface ICalendarWeekProps {
 
 type CalendarEventItemType = CalendarEvent & { color: string };
 
-const indexEventsByDate = (currentDates: Date[], calendars: Calendar[]) => {
+const indexEventsByDate = (calendars: Calendar[]) => {
   const indexedEvents = new Map<string, CalendarEventItemType[]>();
   calendars.forEach((calendar) => {
     calendar.events.forEach((event) => {
-      const date = currentDates.filter((date) =>
-        isSameDay(date, Date.parse(event.date))
-      )[0];
-      const dateKey = date?.toString() || 'other';
+      const dateKey = new Date(Date.parse(event.date)).toDateString();
       if (indexedEvents.has(dateKey)) {
         indexedEvents
           .get(dateKey)
@@ -65,20 +63,20 @@ const indexEventsByDate = (currentDates: Date[], calendars: Calendar[]) => {
 };
 
 function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
-  const [start, setStart] = useState<Date>(startDate);
-  const lastSunday = subDays(start, start.getDay());
-  const comingSaturday = addDays(start, 6 - start.getDay());
-  const currentDates = eachDayOfInterval({
-    start: lastSunday,
-    end: comingSaturday,
-  });
   const { data } = useContext(GlobalContext);
+  const [start, setStart] = useState<Date>(startDate);
+  const currentDates = eachDayOfInterval({
+    start: subDays(start, start.getDay()),
+    end: addDays(start, 6 - start.getDay()),
+  });
+
   const [indexedEvents, setIndexedEvents] = useState<
     Map<string, CalendarEventItemType[]>
-  >(indexEventsByDate(currentDates, data.calendars));
+  >(indexEventsByDate(data.calendars));
 
   useEffect(() => {
-    setIndexedEvents(indexEventsByDate(currentDates, data.calendars));
+    console.log('Getting recalculated');
+    setIndexedEvents(indexEventsByDate(data.calendars));
   }, [data, data.calendars]);
 
   const changeWeeks = (numWeeks: number) => {
@@ -93,11 +91,14 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
       <WeekHeader dates={currentDates} changeWeeks={changeWeeks} />
       <WeekBody>
         <ColumnContainer>
-          {currentDates.map((date, index) => (
+          {currentDates.map((date) => (
             <CalendarColumns key={date.toString()}>
-              {indexedEvents?.get(date.toString())?.map((event) => (
-                <CalendarItem {...event} key={event.id} />
-              ))}
+              {indexedEvents
+                ?.get(date.toDateString())
+                ?.sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
+                .map((event) => {
+                  return <CalendarItem {...event} key={event.id} />;
+                })}
             </CalendarColumns>
           ))}
         </ColumnContainer>
