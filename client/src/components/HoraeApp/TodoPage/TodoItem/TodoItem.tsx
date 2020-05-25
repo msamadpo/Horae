@@ -3,6 +3,11 @@ import styled from 'styled-components';
 import Text from 'components/Common/Text';
 import Icon from 'components/Common/Icon';
 import { EditTaskPayload } from 'context/reducers/taskReducer';
+import { addHours } from 'date-fns';
+
+const isValidDate = (d: any) => {
+  return !isNaN(d.getTime());
+};
 
 interface ITodoItemProps {
   id: string;
@@ -20,17 +25,23 @@ const StyledTodoItemBox = styled.div<{ completed: boolean }>`
   box-shadow: 0px 0px 10px var(--color-shadow);
   cursor: pointer;
   display: grid;
-  grid-template-columns: 1fr 4fr 2.5fr 5rem;
+  grid-template-columns: 5rem 1fr 8rem;
   align-items: center;
   grid-column-gap: var(--spacing-tiny);
   transition: background-color 0.4s;
+  position: relative;
   ${(props) =>
     props.completed &&
     `background-color: #e8e8e8;
          box-shadow: 0px 0px 0px;`}
   &:hover {
     .icon-container {
-      visibility: visible;
+      //background-color: ${(props) => (props.completed ? 'inherit' : 'white')};
+      background-image: linear-gradient(to left, ${(props) =>
+        props.completed
+          ? 'var(--color-shadow) 70%, rgba(230,230,230,0.5)'
+          : 'white 70%, rgba(255,255,255,0.5)'});
+      visibility:visible;
       opacity: 1;
     }
   }
@@ -69,7 +80,7 @@ const StyledInput = styled.input<{ completed: boolean }>`
   ${(props) =>
     props.completed &&
     `background-color: transparent;
-    color: white;`}
+    color: var(--color-text-subtitle);`}
 `;
 
 const StyledLineThrough = styled.span<{ completed: boolean }>`
@@ -106,11 +117,15 @@ const StyledDeadline = styled.input<{ completed: boolean }>`
 `;
 
 const IconContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
   visibility: hidden;
-  transition: opacity 0.5s;
+  display: flex;
   opacity: 0;
+  transition: opacity 0.2s;
+  justify-content: space-between;
+  position: absolute;
+  right: 0;
+  min-width: 5rem;
+  padding: var(--spacing-small);
 `;
 
 function TodoItem({
@@ -165,9 +180,22 @@ function TodoItem({
     } else if (editedDeadline === '') {
       setEditedDeadline(deadline);
     } else if (editedName !== name && editedDeadline !== deadline) {
-      editTask(id, { name: editedName, deadline: editedDeadline });
+      const utcDate = new Date(editedDeadline);
+      const currentDateString = addHours(
+        utcDate,
+        utcDate.getTimezoneOffset() / 60
+      );
+      editTask(id, {
+        name: editedName,
+        deadline: currentDateString.toLocaleString(),
+      });
     } else if (editedDeadline !== deadline) {
-      editTask(id, { deadline: editedDeadline });
+      const utcDate = new Date(editedDeadline);
+      const currentDateString = addHours(
+        utcDate,
+        utcDate.getTimezoneOffset() / 60
+      );
+      editTask(id, { deadline: currentDateString.toLocaleString() });
     } else if (editedName !== name) {
       editTask(id, { name: editedName });
     }
@@ -189,6 +217,17 @@ function TodoItem({
   ) => {
     setEditedDeadline(event.currentTarget.value);
   };
+
+  const localDate = new Date(deadline);
+  console.log(localDate);
+
+  const localDateText = localDate.toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+
+  const deadlineText = isValidDate(localDate) ? localDateText : '';
 
   return (
     <StyledTodoItemBox completed={completed}>
@@ -219,7 +258,7 @@ function TodoItem({
       )}
       {isEditing ? (
         <StyledDeadline
-          type="text"
+          type="date"
           onChange={handleDeadlineName}
           value={editedDeadline}
           onKeyPress={submitEdits}
@@ -228,7 +267,7 @@ function TodoItem({
           completed={completed}
         />
       ) : (
-        <Text type="tiny">{deadline}</Text>
+        <Text type="tiny">{deadlineText}</Text>
       )}
 
       <IconContainer className={isEditing ? '' : 'icon-container'}>

@@ -65,7 +65,7 @@ function TodoPage() {
     // </div>
     <TodoPageBody>
       {taskLists.map((taskList) => (
-        <TodoList {...taskList} />
+        <TodoList key={taskList.id} {...taskList} />
       ))}
     </TodoPageBody>
   );

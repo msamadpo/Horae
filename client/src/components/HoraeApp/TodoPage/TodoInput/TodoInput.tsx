@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { addHours } from 'date-fns';
 
 const StyledInputContainer = styled.div`
   margin: var(--spacing-base);
@@ -18,17 +19,16 @@ const StyledInput = styled.input`
 `;
 
 const StyledDeadline = styled.input`
+  background: transparent;
+  font-size: 1rem;
   border: none;
-  font-size: 1.75rem;
   outline: none;
-  font-family: var(--font-small);
   border-bottom: 1px solid var(--color-nav-item-text);
-  width: 100%;
-  color: var(--color-text-subtitle);
+  font-family: var(--font-regular);
 `;
 
 interface ITodoInputProps {
-  createNewTodo: (todoName: string, deadline: string) => void;
+  createNewTodo: (todoName: string, deadline?: Date) => void;
 }
 
 function TodoInput({ createNewTodo }: ITodoInputProps) {
@@ -42,14 +42,19 @@ function TodoInput({ createNewTodo }: ITodoInputProps) {
 
   const handleDeadline = (event: React.SyntheticEvent<HTMLInputElement>) => {
     const deadline = event.currentTarget.value;
+    //console.log(new Date(deadline));
     setNewDeadline(deadline);
   };
 
   const createTodo = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keyCode = event.which || event.keyCode;
-    if (keyCode === 13 && newTodoName && newDeadline) {
-      //deadline is optional
-      createNewTodo(newTodoName, newDeadline);
+    if (keyCode === 13 && newTodoName) {
+      const utcDate = new Date(newDeadline);
+      const currentDateString = addHours(
+        utcDate,
+        utcDate.getTimezoneOffset() / 60
+      );
+      createNewTodo(newTodoName, new Date(currentDateString));
       setNewTodoName('');
       setNewDeadline('');
     }
@@ -67,7 +72,7 @@ function TodoInput({ createNewTodo }: ITodoInputProps) {
       <StyledDeadline
         type="date"
         placeholder="Deadline"
-        onKeyPress={() => false}
+        onKeyPress={createTodo}
         onChange={handleDeadline}
         value={newDeadline}
       />

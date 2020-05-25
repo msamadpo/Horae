@@ -38,14 +38,14 @@ const Header = styled.div<{ color: string }>`
 function TodoList({ id, title, tasks, settings }: ITodoProps) {
   const { dispatch } = useContext(GlobalContext);
 
-  const addTask = (taskName: string, deadline: string) => {
+  const addTask = (taskName: string, deadline?: Date) => {
     dispatch({
       type: 'ADD_TASK',
       payload: {
         taskListId: id,
         task: {
           name: taskName,
-          deadline: deadline,
+          deadline: deadline?.toString() || '',
           completed: false,
         },
       },
@@ -96,6 +96,9 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
   //     },
   //   });
   // }
+  //const onDragEnd = result => {
+  //reorder columns]
+  //};
 
   return (
     <StyledTodoList>
