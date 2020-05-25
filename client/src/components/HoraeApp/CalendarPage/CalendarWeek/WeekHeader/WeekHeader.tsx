@@ -36,6 +36,7 @@ const DayDateContainer = styled.div`
 `;
 interface IWeekHeader {
   dates: Date[];
+  showBackButton?: boolean;
   changeWeeks: (numWeeks: number) => void;
 }
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -69,12 +70,24 @@ const dateOrdinalHelper = (day: number): string => {
 
 const StyledWeekToggler = styled.span`
   display: grid;
-  grid-template-columns: 3rem 18rem 3rem;
+  grid-template-columns: 3rem 18rem 3rem 12rem 2rem;
   align-items: center;
   justify-items: center;
 `;
 
-function WeekHeader({ dates, changeWeeks }: IWeekHeader) {
+const StyledTodayButton = styled.div`
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  background: var(--color-bg-nav);
+  color: var(--color-text-subtitle);
+`;
+
+function WeekHeader({
+  dates,
+  changeWeeks,
+  showBackButton = false,
+}: IWeekHeader) {
   const [startDate, startDay] = [
     dates[0].toLocaleString('default', {
       month: 'short',
@@ -95,6 +108,11 @@ function WeekHeader({ dates, changeWeeks }: IWeekHeader) {
           {composeDateString(startDate, startDay, endDate, endDay)}
         </Text>
         <Icon type="chevron-right" height={20} onClick={() => changeWeeks(1)} />
+        {showBackButton && (
+          <StyledTodayButton onClick={() => changeWeeks(0)}>
+            <Text type="tiny">This Week</Text>
+          </StyledTodayButton>
+        )}
       </StyledWeekToggler>
       <CalendarDays>
         {dates.map((date, index) => (

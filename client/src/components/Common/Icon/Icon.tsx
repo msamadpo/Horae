@@ -16,13 +16,20 @@ interface IIconProps {
   height: number;
   white?: boolean;
   onClick?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
+  [name: string]: any;
 }
 
 const StyledImg = styled.img`
   cursor: pointer;
 `;
 
-function Icon({ type, height, white = false, onClick = () => 1 }: IIconProps) {
+function Icon({
+  type,
+  height,
+  white = false,
+  onClick = () => 1,
+  ...otherProps
+}: IIconProps) {
   switch (type) {
     case 'calendar':
       return (
@@ -31,6 +38,7 @@ function Icon({ type, height, white = false, onClick = () => 1 }: IIconProps) {
           onClick={onClick}
           height={height}
           alt=""
+          {...otherProps}
         />
       );
     case 'todo':
@@ -40,6 +48,7 @@ function Icon({ type, height, white = false, onClick = () => 1 }: IIconProps) {
           onClick={onClick}
           height={height}
           alt=""
+          {...otherProps}
         />
       );
     case 'avatar':
@@ -49,14 +58,29 @@ function Icon({ type, height, white = false, onClick = () => 1 }: IIconProps) {
           onClick={onClick}
           height={height}
           alt=""
+          {...otherProps}
         />
       );
     case 'trash':
       return (
-        <StyledImg src={trashcan} height={height} alt="" onClick={onClick} />
+        <StyledImg
+          src={trashcan}
+          height={height}
+          alt=""
+          onClick={onClick}
+          {...otherProps}
+        />
       );
     case 'edit':
-      return <StyledImg src={edit} height={height} alt="" onClick={onClick} />;
+      return (
+        <StyledImg
+          src={edit}
+          height={height}
+          alt=""
+          onClick={onClick}
+          {...otherProps}
+        />
+      );
     case 'chevron-right':
       return (
         <StyledImg
@@ -64,15 +88,28 @@ function Icon({ type, height, white = false, onClick = () => 1 }: IIconProps) {
           height={height}
           alt=""
           onClick={onClick}
+          {...otherProps}
         />
       );
     case 'chevron-left':
       return (
-        <StyledImg src={chevronLeft} height={height} alt="" onClick={onClick} />
+        <StyledImg
+          src={chevronLeft}
+          height={height}
+          alt=""
+          onClick={onClick}
+          {...otherProps}
+        />
       );
     default:
       return (
-        <StyledImg src={defaultTodo} alt="" height={height} onClick={onClick} />
+        <StyledImg
+          src={defaultTodo}
+          alt=""
+          height={height}
+          onClick={onClick}
+          {...otherProps}
+        />
       );
   }
 }

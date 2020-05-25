@@ -21,6 +21,8 @@ interface ITextProps {
   margins?: TextMargin[];
   styleProp?: string;
   children: React.ReactNode;
+  // rest Props
+  [name: string]: any;
 }
 
 function Text({
@@ -31,6 +33,7 @@ function Text({
   color,
   margins,
   styleProp,
+  ...otherProps
 }: ITextProps) {
   const mappedMargins =
     (margins?.length === 1
@@ -47,7 +50,11 @@ function Text({
     ${styleProp && styleProp}
   `;
 
-  return <CustomText className={type && styles[type]}>{children}</CustomText>;
+  return (
+    <CustomText {...otherProps} className={type && styles[type]}>
+      {children}
+    </CustomText>
+  );
 }
 
 export default Text;

@@ -5,9 +5,8 @@ import {
   addDays,
   subDays,
   eachDayOfInterval,
-  isSameDay,
   addWeeks,
-  isBefore,
+  isWithinInterval,
 } from 'date-fns';
 import WeekHeader from 'components/HoraeApp/CalendarPage/CalendarWeek/WeekHeader';
 import { CalendarEvent, Calendar } from 'context/reducers/calendarEventReducer';
@@ -65,10 +64,13 @@ const indexEventsByDate = (calendars: Calendar[]) => {
 function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
   const { data } = useContext(GlobalContext);
   const [start, setStart] = useState<Date>(startDate);
+  const lastSunday = subDays(start, start.getDay());
+  const nextSaturday = addDays(start, 6 - start.getDay());
   const currentDates = eachDayOfInterval({
-    start: subDays(start, start.getDay()),
-    end: addDays(start, 6 - start.getDay()),
+    start: lastSunday,
+    end: nextSaturday,
   });
+  console.log(currentDates);
 
   const [indexedEvents, setIndexedEvents] = useState<
     Map<string, CalendarEventItemType[]>
@@ -77,18 +79,29 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
   useEffect(() => {
     console.log('Getting recalculated');
     setIndexedEvents(indexEventsByDate(data.calendars));
-  }, [data, data.calendars]);
+  }, [data.calendars]);
 
   const changeWeeks = (numWeeks: number) => {
     if (numWeeks == 0) {
-      setStart(startDate);
+      setStart(new Date());
+      console.log('hello');
+    } else {
+      setStart(addWeeks(start, numWeeks));
     }
-    setStart(addWeeks(start, numWeeks));
   };
 
   return (
     <Container>
-      <WeekHeader dates={currentDates} changeWeeks={changeWeeks} />
+      <WeekHeader
+        dates={currentDates}
+        changeWeeks={changeWeeks}
+        showBackButton={
+          !isWithinInterval(new Date(), {
+            start: lastSunday,
+            end: nextSaturday,
+          })
+        }
+      />
       <WeekBody>
         <ColumnContainer>
           {currentDates.map((date) => (
