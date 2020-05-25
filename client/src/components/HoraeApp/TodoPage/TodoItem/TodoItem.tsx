@@ -39,6 +39,11 @@ const CompleteButton = styled.div`
   max-height: 2.25rem;
   border-radius: 50%;
   border: 1px solid var(--color-nav-item-text);
+  transition: border 0.2s;
+  box-sizing: border-box;
+  &:hover {
+    border: 3px solid var(--color-primary-2);
+  }
 `;
 
 const StyledInput = styled.input`
@@ -70,7 +75,6 @@ function TodoItem({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editedName, setEditedName] = useState<string>(name);
-  
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
@@ -88,11 +92,11 @@ function TodoItem({
 
   const submitEditName = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keyCode = event.which || event.keyCode;
-    if (keyCode === 13  && editedName !== '') {
+    if (keyCode === 13 && editedName !== '') {
       editTask(editedName, id);
       setIsEditing(false);
     }
-    if (keyCode === 13  && editedName === '') {
+    if (keyCode === 13 && editedName === '') {
       editTask(name, id);
       setIsEditing(false);
       setEditedName(name);
@@ -104,7 +108,7 @@ function TodoItem({
       editTask(name, id);
       setIsEditing(false);
       setEditedName(name);
-    } else{
+    } else {
       editTask(editedName, id);
       setIsEditing(false);
     }
