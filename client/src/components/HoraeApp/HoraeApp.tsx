@@ -11,6 +11,7 @@ import AppNavbar from 'components/HoraeApp/AppNavbar';
 import Header from 'components/HoraeApp/Header';
 import CalendarPage from 'components/HoraeApp/CalendarPage';
 import CalendarWeek from 'components/HoraeApp/CalendarPage/CalendarWeek';
+import CalendarMonth from 'components/HoraeApp/CalendarPage/CalendarMonth';
 import TodoPage from 'components/HoraeApp/TodoPage';
 import AvatarPage from 'components/HoraeApp/AvatarPage';
 
@@ -58,7 +59,9 @@ function HoraeApp() {
               <CalendarPage>Day View of calendar</CalendarPage>
             </Route>
             <Route path="/calendar/month" exact>
-              <CalendarPage>Month View of calendar</CalendarPage>
+              <CalendarPage>
+                <CalendarMonth />
+              </CalendarPage>
             </Route>
             <Route path={['/calendar', '/calendar/week']} exact>
               <CalendarPage>
