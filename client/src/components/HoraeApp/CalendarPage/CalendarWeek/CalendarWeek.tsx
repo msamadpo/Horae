@@ -70,21 +70,18 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
     start: lastSunday,
     end: nextSaturday,
   });
-  console.log(currentDates);
 
   const [indexedEvents, setIndexedEvents] = useState<
     Map<string, CalendarEventItemType[]>
   >(indexEventsByDate(data.calendars));
 
   useEffect(() => {
-    console.log('Getting recalculated');
     setIndexedEvents(indexEventsByDate(data.calendars));
   }, [data.calendars]);
 
   const changeWeeks = (numWeeks: number) => {
-    if (numWeeks == 0) {
+    if (numWeeks === 0) {
       setStart(new Date());
-      console.log('hello');
     } else {
       setStart(addWeeks(start, numWeeks));
     }

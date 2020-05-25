@@ -25,6 +25,16 @@ interface ITextProps {
   [name: string]: any;
 }
 
+const CustomText = styled.span<ITextProps & { mappedMargins: string }>`
+    display: inline-block;
+    ${(props) => props.size && `font-size: ${props.size};`}
+    ${(props) => props.weight && `font-weight: ${props.weight};`}
+    ${(props) => props.color && `color: ${props.color};`}
+    ${(props) => props.margins && `margin: ${props.mappedMargins};`}
+    line-height: 140%;
+    ${(props) => props.styleProp && props.styleProp}
+`;
+
 function Text({
   children,
   type,
@@ -40,18 +50,17 @@ function Text({
       ? new Array(4).fill(`var(--spacing-${margins[0]})`).join(' ')
       : margins?.map((margin) => `var(--spacing-${margin})`).join(' ')) || '';
 
-  const CustomText = styled.span`
-    display: inline-block;
-    ${size && `font-size: ${size};`}
-    ${weight && `font-weight: ${weight};`}
-    ${color && `color: ${color};`}
-    ${margins && `margin: ${mappedMargins};`}
-    line-height: 140%;
-    ${styleProp && styleProp}
-  `;
-
   return (
-    <CustomText {...otherProps} className={type && styles[type]}>
+    <CustomText
+      size={size}
+      weight={weight}
+      color={color}
+      margins={margins}
+      styleProps={styleProp}
+      className={type && styles[type]}
+      mappedMargins={mappedMargins}
+      {...otherProps}
+    >
       {children}
     </CustomText>
   );

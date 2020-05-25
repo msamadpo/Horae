@@ -23,9 +23,10 @@ const CalendarDays = styled.div`
   margin-top: var(--spacing-tiny);
   display: grid;
   grid-template-columns: repeat(7, minmax(15rem, 1fr));
+  grid-template-rows: 5rem;
   align-items: center;
   background-color: var(--color-bg-nav);
-  padding: var(--spacing-small) 0;
+  padding: var(--spacing-tiny) 0;
   border-radius: 1.5rem;
 `;
 

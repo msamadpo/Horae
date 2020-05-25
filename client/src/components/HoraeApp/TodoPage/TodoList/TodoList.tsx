@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
-import { Task, EditTaskPayload } from 'context/reducers/taskReducer';
+import { Task } from 'context/reducers/taskReducer';
 
 import Text from 'components/Common/Text';
 import TodoItem from 'components/HoraeApp/TodoPage/TodoItem/TodoItem';
