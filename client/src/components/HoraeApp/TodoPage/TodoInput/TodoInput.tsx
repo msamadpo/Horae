@@ -6,6 +6,7 @@ const StyledInputContainer = styled.div`
   padding: var(--spacing-base);
   display: grid;
   grid-template-columns: 4fr 2fr;
+  grid-column-gap: 1rem;
   box-shadow: 0px 0px 16px 0px rgba(219, 219, 219, 0.4);
   border-top: 1px solid var(--color-shadow);
 `;

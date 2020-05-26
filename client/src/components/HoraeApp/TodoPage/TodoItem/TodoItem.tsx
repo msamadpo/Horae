@@ -25,7 +25,7 @@ const StyledTodoItemBox = styled.div<{ completed: boolean }>`
   box-shadow: 0px 0px 10px var(--color-shadow);
   cursor: pointer;
   display: grid;
-  grid-template-columns: 3rem 1fr 6rem;
+  grid-template-columns: 3rem 1fr 8rem;
   align-items: center;
   grid-column-gap: var(--spacing-tiny);
   transition: background-color 0.4s;
