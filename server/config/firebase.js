@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 const firebase = require('firebase');
 
 const firebaseConfig = {

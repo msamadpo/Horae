@@ -3,6 +3,9 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
 
+// Import Routes
+const authRoutes = require('./routes/auth');
+
 module.exports = bodyParser.json();
 
 //importing routes
@@ -29,6 +32,13 @@ app.get('/', (req, res) => {
   res.send('Welcome to Horea landing page!!');
 });
 
+
+app.use(bodyParser.json());;
+app.use(logger('dev'));
+
+// Routes
+app.use('/api/auth', authRoutes);
+
 app.get('/api/register', (req, res) => {
   writeUserData(1245345, 'Anh Pham', 'team@thehub.com');
 });
@@ -41,3 +51,4 @@ app.use('/api/todolist/task', taskRoutes);
 
 const PORT = process.env.port || 5000;
 app.listen(PORT, () => console.log(`Sever running on port ${PORT}...`));
+
