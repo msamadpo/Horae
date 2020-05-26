@@ -148,9 +148,14 @@ function TodoItem({
       if (editedName === '') {
         setEditedName(name);
       } else {
+        const utcDate = new Date(editedDeadline);
+        const currentDateString = addHours(
+          utcDate,
+          utcDate.getTimezoneOffset() / 60
+        );
         editTask(id, {
           name: editedName,
-          deadline: editedDeadline,
+          deadline: currentDateString.toString(),
         });
       }
     }
