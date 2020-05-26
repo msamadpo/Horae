@@ -1,7 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import { Task } from 'context/reducers/taskReducer';
+import { DropResult } from 'react-beautiful-dnd';
 import { EditTaskPayload } from 'context/reducers/taskReducer';
+import { EditTaskListPayload } from 'context/reducers/taskListReducer';
 
 import Text from 'components/Common/Text';
 import TodoItem from 'components/HoraeApp/TodoPage/TodoItem/TodoItem';
@@ -52,6 +54,11 @@ const Header = styled.div<{ color: string }>`
 
 function TodoList({ id, title, tasks, settings }: ITodoProps) {
   const { dispatch } = useContext(GlobalContext);
+  const [taskList, setTaskList] = useState<Task[]>(tasks);
+
+  useEffect(() => {
+    setTaskList(tasks);
+  }, [tasks]);
 
   const addTask = (taskName: string, deadline?: Date) => {
     dispatch({
@@ -101,6 +108,13 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
     });
   };
 
+  const editTaskList = (updates: EditTaskListPayload) => {
+    dispatch({
+      type: 'EDIT_TASK_LIST',
+      payload: { taskListId: id, updates: updates },
+    });
+  };
+
   // const actualEditTask = (taskId: string, taskPayload: EditTaskPayload) => {
   //   dispatch({
   //     type: 'EDIT_TASK',
@@ -115,8 +129,22 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
   //reorder columns]
   //};
 
-  const onDragEnd = (result: any) => {
-    return 1;
+  const onDragEnd = ({ source, destination }: DropResult) => {
+    if (!destination) {
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+    const newState = [...taskList];
+    const a = newState.splice(source.index, 1);
+    newState.splice(destination.index, 0, ...a);
+    setTaskList(newState);
+    editTaskList({ tasks: newState });
   };
 
   return (
@@ -133,7 +161,7 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {tasks.map((task, index) => (
+              {taskList.map((task, index) => (
                 <TodoItem
                   key={task.id}
                   {...task}

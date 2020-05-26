@@ -33,6 +33,7 @@ const StyledTodoItemBox = styled.div<{ completed: boolean }>`
   grid-column-gap: var(--spacing-tiny);
   transition: background-color 0.4s;
   position: relative;
+  background-color: white;
   ${(props) =>
     props.completed &&
     `background-color: var(--color-light-gray);
@@ -57,6 +58,7 @@ const StyledCompleteButton = styled.div<{ completed: boolean }>`
   max-width: 2.25rem;
   min-height: 2.25rem;
   max-height: 2.25rem;
+  cursor: pointer;
   border-radius: 50%;
   border: 1px solid var(--color-nav-item-text);
   transition: border 0.2s;
@@ -214,7 +216,6 @@ function TodoItem({
   };
 
   const localDate = new Date(deadline);
-  console.log(localDate);
 
   const localDateText = localDate.toLocaleDateString('en-US', {
     day: 'numeric',
