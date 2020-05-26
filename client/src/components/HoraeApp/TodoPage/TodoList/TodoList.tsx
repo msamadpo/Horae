@@ -8,6 +8,8 @@ import TodoItem from 'components/HoraeApp/TodoPage/TodoItem/TodoItem';
 import TodoInput from 'components/HoraeApp/TodoPage/TodoInput/TodoInput';
 import styled from 'styled-components';
 
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+
 // import styles from 'components/HoraeApp/AppNavbar/AppNavItem/TodoList.module.scss';
 
 interface ITodoProps {
@@ -113,6 +115,10 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
   //reorder columns]
   //};
 
+  const onDragEnd = (result: any) => {
+    return 1;
+  };
+
   return (
     <StyledTodoList>
       <Header color={settings.color}>
@@ -120,16 +126,27 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
           {title}
         </Text>
       </Header>
-      <StyledTodoListBody>
-        {tasks.map((task, index) => (
-          <TodoItem
-            key={task.id}
-            {...task}
-            removeTask={removeTask}
-            editTask={editTask}
-          />
-        ))}
-      </StyledTodoListBody>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId={id}>
+          {(provided) => (
+            <StyledTodoListBody
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {tasks.map((task, index) => (
+                <TodoItem
+                  key={task.id}
+                  {...task}
+                  removeTask={removeTask}
+                  editTask={editTask}
+                  index={index}
+                />
+              ))}
+              {provided.placeholder}
+            </StyledTodoListBody>
+          )}
+        </Droppable>
+      </DragDropContext>
       <TodoInput createNewTodo={addTask} />
     </StyledTodoList>
   );
