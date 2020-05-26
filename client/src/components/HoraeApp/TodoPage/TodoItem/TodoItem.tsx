@@ -25,23 +25,25 @@ const StyledTodoItemBox = styled.div<{ completed: boolean }>`
   box-shadow: 0px 0px 10px var(--color-shadow);
   cursor: pointer;
   display: grid;
-  grid-template-columns: 5rem 1fr 8rem;
+  grid-template-columns: 3rem 1fr 6rem;
   align-items: center;
   grid-column-gap: var(--spacing-tiny);
   transition: background-color 0.4s;
   position: relative;
   ${(props) =>
     props.completed &&
-    `background-color: #e8e8e8;
+    `background-color: var(--color-light-gray);
          box-shadow: 0px 0px 0px;`}
   &:hover {
     .icon-container {
-      //background-color: ${(props) => (props.completed ? 'inherit' : 'white')};
-      background-image: linear-gradient(to left, ${(props) =>
-        props.completed
-          ? 'var(--color-shadow) 70%, rgba(230,230,230,0.5)'
-          : 'white 70%, rgba(255,255,255,0.5)'});
-      visibility:visible;
+      background-image: linear-gradient(
+        to left,
+        ${(props) =>
+          props.completed
+            ? 'var(--color-light-gray) 70%, rgba(243,243,243,0.5)'
+            : 'white 70%, rgba(255,255,255,0.5)'}
+      );
+      visibility: visible;
       opacity: 1;
     }
   }
@@ -81,27 +83,6 @@ const StyledInput = styled.input<{ completed: boolean }>`
     props.completed &&
     `background-color: transparent;
     color: var(--color-text-subtitle);`}
-`;
-
-const StyledLineThrough = styled.span<{ completed: boolean }>`
-  position: relative;
-  width: max-content;
-  ${(props) =>
-    props.completed &&
-    `
-  &::after {
-    max-width: 100%;
-    content: '';
-    display: block;
-    width: 100%;
-    height: 2px;
-    position: absolute;
-    background-color: var(--color-text-subtitle);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-`}
 `;
 
 const StyledDeadline = styled.input<{ completed: boolean }>`
@@ -247,14 +228,13 @@ function TodoItem({
           completed={completed}
         />
       ) : (
-        <StyledLineThrough completed={completed}>
-          <Text
-            type="small"
-            color={completed ? 'var(--color-text-subtitle)' : ''}
-          >
-            {name}
-          </Text>
-        </StyledLineThrough>
+        <Text
+          type="small"
+          color={completed ? 'var(--color-text-subtitle)' : ''}
+          styleProp={completed ? 'text-decoration: line-through' : ''}
+        >
+          {name}
+        </Text>
       )}
       {isEditing ? (
         <StyledDeadline
@@ -263,7 +243,6 @@ function TodoItem({
           value={editedDeadline}
           onKeyPress={submitEdits}
           onBlur={onBlurHandler}
-          ref={inputRef}
           completed={completed}
         />
       ) : (

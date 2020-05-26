@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const TodoPageBody = styled.div`
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
 `;
 
 function TodoPage() {

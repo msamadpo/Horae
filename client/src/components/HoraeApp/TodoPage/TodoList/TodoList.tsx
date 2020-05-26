@@ -18,7 +18,6 @@ interface ITodoProps {
   tasks: Task[];
 }
 
-// TODO: Remove this code once it's no longer needed as a reference
 const StyledTodoList = styled.div`
   display: flex;
   margin: var(--spacing-base);
@@ -27,10 +26,23 @@ const StyledTodoList = styled.div`
   max-width: 36rem;
   overflow: hidden;
   box-shadow: 0px 2px 16px 0px rgba(219, 219, 219, 0.5);
+  max-height: 75rem;
+`;
+
+const StyledTodoListBody = styled.div`
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0.03);
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2rem;
+    background-color: #eaeaea;
+  }
 `;
 
 const Header = styled.div<{ color: string }>`
-  background-color: ${(props) => props.color};
+  background-color: ${(props) => props.color || 'var(--color-primary)'};
   padding: var(--spacing-small);
   text-align: center;
 `;
@@ -107,7 +119,7 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
           {title}
         </Text>
       </Header>
-      <div>
+      <StyledTodoListBody>
         {tasks.map((task, index) => (
           <TodoItem
             key={task.id}
@@ -116,8 +128,8 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
             editTask={editTask}
           />
         ))}
-        <TodoInput createNewTodo={addTask} />
-      </div>
+      </StyledTodoListBody>
+      <TodoInput createNewTodo={addTask} />
     </StyledTodoList>
   );
 }
