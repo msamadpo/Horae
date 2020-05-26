@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -7,9 +6,12 @@ import {
   Switch,
 } from 'react-router-dom';
 
+import styled from 'styled-components';
 import AppNavbar from 'components/HoraeApp/AppNavbar';
 import Header from 'components/HoraeApp/Header';
 import CalendarPage from 'components/HoraeApp/CalendarPage';
+import CalendarWeek from 'components/HoraeApp/CalendarPage/CalendarWeek';
+import CalendarMonth from 'components/HoraeApp/CalendarPage/CalendarMonth';
 import TodoPage from 'components/HoraeApp/TodoPage';
 import AvatarPage from 'components/HoraeApp/AvatarPage';
 
@@ -37,8 +39,10 @@ const StyledApp = styled.div`
 `;
 
 const StyledAppBody = styled.div`
-  padding: var(--spacing-large) var(--spacing-xlarge);
+  padding: var(--spacing-large) var(--spacing-base);
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 function HoraeApp() {
@@ -49,17 +53,21 @@ function HoraeApp() {
         <StyledAppBody>
           <Header />
           <Switch>
+            <Route path="/todo" component={TodoPage} exact />
+            <Route path="/avatar" component={AvatarPage} exact />
             <Route path="/calendar/day" exact>
               <CalendarPage>Day View of calendar</CalendarPage>
             </Route>
             <Route path="/calendar/month" exact>
-              <CalendarPage>Month View of calendar</CalendarPage>
+              <CalendarPage>
+                <CalendarMonth />
+              </CalendarPage>
             </Route>
             <Route path={['/calendar', '/calendar/week']} exact>
-              <CalendarPage>Week View of calendar</CalendarPage>
+              <CalendarPage>
+                <CalendarWeek />
+              </CalendarPage>
             </Route>
-            <Route path="/todo" component={TodoPage} exact />
-            <Route path="/avatar" component={AvatarPage} exact />
             <Route path="/">
               <Redirect to="/calendar" />
             </Route>

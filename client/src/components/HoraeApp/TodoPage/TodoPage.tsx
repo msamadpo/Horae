@@ -1,9 +1,17 @@
 import React, { useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
+import TodoList from 'components/HoraeApp/TodoPage/TodoList/TodoList';
+import styled from 'styled-components';
+
+const TodoPageBody = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+`;
 
 function TodoPage() {
   const { data, dispatch } = useContext(GlobalContext);
-  const tasks = data.todo_lists[0].tasks;
+  const taskLists = data.todo_lists;
 
   const addTask = () => {
     dispatch({
@@ -42,19 +50,25 @@ function TodoPage() {
   };
 
   return (
-    <div>
-      Todo Page
-      <div>
-        {tasks.map((task) => (
-          <div>{task.name}</div>
-        ))}
-      </div>
-      <div>
-        <button onClick={addTask}>Add task</button>
-        <button onClick={removeTask}>Remove task</button>
-        <button onClick={editTask}>Edit task</button>
-      </div>
-    </div>
+    // <div>
+    //   Todo Page
+    //   {/* <div>
+    //     {tasks.map((task) => (
+    //       <div>{task.name}</div>
+    //     ))}
+    //   </div> */}
+    //   <TodoList {...taskList} />
+    //   <div>
+    //     <button onClick={addTask}>Add task</button>
+    //     <button onClick={removeTask}>Remove task</button>
+    //     <button onClick={editTask}>Edit task</button>
+    //   </div>
+    // </div>
+    <TodoPageBody>
+      {taskLists.map((taskList) => (
+        <TodoList key={taskList.id} {...taskList} />
+      ))}
+    </TodoPageBody>
   );
 }
 

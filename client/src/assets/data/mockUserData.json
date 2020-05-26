@@ -7,26 +7,206 @@
   "passwordHash": "qiyh4XPJGsOZ",
   "calendars": [
     {
-      "id": "5d32b4b2fd13e359",
-      "title": "Work",
+      "id": "0",
+      "title": "Palau",
       "settings": {
-        "color": "blue"
+        "color": "--color-primary-3"
       },
       "events": [
         {
-          "id": "5df120015f1d26010ec56b01",
-          "name": "Sun God",
+          "id": "235097353",
+          "name": "San Diego",
           "description": "",
-          "date": "Sat May 02 2020 GMT-0700 (PST)",
+          "date": "Mon May 18 2020 14:03:20 GMT-0700 (Pacific Daylight Time)",
+          "duration": 1,
+          "location": "Zoom"
+        },
+        {
+          "id": "429121530",
+          "name": "Cincinnati",
+          "description": "",
+          "date": "Fri May 22 2020 22:56:10 GMT-0700 (Pacific Daylight Time)",
+          "duration": 1,
+          "location": "Zoom"
+        },
+        {
+          "id": "150628658",
+          "name": "Monrovia",
+          "description": "",
+          "date": "Mon May 18 2020 17:36:07 GMT-0700 (Pacific Daylight Time)",
+          "duration": 1,
+          "location": "Zoom"
+        },
+        {
+          "id": "602844088",
+          "name": "Athens",
+          "description": "",
+          "date": "Wed May 20 2020 4:44:03 GMT-0700 (Pacific Daylight Time)",
+          "duration": 2,
+          "location": "Zoom"
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "title": "Israel",
+      "settings": {
+        "color": "--color-primary-6"
+      },
+      "events": [
+        {
+          "id": "894597099",
+          "name": "Chongjin",
+          "description": "",
+          "date": "Sun May 17 2020 3:58:05 GMT-0700 (Pacific Daylight Time)",
+          "duration": 4,
+          "location": "Zoom"
+        },
+        {
+          "id": "224278318",
+          "name": "Boston",
+          "description": "",
+          "date": "Sun May 17 2020 10:33:57 GMT-0700 (Pacific Daylight Time)",
+          "duration": 1,
+          "location": "Zoom"
+        },
+        {
+          "id": "178146367",
+          "name": "Nagoya",
+          "description": "",
+          "date": "Wed May 20 2020 7:51:04 GMT-0700 (Pacific Daylight Time)",
+          "duration": 4,
+          "location": "Zoom"
+        },
+        {
+          "id": "484903687",
+          "name": "Miri",
+          "description": "",
+          "date": "Sat May 23 2020 18:34:59 GMT-0700 (Pacific Daylight Time)",
+          "duration": 3,
+          "location": "Zoom"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Madagascar",
+      "settings": {
+        "color": "--color-primary-3"
+      },
+      "events": [
+        {
+          "id": "980698582",
+          "name": "Iquitos",
+          "description": "",
+          "date": "Wed May 20 2020 15:55:30 GMT-0700 (Pacific Daylight Time)",
+          "duration": 1,
+          "location": "Zoom"
+        },
+        {
+          "id": "635564594",
+          "name": "Khartoum",
+          "description": "",
+          "date": "Sat May 23 2020 19:29:15 GMT-0700 (Pacific Daylight Time)",
+          "duration": 4,
+          "location": "Zoom"
+        },
+        {
+          "id": "390590584",
+          "name": "Charlotte",
+          "description": "",
+          "date": "Thu May 21 2020 15:32:46 GMT-0700 (Pacific Daylight Time)",
+          "duration": 4,
+          "location": "Zoom"
+        },
+        {
+          "id": "242543400",
+          "name": "Tampa",
+          "description": "",
+          "date": "Sun May 17 2020 11:06:10 GMT-0700 (Pacific Daylight Time)",
+          "duration": 1,
+          "location": "Zoom"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Nepal",
+      "settings": {
+        "color": "--color-primary-2"
+      },
+      "events": [
+        {
+          "id": "826166173",
+          "name": "Bangalore",
+          "description": "",
+          "date": "Sat May 23 2020 14:54:48 GMT-0700 (Pacific Daylight Time)",
+          "duration": 4,
+          "location": "Zoom"
+        },
+        {
+          "id": "770923493",
+          "name": "Tiraspol",
+          "description": "",
+          "date": "Sun May 17 2020 5:55:44 GMT-0700 (Pacific Daylight Time)",
+          "duration": 4,
+          "location": "Zoom"
+        },
+        {
+          "id": "427938771",
+          "name": "Medina",
+          "description": "",
+          "date": "Thu May 21 2020 21:04:21 GMT-0700 (Pacific Daylight Time)",
+          "duration": 1,
+          "location": "Zoom"
+        },
+        {
+          "id": "669393184",
+          "name": "Townsville",
+          "description": "",
+          "date": "Sat May 23 2020 20:37:25 GMT-0700 (Pacific Daylight Time)",
+          "duration": 2,
+          "location": "Zoom"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Indonesia",
+      "settings": {
+        "color": "--color-primary-4"
+      },
+      "events": [
+        {
+          "id": "981442059",
+          "name": "Bratislava",
+          "description": "",
+          "date": "Sun May 17 2020 11:39:58 GMT-0700 (Pacific Daylight Time)",
+          "duration": 1,
+          "location": "Zoom"
+        },
+        {
+          "id": "131389",
+          "name": "Port Blair",
+          "description": "",
+          "date": "Sun May 17 2020 9:41:00 GMT-0700 (Pacific Daylight Time)",
+          "duration": 4,
+          "location": "Zoom"
+        },
+        {
+          "id": "61002489",
+          "name": "Cusco",
+          "description": "",
+          "date": "Wed May 20 2020 11:11:02 GMT-0700 (Pacific Daylight Time)",
           "duration": 2,
           "location": "Zoom"
         },
         {
-          "id": "5df120015f1d26010ec56b01",
-          "name": "Midterm 1",
+          "id": "609444708",
+          "name": "Greenwich",
           "description": "",
-          "date": "Sat May 22 2020 GMT-0700 (PST)",
-          "duration": 1,
+          "date": "Tue May 19 2020 21:42:26 GMT-0700 (Pacific Daylight Time)",
+          "duration": 2,
           "location": "Zoom"
         }
       ]
@@ -37,26 +217,53 @@
       "id": "123456789",
       "title": "CSE 110",
       "settings": {
-        "color": "blue"
+        "color": "#ff5a5f"
       },
       "tasks": [
         {
           "id": "343ERHFGIR4545",
           "name": "Spinach",
-          "deadline": "Sat May 08 2020 20:02:32 GMT-0700 (PST)",
-          "completed": false
+          "deadline": "May 08 2020",
+          "completed": true
         },
         {
           "id": "343ERH12R4545",
           "name": "Homework 1",
-          "deadline": "Sat May 12 2020 20:02:32 GMT-0700 (PST)",
+          "deadline": "May 12 2020",
           "completed": false
         },
         {
           "id": "343ERadFGIR4545",
           "name": "Gym",
-          "deadline": "Sat May 14 2020 20:02:32 GMT-0700 (PST)",
+          "deadline": "May 14 2020",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "12345678910",
+      "title": "CSE 107",
+      "settings": {
+        "color": "#ff5a5f"
+      },
+      "tasks": [
+        {
+          "id": "34ERHFGIR4545",
+          "name": "PA 7",
+          "deadline": "May 08 2020",
+          "completed": true
+        },
+        {
+          "id": "343ERH14545",
+          "name": "Quiz 2",
+          "deadline": "May 12 2020",
           "completed": false
+        },
+        {
+          "id": "343ERadFGIR45",
+          "name": "Study for final",
+          "deadline": "May 14 2020",
+          "completed": true
         }
       ]
     }
