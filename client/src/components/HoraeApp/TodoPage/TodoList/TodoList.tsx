@@ -1,13 +1,17 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import { Task } from 'context/reducers/taskReducer';
+import { DropResult } from 'react-beautiful-dnd';
 import { EditTaskPayload } from 'context/reducers/taskReducer';
+import { EditTaskListPayload } from 'context/reducers/taskListReducer';
 
 import Text from 'components/Common/Text';
 import Icon from 'components/Common/Icon';
 import TodoItem from 'components/HoraeApp/TodoPage/TodoItem/TodoItem';
 import TodoInput from 'components/HoraeApp/TodoPage/TodoInput/TodoInput';
 import styled from 'styled-components';
+
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 // import styles from 'components/HoraeApp/AppNavbar/AppNavItem/TodoList.module.scss';
 
@@ -68,6 +72,11 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editedName, setEditedName] = useState<string>(title);
   const { dispatch } = useContext(GlobalContext);
+  const [taskList, setTaskList] = useState<Task[]>(tasks);
+
+  useEffect(() => {
+    setTaskList(tasks);
+  }, [tasks]);
 
   const addTask = (taskName: string, deadline?: Date) => {
     dispatch({
@@ -129,19 +138,30 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
     setEditedName('');
   };
 
-  // const actualEditTask = (taskId: string, taskPayload: EditTaskPayload) => {
-  //   dispatch({
-  //     type: 'EDIT_TASK',
-  //     payload: {
-  //       taskId: taskId,
-  //       taskListId: id,
-  //       task: taskPayload,
-  //     },
-  //   });
-  // }
-  //const onDragEnd = result => {
-  //reorder columns]
-  //};
+  const editTaskList = (updates: EditTaskListPayload) => {
+    dispatch({
+      type: 'EDIT_TASK_LIST',
+      payload: { taskListId: id, updates: updates },
+    });
+  };
+
+  const onDragEnd = ({ source, destination }: DropResult) => {
+    if (!destination) {
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+    const newState = [...taskList];
+    const a = newState.splice(source.index, 1);
+    newState.splice(destination.index, 0, ...a);
+    setTaskList(newState);
+    editTaskList({ tasks: newState });
+  };
 
   return (
     <StyledTodoList>
@@ -174,16 +194,27 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
           </IconContainer>
         )}
       </Header>
-      <StyledTodoListBody>
-        {tasks.map((task, index) => (
-          <TodoItem
-            key={task.id}
-            {...task}
-            removeTask={removeTask}
-            editTask={editTask}
-          />
-        ))}
-      </StyledTodoListBody>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId={id}>
+          {(provided) => (
+            <StyledTodoListBody
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {taskList.map((task, index) => (
+                <TodoItem
+                  key={task.id}
+                  {...task}
+                  removeTask={removeTask}
+                  editTask={editTask}
+                  index={index}
+                />
+              ))}
+              {provided.placeholder}
+            </StyledTodoListBody>
+          )}
+        </Droppable>
+      </DragDropContext>
       <TodoInput createNewTodo={addTask} />
     </StyledTodoList>
   );

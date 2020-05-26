@@ -5,6 +5,8 @@ import Icon from 'components/Common/Icon';
 import { EditTaskPayload } from 'context/reducers/taskReducer';
 import { addHours } from 'date-fns';
 
+import { Draggable } from 'react-beautiful-dnd';
+
 const isValidDate = (d: any) => {
   return !isNaN(d.getTime());
 };
@@ -16,6 +18,7 @@ interface ITodoItemProps {
   completed: boolean;
   removeTask: (id: string) => void;
   editTask: (taskId: string, updates: EditTaskPayload) => void;
+  index: number;
 }
 
 const StyledTodoItemBox = styled.div<{ completed: boolean }>`
@@ -30,6 +33,7 @@ const StyledTodoItemBox = styled.div<{ completed: boolean }>`
   grid-column-gap: var(--spacing-tiny);
   transition: background-color 0.4s;
   position: relative;
+  background-color: white;
   ${(props) =>
     props.completed &&
     `background-color: var(--color-light-gray);
@@ -54,13 +58,16 @@ const StyledCompleteButton = styled.div<{ completed: boolean }>`
   max-width: 2.25rem;
   min-height: 2.25rem;
   max-height: 2.25rem;
+  cursor: pointer;
   border-radius: 50%;
   border: 1px solid var(--color-nav-item-text);
   transition: border 0.2s;
   box-sizing: border-box;
-  &:hover {
-    border: 3px solid var(--color-primary-2);
-  }
+  ${(props) =>
+    !props.completed &&
+    `&:hover {
+      border: 3px solid var(--color-primary-2);
+    }`}
   ${(props) =>
     props.completed &&
     `background-color:#c1bfbf;
@@ -121,6 +128,7 @@ function TodoItem({
   completed,
   removeTask,
   editTask,
+  index,
 }: ITodoItemProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -210,7 +218,6 @@ function TodoItem({
   };
 
   const localDate = new Date(deadline);
-  console.log(localDate);
 
   const localDateText = localDate.toLocaleDateString('en-US', {
     day: 'numeric',
@@ -221,52 +228,62 @@ function TodoItem({
   const deadlineText = isValidDate(localDate) ? localDateText : '';
 
   return (
-    <StyledTodoItemBox completed={completed}>
-      <StyledCompleteButton completed={completed} onClick={handleCompleted}>
-        <StyledCheckmark viewBox="0 0 24 24" completed={completed}>
-          <polyline points="20 6 9 17 4 12" />
-        </StyledCheckmark>
-      </StyledCompleteButton>
-      {isEditing ? (
-        <StyledInput
-          type="text"
-          onChange={handleEditName}
-          value={editedName}
-          onKeyPress={submitEdits}
-          onBlur={onBlurHandler}
-          ref={inputRef}
+    <Draggable draggableId={id} index={index}>
+      {(provided) => (
+        <StyledTodoItemBox
           completed={completed}
-        />
-      ) : (
-        <Text
-          type="small"
-          color={completed ? 'var(--color-text-subtitle);' : ''}
-          styleProp={completed ? 'text-decoration: line-through;' : ''}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
         >
-          {name}
-        </Text>
+          <StyledCompleteButton completed={completed} onClick={handleCompleted}>
+            <StyledCheckmark viewBox="0 0 24 24" completed={completed}>
+              <polyline points="20 6 9 17 4 12" />
+            </StyledCheckmark>
+          </StyledCompleteButton>
+          {isEditing ? (
+            <StyledInput
+              type="text"
+              onChange={handleEditName}
+              value={editedName}
+              onKeyPress={submitEdits}
+              onBlur={onBlurHandler}
+              ref={inputRef}
+              completed={completed}
+            />
+          ) : (
+            <Text
+              type="small"
+              color={completed ? 'var(--color-text-subtitle);' : ''}
+              styleProp={completed ? 'text-decoration: line-through;' : ''}
+            >
+              {name}
+            </Text>
+          )}
+          {isEditing ? (
+            <StyledDeadline
+              type="date"
+              onChange={handleDeadlineName}
+              value={editedDeadline}
+              onKeyPress={submitEdits}
+              onBlur={onBlurHandler}
+              completed={completed}
+            />
+          ) : (
+            <Text type="tiny">{deadlineText}</Text>
+          )}
+
+          <IconContainer className={isEditing ? '' : 'icon-container'}>
+            <span onClick={handleRemoveTask}>
+              <Icon type="trash" white={false} height={20} />
+            </span>
+            <span onClick={toggleEditMode}>
+              <Icon type="edit" white={false} height={20} />
+            </span>
+          </IconContainer>
+        </StyledTodoItemBox>
       )}
-      {isEditing ? (
-        <StyledDeadline
-          type="date"
-          onChange={handleDeadlineName}
-          value={editedDeadline}
-          onKeyPress={submitEdits}
-          onBlur={onBlurHandler}
-          completed={completed}
-        />
-      ) : (
-        <Text type="tiny">{deadlineText}</Text>
-      )}
-      <IconContainer className={isEditing ? '' : 'icon-container'}>
-        <span onClick={handleRemoveTask}>
-          <Icon type="trash" white={false} height={20} />
-        </span>
-        <span onClick={toggleEditMode}>
-          <Icon type="edit" white={false} height={20} />
-        </span>
-      </IconContainer>
-    </StyledTodoItemBox>
+    </Draggable>
   );
 }
 

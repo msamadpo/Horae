@@ -45,7 +45,6 @@ function TodoInput({ createNewTodo }: ITodoInputProps) {
 
   const handleDeadline = (event: React.SyntheticEvent<HTMLInputElement>) => {
     const deadline = event.currentTarget.value;
-    //console.log(new Date(deadline));
     setNewDeadline(deadline);
   };
 
