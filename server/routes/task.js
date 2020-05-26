@@ -14,8 +14,7 @@ function getOrderNumber(numOfTasks){
 //Creating a Task
 router.post('/',(req, res) => {
     console.log("Creating Task")
-    const {userId, todoListId, name, deadline} = req.body;
-    let numOfTasks = req.body.numOfTasks;
+    const {userId, todoListId, name, deadline, numOfTasks} = req.body;
 
     const data = firebase.database().ref('users/'+userId+'/todo/'+ todoListId +'/tasks').push();
     
@@ -33,11 +32,11 @@ router.post('/',(req, res) => {
       })
       .catch((err)=>res.json({error: err.message}));
 
-      numOfTasks++;
+      const newNumOfTasks = numOfTasks + 1;
       firebase
       .database()
       .ref('users/'+userId+'/todo/'+ todoListId+'/numOfTasks')
-      .set(numOfTasks);
+      .set(newNumOfTasks);
 
       
 });
@@ -50,9 +49,8 @@ router.patch('/:userId/:todoListId/:taskId', (req, res) => {
     const todoListId = req.params.todoListId;
     const taskId = req.params.taskId;
 
-    const { name, deadline, completed } = req.body;
-    let coins = req.body.coins;
-    const updates = { name, order: null, deadline, completed};
+    const { name, order, deadline, completed, coins } = req.body;
+    const updates = { name, order, deadline, completed};
     const data = firebase.database();
     
 
@@ -66,11 +64,11 @@ router.patch('/:userId/:todoListId/:taskId', (req, res) => {
       .catch((err) => res.json({ error: err.message }));
 
       //Add coins to user
-      coins+=10;
+      const newCoins = coins+10;
       firebase
       .database()
       .ref('users/'+userId+'/todo/'+ todoListId+'/coins')
-      .set(coins);
+      .set(newCoins);
 
 
     }
@@ -93,10 +91,11 @@ router.patch('/:userId/:todoListId/:taskId', (req, res) => {
 
 
 //Deleting a Task
-router.delete('/:userId/:todoListId/:taskId', (req, res) => {
+router.delete('/', (req, res) => {
     console.log("Deleting ONE Task");
 
-    const {userId, todoListId, taskId} = req.params;
+    const {userId, todoListId, taskId, numOfTasks} = req.body;
+    
      firebase
       .database()
       .ref('users/'+userId+'/todo/'+ todoListId +'/tasks/'+taskId)
@@ -105,6 +104,14 @@ router.delete('/:userId/:todoListId/:taskId', (req, res) => {
       res.json({status: 200, message: 'Successfully deleted document'})
       )
       .catch((err)=>res.json({error: err.message}));
+
+      const newNumOfTasks = numOfTasks - 1;
+      firebase
+      .database()
+      .ref('users/'+userId+'/todo/'+ todoListId+'/numOfTasks')
+      .set(newNumOfTasks);
+
+
    });
 
 
