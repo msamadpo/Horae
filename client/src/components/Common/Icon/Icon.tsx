@@ -10,6 +10,9 @@ import trashcan from 'assets/img/trash-can.svg';
 import edit from 'assets/img/edit-pen.svg';
 import chevronLeft from 'assets/img/chevron-left.svg';
 import chevronRight from 'assets/img/chevron-right.svg';
+import kebab from 'assets/img/kebab.svg';
+import paint from 'assets/img/paintbrush.svg';
+import exit from 'assets/img/exit.svg';
 
 interface IIconProps {
   type: string;
@@ -95,6 +98,36 @@ function Icon({
       return (
         <StyledImg
           src={chevronLeft}
+          height={height}
+          alt=""
+          onClick={onClick}
+          {...otherProps}
+        />
+      );
+    case 'kebab':
+      return (
+        <StyledImg
+          src={kebab}
+          height={height}
+          alt=""
+          onClick={onClick}
+          {...otherProps}
+        />
+      );
+    case 'paint':
+      return (
+        <StyledImg
+          src={paint}
+          height={height}
+          alt=""
+          onClick={onClick}
+          {...otherProps}
+        />
+      );
+    case 'exit':
+      return (
+        <StyledImg
+          src={exit}
           height={height}
           alt=""
           onClick={onClick}

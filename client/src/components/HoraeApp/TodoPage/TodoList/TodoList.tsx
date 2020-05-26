@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import { Task } from 'context/reducers/taskReducer';
 import { EditTaskPayload } from 'context/reducers/taskReducer';
 
 import Text from 'components/Common/Text';
+import Icon from 'components/Common/Icon';
 import TodoItem from 'components/HoraeApp/TodoPage/TodoItem/TodoItem';
 import TodoInput from 'components/HoraeApp/TodoPage/TodoInput/TodoInput';
 import styled from 'styled-components';
@@ -18,6 +19,10 @@ interface ITodoProps {
   };
   tasks: Task[];
 }
+
+const StyledInput = styled.input`
+  border: none;
+`;
 
 const StyledTodoList = styled.div`
   display: flex;
@@ -42,13 +47,26 @@ const StyledTodoListBody = styled.div`
   }
 `;
 
+const IconContainer = styled.div`
+  padding: var(--spacing-medium);
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  background-color: transparent;
+`;
+
 const Header = styled.div<{ color: string }>`
+  display: grid;
+  grid-template-columns: 1fr 3rem;
   background-color: ${(props) => props.color || 'var(--color-primary)'};
   padding: var(--spacing-small);
   text-align: center;
+  position: relative;
 `;
 
 function TodoList({ id, title, tasks, settings }: ITodoProps) {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [editedName, setEditedName] = useState<string>(title);
   const { dispatch } = useContext(GlobalContext);
 
   const addTask = (taskName: string, deadline?: Date) => {
@@ -99,6 +117,18 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
     });
   };
 
+  const toggleEditMode = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleRemoveTask = () => {
+    removeTask(id);
+  };
+
+  const handleEditName = () => {
+    setEditedName('');
+  };
+
   // const actualEditTask = (taskId: string, taskPayload: EditTaskPayload) => {
   //   dispatch({
   //     type: 'EDIT_TASK',
@@ -119,6 +149,30 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
         <Text type="large" color="white" weight="500">
           {title}
         </Text>
+        <Icon type="kebab" white={false} height={20} onClick={toggleEditMode} />
+        {isEditing && (
+          <IconContainer>
+            <Icon
+              type="trash"
+              white={false}
+              height={20}
+              {...handleRemoveTask}
+            />
+            <Icon
+              type="edit"
+              white={false}
+              height={20}
+              onClick={handleEditName}
+            />
+            <Icon type="paint" white={false} height={20} />
+            <Icon
+              type="exit"
+              white={false}
+              height={20}
+              onClick={toggleEditMode}
+            />
+          </IconContainer>
+        )}
       </Header>
       <StyledTodoListBody>
         {tasks.map((task, index) => (

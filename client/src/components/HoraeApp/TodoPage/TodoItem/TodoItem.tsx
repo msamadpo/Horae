@@ -258,7 +258,6 @@ function TodoItem({
       ) : (
         <Text type="tiny">{deadlineText}</Text>
       )}
-
       <IconContainer className={isEditing ? '' : 'icon-container'}>
         <span onClick={handleRemoveTask}>
           <Icon type="trash" white={false} height={20} />
