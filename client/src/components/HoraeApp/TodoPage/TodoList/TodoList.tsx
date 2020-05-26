@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import { Task } from 'context/reducers/taskReducer';
+import { EditTaskPayload } from 'context/reducers/taskReducer';
 
 import Text from 'components/Common/Text';
 import TodoItem from 'components/HoraeApp/TodoPage/TodoItem/TodoItem';
@@ -18,32 +19,46 @@ interface ITodoProps {
   tasks: Task[];
 }
 
-// TODO: Remove this code once it's no longer needed as a reference
 const StyledTodoList = styled.div`
   display: flex;
+  margin: var(--spacing-base);
   flex-direction: column;
   border-radius: 1rem;
-  max-width: 35rem;
+  max-width: 36rem;
   overflow: hidden;
   box-shadow: 0px 2px 16px 0px rgba(219, 219, 219, 0.5);
+  max-height: 75rem;
 `;
 
-const Header = styled.div`
-  background-color: var(--color-primary);
+const StyledTodoListBody = styled.div`
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0.03);
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2rem;
+    background-color: #eaeaea;
+  }
+`;
+
+const Header = styled.div<{ color: string }>`
+  background-color: ${(props) => props.color || 'var(--color-primary)'};
   padding: var(--spacing-small);
   text-align: center;
 `;
 
-function TodoList({ id, title, tasks }: ITodoProps) {
+function TodoList({ id, title, tasks, settings }: ITodoProps) {
   const { dispatch } = useContext(GlobalContext);
 
-  const addTask = (taskName: string) => {
+  const addTask = (taskName: string, deadline?: Date) => {
     dispatch({
       type: 'ADD_TASK',
       payload: {
         taskListId: id,
         task: {
           name: taskName,
+          deadline: deadline?.toString() || '',
           completed: false,
         },
       },
@@ -60,14 +75,25 @@ function TodoList({ id, title, tasks }: ITodoProps) {
     });
   };
 
-  const editTask = (taskName: string, taskId: string) => {
+  const editTask = (taskId: string, updates: EditTaskPayload) => {
+    dispatch({
+      type: 'EDIT_TASK',
+      payload: {
+        taskId: taskId,
+        taskListId: id,
+        task: updates,
+      },
+    });
+  };
+
+  const completeTask = (taskId: string, completed: boolean) => {
     dispatch({
       type: 'EDIT_TASK',
       payload: {
         taskId: taskId,
         taskListId: id,
         task: {
-          name: taskName,
+          completed: completed,
         },
       },
     });
@@ -83,15 +109,18 @@ function TodoList({ id, title, tasks }: ITodoProps) {
   //     },
   //   });
   // }
+  //const onDragEnd = result => {
+  //reorder columns]
+  //};
 
   return (
     <StyledTodoList>
-      <Header>
+      <Header color={settings.color}>
         <Text type="large" color="white" weight="500">
           {title}
         </Text>
       </Header>
-      <div>
+      <StyledTodoListBody>
         {tasks.map((task, index) => (
           <TodoItem
             key={task.id}
@@ -100,8 +129,8 @@ function TodoList({ id, title, tasks }: ITodoProps) {
             editTask={editTask}
           />
         ))}
-        <TodoInput createNewTodo={addTask} />
-      </div>
+      </StyledTodoListBody>
+      <TodoInput createNewTodo={addTask} />
     </StyledTodoList>
   );
 }

@@ -217,25 +217,52 @@
       "id": "123456789",
       "title": "CSE 110",
       "settings": {
-        "color": "blue"
+        "color": "#ff5a5f"
       },
       "tasks": [
         {
           "id": "343ERHFGIR4545",
           "name": "Spinach",
-          "deadline": "Sat May 08 2020 20:02:32 GMT-0700 (PST)",
+          "deadline": "May 08 2020",
           "completed": true
         },
         {
           "id": "343ERH12R4545",
           "name": "Homework 1",
-          "deadline": "Sat May 12 2020 20:02:32 GMT-0700 (PST)",
+          "deadline": "May 12 2020",
           "completed": false
         },
         {
           "id": "343ERadFGIR4545",
           "name": "Gym",
-          "deadline": "Sat May 14 2020 20:02:32 GMT-0700 (PST)",
+          "deadline": "May 14 2020",
+          "completed": true
+        }
+      ]
+    },
+    {
+      "id": "12345678910",
+      "title": "CSE 107",
+      "settings": {
+        "color": "#ff5a5f"
+      },
+      "tasks": [
+        {
+          "id": "34ERHFGIR4545",
+          "name": "PA 7",
+          "deadline": "May 08 2020",
+          "completed": true
+        },
+        {
+          "id": "343ERH14545",
+          "name": "Quiz 2",
+          "deadline": "May 12 2020",
+          "completed": false
+        },
+        {
+          "id": "343ERadFGIR45",
+          "name": "Study for final",
+          "deadline": "May 14 2020",
           "completed": true
         }
       ]
