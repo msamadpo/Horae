@@ -38,7 +38,7 @@ const SytledForm = styled.form`
 const StyledTodoListNameInput = styled.input`
   color: var(--color-primary);
   &::placeholder {
-    color: var(--color-primary-1);
+    color: var(--color-primary);
   }
   align-items: center;
   border-radius: 1rem;
