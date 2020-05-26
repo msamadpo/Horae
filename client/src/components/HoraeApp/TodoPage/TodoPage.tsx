@@ -10,7 +10,6 @@ const ModalBackground = styled.div`
   justify-content: center;
   align-items: center;
   position: fixed;
-  cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
