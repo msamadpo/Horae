@@ -5,11 +5,11 @@ const firebase = require('../config/firebase');
 const server = require('../server');
 
 
-const TASK = (taskId, name, /*order,*/ deadline)=>{
+const TASK = (taskId, name, order, deadline)=>{
     return {
       taskId: taskId,
       name: name, 
-      order: null, 
+      order: order, 
       deadline: deadline, 
       completed: false
     }
@@ -26,7 +26,7 @@ function getOrderNumber(uid, todolistId){
       }
       else{
         const lastIndex = data.numChildren()-1
-        value= data.val()[lastIndex]+1000;
+        value= data.val()[lastIndex].order+1000;
 
       }
 
@@ -41,7 +41,7 @@ router.post('/', server, (req, res) => {
     const taskId = db.ref('users/'+ uid + '/todo/'+ todolistId + '/tasks/').push().key; //getting key
    // const order = getOrderNumber(uid, todolistId);
     db.ref('users/'+ uid + '/todo/'+ todolistId +'/tasks/' + taskId )
-    .set(TASK(taskId,name, /*order, */deadline))
+    .set(TASK(taskId,name, order, deadline))
     .then(()=>{ 
         res.json({taskId: taskId})
     })
