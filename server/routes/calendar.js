@@ -2,57 +2,90 @@ const express = require('express');
 const router = express.Router();
 const firebase = require('../server');
 
+const firebase = require('../config/firebase');
+const server = require('../server');
 
-const CALENDARS = {
-    title: 'Work',
-    settings: { color: 'red' },
-    events: [
-      {
-        name: 'Sun God', //User inserts name
-        date: 'Sat May 02 2020 20:02:32 GMT-0700 (Pacific Daylight Time)', //
-        duration: 1,
-        location: '',
-        note: '',
-      },
-        {
-            name: 'Midterm',
-            date: 'Sat May 02 2020 20:02:32 GMT-0700 (Pacific Daylight Time)',
-            duration: 1,
-            location: 'Center Hall',
-            note: 'Ima die',
-
-        },
-    ],
+const CALENDAR = (calendarId, name, color) => {
+  return {
+    calendarId: calendarId,
+    name: name,
+    settings: {
+      color: color,
+    },
+  };
 };
 
+const db = firebase.database();
+
 // CREATE a calendar
-router.post('/', (req, res) => {
-  res.send(`POST request to ${req.baseUrl}`);
+router.post('/', server, (req, res) => {
+  const { uid, name, color } = req.body;
+  const calendarId = db.ref('users/' + uid + '/calendar/').push().key; //getting key
+  db.ref('users/' + uid + '/calendar/' + calendarId)
+    .set(CALENDAR(calendarId, name, color))
+    .then(() => {
+      res.json({ calendarId: calendarId });
+    })
+    .catch((err) => res.json({ error: err.message }));
 });
 
 // READ all calendars
-router.get('/', (req, res) => {
-  res.json(CALENDARS);
+router.get('/:uid', (req, res) => {
+  const uid = req.params.uid;
+  db.ref('users/' + uid + '/calendar')
+    .once('value')
+    .then((data) => {
+      if (data.val() != null) {
+        res.json(data.val());
+      } else {
+        res.send('DOESNT EXIST');
+      }
+    })
+    .catch((err) => res.json({ err: err.message }));
 });
 
 // READ one calendar
-router.get('/:calendarId', (req, res) => {
-  console.log('calendarId:', req.params.calendarId);
-  res.send(`GET request to ${req.baseUrl}`);
+router.get('/:uid/:calendarId', (req, res) => {
+  const { uid, calendarId } = req.params;
+
+  db.ref('users/' + uid + '/calendar/' + calendarId)
+    .once('value')
+    .then((data) => {
+      if (data.val() != null) {
+        res.json(data.val());
+      }
+      //basically if the key doesnt exist
+      else res.send('DOESNT EXIST!');
+    });
 });
 
 // UPDATE a calendar
-router.patch('/:calendarId', (req, res) => {
-  console.log('calendarId:', req.params.calendarId);
-  res.send(`PATCH request to ${req.baseUrl}`);
+router.patch('/:uid/:calendarId', server, (req, res) => {
+  const { uid, calendarId } = req.params;
+  const { name, color } = req.body;
+
+  db.ref('users/' + uid + '/calendar/' + calendarId)
+    .update({
+      name: name,
+      settings: {
+        color: color,
+      },
+    })
+    .then(() =>
+      res.json({ status: 200, message: 'Successfully updated calendar' })
+    )
+    .catch((err) => res.json({ error: err.message }));
 });
 
 // DELETE a calendar
-router.delete('/', (req, res) => {
-  res.send(`DELETE request to ${req.baseUrl}`);
+router.delete('/:uid/:calendarId', (req, res) => {
+  const { uid, calendarId } = req.params;
+  db.ref('users/' + uid + '/calendar/' + calendarId)
+    .remove()
+    .then(() =>
+      res.json({ status: 200, message: 'Successfully deleted calendar' })
+    )
+    .catch((err) => res.json({ error: err.message }));
 });
 
-
-
-module.exports= router;
-
+module.exports = router;

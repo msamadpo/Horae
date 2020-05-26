@@ -1,6 +1,7 @@
-import React from 'react';
-import { NavLink as Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { NavLink as Link, useHistory } from 'react-router-dom';
 import Text from 'components/Common/Text';
+import Icon from 'components/Common/Icon';
 
 import styles from 'components/HoraeApp/AppNavbar/AppNavItem/AppNavItem.module.scss';
 
@@ -28,19 +29,32 @@ import styles from 'components/HoraeApp/AppNavbar/AppNavItem/AppNavItem.module.s
 
 interface IAppNavItemProps {
   title: string;
-  icon: string;
+  icon: string /*possible we don't need this anymore*/;
   to: string;
   active?: boolean;
 }
 
 function AppNavItem({ title, icon, to }: IAppNavItemProps) {
+  const history = useHistory();
+  const [active, setActive] = useState<boolean>(false);
+
+  useEffect(() => {
+    setActive(history.location.pathname.includes(to));
+  }, [history.location.pathname, to]);
+
+  useEffect(() => {
+    history.listen((location) => {
+      setActive(location.pathname.includes(to));
+    });
+  }, [history, to]);
+
   return (
     <Link
       to={to}
       className={styles.styledAppNavItem}
       activeClassName={styles.active}
     >
-      <img src={icon} height={30} alt="" />
+      <Icon type={icon} white={active} height={30} />
       <Text
         size="1.6rem"
         color="var(--color-nav-item-text)"

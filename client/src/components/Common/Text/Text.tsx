@@ -10,7 +10,8 @@ type TextType =
   | 'heading3'
   | 'large'
   | 'regular'
-  | 'small';
+  | 'small'
+  | 'tiny';
 
 interface ITextProps {
   type?: TextType;
@@ -20,7 +21,19 @@ interface ITextProps {
   margins?: TextMargin[];
   styleProp?: string;
   children: React.ReactNode;
+  // rest Props
+  [name: string]: any;
 }
+
+const CustomText = styled.span<ITextProps & { mappedMargins: string }>`
+    display: inline-block;
+    ${(props) => props.size && `font-size: ${props.size};`}
+    ${(props) => props.weight && `font-weight: ${props.weight};`}
+    ${(props) => props.color && `color: ${props.color};`}
+    ${(props) => props.margins && `margin: ${props.mappedMargins};`}
+    line-height: 140%;
+    ${(props) => props.styleProp && props.styleProp}
+`;
 
 function Text({
   children,
@@ -30,23 +43,27 @@ function Text({
   color,
   margins,
   styleProp,
+  ...otherProps
 }: ITextProps) {
   const mappedMargins =
     (margins?.length === 1
       ? new Array(4).fill(`var(--spacing-${margins[0]})`).join(' ')
       : margins?.map((margin) => `var(--spacing-${margin})`).join(' ')) || '';
 
-  const CustomText = styled.span`
-    display: inline-block;
-    ${size && `font-size: ${size};`}
-    ${weight && `font-weight: ${weight};`}
-    ${color && `color: ${color};`}
-    ${margins && `margin: ${mappedMargins};`}
-    ${styleProp && styleProp}
-    line-height: 140%;
-  `;
-
-  return <CustomText className={type && styles[type]}>{children}</CustomText>;
+  return (
+    <CustomText
+      size={size}
+      weight={weight}
+      color={color}
+      margins={margins}
+      styleProp={styleProp}
+      className={type && styles[type]}
+      mappedMargins={mappedMargins}
+      {...otherProps}
+    >
+      {children}
+    </CustomText>
+  );
 }
 
 export default Text;
