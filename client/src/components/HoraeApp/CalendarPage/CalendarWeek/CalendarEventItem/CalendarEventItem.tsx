@@ -38,7 +38,12 @@ function CalendarEventItem({
         {name}
       </Text>
       <div>
-        <Text color="white" type="tiny" weight="300">
+        <Text
+          color="white"
+          type="tiny"
+          weight="300"
+          styleProp="font-size: 1.2rem;"
+        >
           {startTime} - {endTime}
         </Text>
       </div>

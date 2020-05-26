@@ -235,8 +235,8 @@ function TodoItem({
       ) : (
         <Text
           type="small"
-          color={completed ? 'var(--color-text-subtitle)' : ''}
-          styleProp={completed ? 'text-decoration: line-through' : ''}
+          color={completed ? 'var(--color-text-subtitle);' : ''}
+          styleProp={completed ? 'text-decoration: line-through;' : ''}
         >
           {name}
         </Text>

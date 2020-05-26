@@ -56,7 +56,7 @@ function Text({
       weight={weight}
       color={color}
       margins={margins}
-      styleProps={styleProp}
+      styleProp={styleProp}
       className={type && styles[type]}
       mappedMargins={mappedMargins}
       {...otherProps}
