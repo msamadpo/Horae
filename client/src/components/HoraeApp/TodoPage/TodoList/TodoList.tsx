@@ -28,13 +28,14 @@ const StyledTodoList = styled.div`
   box-shadow: 0px 2px 16px 0px rgba(219, 219, 219, 0.5);
 `;
 
-const Header = styled.div`
+const Header = styled.div<{ color: string }>`
   background-color: var(--color-primary);
+  background-color: ${(props) => props.color};
   padding: var(--spacing-small);
   text-align: center;
 `;
 
-function TodoList({ id, title, tasks }: ITodoProps) {
+function TodoList({ id, title, tasks, settings }: ITodoProps) {
   const { dispatch } = useContext(GlobalContext);
 
   const addTask = (taskName: string) => {
@@ -86,7 +87,7 @@ function TodoList({ id, title, tasks }: ITodoProps) {
 
   return (
     <StyledTodoList>
-      <Header>
+      <Header color={settings.color || 'var(--color-primary)'}>
         <Text type="large" color="white" weight="500">
           {title}
         </Text>

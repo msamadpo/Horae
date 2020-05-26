@@ -1,41 +1,41 @@
 import React, { useContext, useState } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import TodoList from 'components/HoraeApp/TodoPage/TodoList/TodoList';
-import TodoLists from 'components/HoraeApp/TodoPage/TodoLists/TodoLists';
+import TodoModal from 'components/HoraeApp/TodoPage/TodoModal/TodoModal';
 import styled from 'styled-components';
+import Text from 'components/Common/Text';
 
-const StyledButtonBox = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-
-const StyledPopupBox = styled.div`
+const ModalBackground = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  position: fixed;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
 const StyledTodoListsButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background color: #444
-  font-family: var(--font-regular);
-  text-align: center;
-  border: none;
+  min-width: 7rem;
+  min-height: 7rem;
+  max-height: 7rem;
+  max-width: 7rem;
+  background-color: var(--color-primary);
+  position: fixed;
+  bottom: 5rem;
+  right: 5rem;
+  border-radius: 50%;
   outline: none;
-  margin: var(--spacing-base);
-  border-radius: 1rem;
-  padding-left: 0.8rem;
   color: white;
-  background: #666;
-  min-width: 7.2rem;
-  max-width: 7.2rem;
-  min-height: 3.4rem;
-  max-height: 3.4rem;
+  box-shadow: 0 0 20px var(--color-text-subtitle);
+  border: none;
   cursor: pointer;
+  transition: transform 0.2s;
   &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0px 5px 8px 0px rgba(219, 219, 219, 1);
+    transform: translateY(-6px);
   }
 `;
 
@@ -85,6 +85,10 @@ function TodoPage() {
     setIsOpen(!isOpen);
   };
 
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div
       style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 1fr)' }}
@@ -92,12 +96,16 @@ function TodoPage() {
       {lists.map((list) => (
         <TodoList {...list} />
       ))}
-      <StyledButtonBox>
-        <StyledTodoListsButton onClick={toggleOpenMode}>
-          Todo List
-        </StyledTodoListsButton>
-        <StyledPopupBox>{isOpen && <TodoLists {...lists[0]} />}</StyledPopupBox>
-      </StyledButtonBox>
+      <StyledTodoListsButton onClick={toggleOpenMode}>
+        <Text type="heading1" weight="300" color="white">
+          +
+        </Text>
+      </StyledTodoListsButton>
+      {isOpen && (
+        <ModalBackground onClick={closeModal}>
+          <TodoModal closeModal={closeModal} {...lists[0]} />
+        </ModalBackground>
+      )}
     </div>
   );
 }
