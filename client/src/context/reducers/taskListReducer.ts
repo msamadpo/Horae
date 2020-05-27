@@ -47,3 +47,14 @@ export const editTaskList = (state: GlobalState, action: Action) => {
   console.log('Dispatch EDIT_TASK_LIST');
   return { ...state, todo_lists: newTaskLists };
 };
+
+export const deleteTaskList = (state: GlobalState, action: Action) => {
+  if (action.type !== 'DELETE_TASK_LIST') {
+    return state;
+  }
+  const newTaskLists = state.todo_lists.filter(
+    (list) => list.id !== action.payload.taskListId
+  );
+  console.log('Dispatch DELETE_TASK_LIST');
+  return { ...state, todo_lists: newTaskLists };
+};

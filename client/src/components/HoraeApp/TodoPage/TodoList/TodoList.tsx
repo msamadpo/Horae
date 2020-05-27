@@ -6,14 +6,12 @@ import { EditTaskPayload } from 'context/reducers/taskReducer';
 import { EditTaskListPayload } from 'context/reducers/taskListReducer';
 
 import Text from 'components/Common/Text';
+import EditTodoListMenu from 'components/HoraeApp/TodoPage/TodoList/EditTodoListMenu';
 import Icon from 'components/Common/Icon';
 import TodoItem from 'components/HoraeApp/TodoPage/TodoItem/TodoItem';
 import TodoInput from 'components/HoraeApp/TodoPage/TodoInput/TodoInput';
 import styled from 'styled-components';
-
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-
-// import styles from 'components/HoraeApp/AppNavbar/AppNavItem/TodoList.module.scss';
 
 interface ITodoProps {
   id: string;
@@ -23,10 +21,6 @@ interface ITodoProps {
   };
   tasks: Task[];
 }
-
-const StyledInput = styled.input`
-  border: none;
-`;
 
 const StyledTodoList = styled.div`
   display: flex;
@@ -52,53 +46,6 @@ const StyledTodoListBody = styled.div`
   }
 `;
 
-const EditMenu = styled.div`
-  padding: var(--spacing-small);
-  position: absolute;
-  right: 25px;
-  top: 25px;
-  z-index: 1;
-  background-color: white;
-  border-radius: 1rem;
-  border-top-right-radius: 1px;
-  border: 1px solid var(--color-shadow);
-  box-shadow: 2px 5px 10px #999;
-  max-width: 20rem;
-`;
-
-const ColorPickerContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: var(--spacing-tiny) 0;
-  cursor: pointer;
-`;
-
-const COLORS = [
-  '--color-primary-1',
-  '--color-primary-2',
-  '--color-primary-3',
-  '--color-primary-4',
-  '--color-primary-5',
-  '--color-primary-6',
-  '--color-primary-7',
-  '--color-primary',
-];
-
-const ColorPickerOption = styled.div<{ color: string; selected: boolean }>`
-  background-color: var(${(props) => props.color});
-  transition: border 0.2s;
-  ${(props) => props.selected && `border: 2px solid #333;`}
-  box-sizing: border-box;
-  min-width: 3rem;
-  max-width: 3rem;
-  min-height: 3rem;
-  max-height: 3rem;
-  border-radius: 50%;
-  margin: 5px;
-`;
-
 const Header = styled.div<{ color: string }>`
   display: grid;
   grid-template-columns: 1fr 3rem;
@@ -107,23 +54,6 @@ const Header = styled.div<{ color: string }>`
   text-align: center;
   align-items: center;
   position: relative;
-`;
-
-const DeleteButton = styled.div`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--color-primary);
-  border-radius: 6px;
-  padding: 5px 10px;
-  transition: all 0.2s;
-  &:hover {
-    background-color: var(--color-primary);
-    span {
-      color: white !important;
-    }
-  }
 `;
 
 function TodoList({ id, title, tasks, settings }: ITodoProps) {
@@ -199,6 +129,10 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
     editTaskList({ tasks: newState });
   };
 
+  const closeMenu = () => {
+    setIsEditing(false);
+  };
+
   return (
     <StyledTodoList>
       <Header color={settings.color}>
@@ -212,27 +146,13 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
             height={20}
             onClick={toggleEditMode}
           />
-          {isEditing || (
-            <EditMenu>
-              <input type="text" value={title} />
-              <ColorPickerContainer>
-                {COLORS.map((color) => (
-                  <ColorPickerOption
-                    color={color}
-                    selected={settings.color === color}
-                  />
-                ))}
-              </ColorPickerContainer>
-              <DeleteButton>
-                <Text
-                  type="small"
-                  color="var(--color-primary)"
-                  margins={['none', 'none', 'none', 'tiny']}
-                >
-                  Delete List
-                </Text>
-              </DeleteButton>
-            </EditMenu>
+          {isEditing && (
+            <EditTodoListMenu
+              closeMenu={closeMenu}
+              listId={id}
+              currentColor={settings.color}
+              title={title}
+            />
           )}
         </div>
       </Header>
