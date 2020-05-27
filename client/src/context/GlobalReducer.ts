@@ -37,18 +37,36 @@ export default function globalReducer(
   action: Action
 ): GlobalState {
   switch (action.type) {
-    case 'ADD_TASK':
-      return addTask(state, action);
-    case 'REMOVE_TASK':
-      return removeTask(state, action);
-    case 'EDIT_TASK':
-      return editTask(state, action);
-    case 'ADD_TASK_LIST':
-      return addTaskList(state, action);
-    case 'EDIT_TASK_LIST':
-      return editTaskList(state, action);
-    case 'DELETE_TASK_LIST':
-      return deleteTaskList(state, action);
+    case 'ADD_TASK': {
+      const newState = addTask(state, action);
+      localStorage.setItem('horaeData', JSON.stringify(newState));
+      return newState;
+    }
+    case 'REMOVE_TASK': {
+      const newState = removeTask(state, action);
+      localStorage.setItem('horaeData', JSON.stringify(newState));
+      return newState;
+    }
+    case 'EDIT_TASK': {
+      const newState = editTask(state, action);
+      localStorage.setItem('horaeData', JSON.stringify(newState));
+      return newState;
+    }
+    case 'ADD_TASK_LIST': {
+      const newState = addTaskList(state, action);
+      localStorage.setItem('horaeData', JSON.stringify(newState));
+      return newState;
+    }
+    case 'EDIT_TASK_LIST': {
+      const newState = editTaskList(state, action);
+      localStorage.setItem('horaeData', JSON.stringify(newState));
+      return newState;
+    }
+    case 'DELETE_TASK_LIST': {
+      const newState = deleteTaskList(state, action);
+      localStorage.setItem('horaeData', JSON.stringify(newState));
+      return newState;
+    }
     default:
       return state;
   }
