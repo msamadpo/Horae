@@ -1,101 +1,111 @@
 import React, { useContext, useState } from 'react';
 import GlobalContext from 'context/GlobalContext';
-
 import styled from 'styled-components';
+
+import Text from 'components/Common/Text';
+
+const COLORS = [
+  '--color-primary-1',
+  '--color-primary-2',
+  '--color-primary-3',
+  '--color-primary-4',
+  '--color-primary-5',
+  '--color-primary-6',
+  '--color-primary-7',
+  '--color-primary',
+];
 
 interface ITodoModalProps {
   closeModal: () => void;
 }
 
-const StyledTodoList = styled.div`  
+const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-width: 50rem;
-  max-width: 50rem;
-  min-height: 30rem;
-  max-height: 30rem;
+  background-color: white;
+  min-width: 35rem;
+  max-width: 35rem;
   border-radius: 1rem;
   margin: var(--spacing-small);
-  padding: var(--spacing-small);
+  padding: 0 var(--spacing-base) var(--spacing-base);
+  cursor: default;
+  box-sizing: border-box;
 `;
 
-const SytledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: var(--color-text-body);
-  min-width: 45rem;
-  max-width: 45rem;
-  min-height: relative;
-  max-height: relative;
-  border-radius: 1rem;
-  margin: var(--spacing-small);
-  padding: var(--spacing-tiny);
-  cursor: default;
+const FormHeader = styled.div`
+  padding: var(--spacing-base);
 `;
 
 const StyledTodoListNameInput = styled.input<{ todoListColor: string }>`
-  border: 0.2rem solid ${props => props.todoListColor}; 
-  color: ${props => props.todoListColor};
-  &::placeholder {
-    color: ${props => props.todoListColor};
-  }
-  align-items: center;
-  border-radius: 1rem;
+  border: none;
+  border-bottom: 3px solid var(--color-shadow);
+  border-bottom-color: var(${(props) => props.todoListColor});
   outline: none;
-  padding-left: 0.8rem;
-  font-size: 3rem;
-  font-family: var(--font-large);
-  margin: var(--spacing-small);
-`;
-
-const StyledTodoListSubmitInput = styled.input`
-  align-items: center;
-  min-width: 9rem;
-  max-width: 9rem;
-  min-height: 4.4rem;
-  max-height: 4.4rem;
-  border-radius: 1rem;
-  font-size: 2.5rem;
-  font-family: var(--font-regular);
-  margin: var(--spacing-small);
-  background: var(--color-bg-light);
+  width: 100%;
+  font: var(--font-large);
   color: var(--color-text-body);
-  border: 0.2rem solid var(--color-bg-light);
-  outline: none;
-  cursor: pointer;
-  &:hover {
-    background: var(--color-text-body);
-    color: var(--color-bg-light);
-    border: 0.2rem solid var(--color-bg-light);
+  &::placeholder {
+    color: var(--color-text-subtitle);
   }
 `;
 
-const StyledColors = styled.div`
-  color: var(--color-primary-1);
-  display: inline-box;
-  align-items: center;
+const ButtonContainer = styled.div`
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+`;
+
+const SubmitButton = styled.div<{ secondary?: boolean }>`
+  cursor: pointer;
+  padding: var(--spacing-tiny) var(--spacing-base);
+  border-radius: 1rem;
+  background-color: var(--color-primary);
+  flex: 1 1 0px;
   margin: var(--spacing-tiny);
+  text-align: center;
+  ${(props) =>
+    props.secondary &&
+    `
+  background-color: var(--color-shadow);
+  span {
+    color: var(--color-text-body) !important;
+  }
+  `}
+`;
+
+const ColorContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: var(--spacing-base);
+`;
+
+const ColorOption = styled.div<{ color: string; selected?: boolean }>`
   min-width: 4rem;
   max-width: 4rem;
   min-height: 4rem;
   max-height: 4rem;
   border-radius: 50%;
-  border: 1px solid var(--color-nav-item-text);
+  margin: var(--spacing-tiny);
   cursor: pointer;
-  transition: transform 0.2s;
+  background-color: var(--color-primary);
+  background-color: var(${(props) => props.color});
+  transition: all 0.2s;
+  border: 3px solid transparent;
+  ${(props) => props.selected && 'border-color: var(--color-text-body);'}
   &:hover {
-    transform: translateY(-2px);
-  }    
+    transform: translateY(-3px);
+  }
 `;
 
 function TodoModal({ closeModal }: ITodoModalProps) {
   const { dispatch } = useContext(GlobalContext);
   const [todoListName, setTodoListName] = useState<string>('');
-  const [todoListColor, setTodoListColor] = useState<string>('#ff5a5f');
-  
+  const [todoListColor, setTodoListColor] = useState<string>(
+    '--color-primary-3'
+  );
 
   const addTaskList = (listTitle: string, color: string) => {
     dispatch({
@@ -123,49 +133,52 @@ function TodoModal({ closeModal }: ITodoModalProps) {
     }
   };
 
-  const handleColorChange = (event: React.SyntheticEvent<HTMLInputElement>) => {
-    setTodoListColor(event.currentTarget.value);
-  };
-
   return (
-    <StyledTodoList
+    <StyledForm
+      onSubmit={(event) => {
+        event.preventDefault();
+      }}
       onClick={(event) => {
         event.stopPropagation();
       }}
     >
-        <SytledForm
-          onSubmit={(event) => {
-            event.preventDefault();
-          }}
-        >
-          <div>
-            <StyledTodoListNameInput 
-              type="text"
-              placeholder="Todo list name"
-              value={todoListName}
-              onChange={handleChangeName}
-              required={true}
-              todoListColor={todoListColor}
-            />
-          </div> 
-          <div>
-            <StyledColors onClick={() => setTodoListColor('#ff5a5f')} style={{backgroundColor: '#ff5a5f'}}/>
-            <StyledColors onClick={() => setTodoListColor('#ff7777')} style={{backgroundColor: '#ff7777'}}/> 
-            <StyledColors onClick={() => setTodoListColor('#aed8a2')} style={{backgroundColor: '#aed8a2'}}/>
-            <StyledColors onClick={() => setTodoListColor('#7cd7ee')} style={{backgroundColor: '#7cd7ee'}}/>
-          </div>
-          <div>
-            <StyledColors onClick={() => setTodoListColor('#ffcc79')} style={{backgroundColor: '#ffcc79'}}/>
-            <StyledColors onClick={() => setTodoListColor('#c879ff')} style={{backgroundColor: '#c879ff'}}/>
-            <StyledColors onClick={() => setTodoListColor('#edb0d3')} style={{backgroundColor: '#edb0d3'}}/>
-            <StyledColors onClick={() => setTodoListColor('#a4dfdb')} style={{backgroundColor: '#a4dfdb'}}/>
-          </div>
-          <div>
-            <StyledTodoListSubmitInput type="submit" value="Save" onClick={saveForm} />
-            <StyledTodoListSubmitInput type="submit" value="Close" onClick={closeModal} />
-          </div> 
-        </SytledForm>
-    </StyledTodoList>
+      <FormHeader>
+        <Text type="large" size="3.25rem" color="var(--color-primary)">
+          Create a New List
+        </Text>
+      </FormHeader>
+      <div>
+        <StyledTodoListNameInput
+          type="text"
+          placeholder="New todo list name"
+          value={todoListName}
+          onChange={handleChangeName}
+          required={true}
+          todoListColor={todoListColor}
+        />
+      </div>
+      <ColorContainer>
+        {COLORS.map((color) => (
+          <ColorOption
+            color={color}
+            onClick={() => setTodoListColor(color)}
+            selected={todoListColor === color}
+          />
+        ))}
+      </ColorContainer>
+      <ButtonContainer>
+        <SubmitButton onClick={saveForm}>
+          <Text type="regular" color="white">
+            Add
+          </Text>
+        </SubmitButton>
+        <SubmitButton onClick={closeModal} secondary>
+          <Text type="regular" color="white">
+            Cancel
+          </Text>
+        </SubmitButton>
+      </ButtonContainer>
+    </StyledForm>
   );
 }
 

@@ -103,7 +103,7 @@ function TodoPage() {
       </StyledTodoListsButton>
       {isOpen && (
         <ModalBackground onClick={closeModal}>
-          <TodoModal closeModal={closeModal} {...lists[0]} />
+          <TodoModal closeModal={closeModal} />
         </ModalBackground>
       )}
     </div>

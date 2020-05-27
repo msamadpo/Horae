@@ -30,7 +30,7 @@ const StyledTodoList = styled.div`
 
 const Header = styled.div<{ color: string }>`
   background-color: var(--color-primary);
-  background-color: ${(props) => props.color};
+  background-color: var(${(props) => props.color});
   padding: var(--spacing-small);
   text-align: center;
 `;
