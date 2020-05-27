@@ -56,8 +56,10 @@ const ButtonContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-const SubmitButton = styled.div<{ secondary?: boolean }>`
+const SubmitButton = styled.button<{ secondary?: boolean }>`
   cursor: pointer;
+  outline: none;
+  border: 0;
   padding: var(--spacing-tiny) var(--spacing-base);
   border-radius: 1rem;
   background-color: var(--color-primary);
@@ -160,6 +162,7 @@ function TodoModal({ closeModal }: ITodoModalProps) {
       <ColorContainer>
         {COLORS.map((color) => (
           <ColorOption
+            key={color}
             color={color}
             onClick={() => setTodoListColor(color)}
             selected={todoListColor === color}
@@ -168,12 +171,12 @@ function TodoModal({ closeModal }: ITodoModalProps) {
       </ColorContainer>
       <ButtonContainer>
         <SubmitButton onClick={saveForm}>
-          <Text type="regular" color="white">
+          <Text type="small" color="white">
             Add
           </Text>
         </SubmitButton>
         <SubmitButton onClick={closeModal} secondary>
-          <Text type="regular" color="white">
+          <Text type="small" color="white">
             Cancel
           </Text>
         </SubmitButton>

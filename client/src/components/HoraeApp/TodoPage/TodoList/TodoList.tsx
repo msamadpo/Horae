@@ -28,7 +28,6 @@ const StyledTodoList = styled.div`
   flex-direction: column;
   border-radius: 1rem;
   max-width: 36rem;
-  overflow: hidden;
   box-shadow: 0px 2px 16px 0px rgba(219, 219, 219, 0.5);
   max-height: 75rem;
 `;
@@ -49,10 +48,12 @@ const StyledTodoListBody = styled.div`
 const Header = styled.div<{ color: string }>`
   display: grid;
   grid-template-columns: 1fr 3rem;
-  background-color: var(${(props) => props.color}, blue);
+  background-color: var(${(props) => props.color});
   padding: var(--spacing-small);
   text-align: center;
   align-items: center;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
   position: relative;
 `;
 

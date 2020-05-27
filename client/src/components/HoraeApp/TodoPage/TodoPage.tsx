@@ -32,6 +32,7 @@ const StyledTodoListsButton = styled.button`
   max-width: 7rem;
   background-color: var(--color-primary);
   position: fixed;
+  z-index: 0;
   bottom: 5rem;
   right: 5rem;
   border-radius: 50%;
