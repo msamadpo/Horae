@@ -7,6 +7,7 @@ import defaultCalendar from 'assets/img/calendar-icon.svg';
 import whiteAvatar from 'assets/img/user-icon-white.svg';
 import defaultAvatar from 'assets/img/user-icon.svg';
 import trashcan from 'assets/img/trash-can.svg';
+import whiteTrashcan from 'assets/img/trash-can-white.svg';
 import edit from 'assets/img/edit-pen.svg';
 import chevronLeft from 'assets/img/chevron-left.svg';
 import chevronRight from 'assets/img/chevron-right.svg';
@@ -67,7 +68,7 @@ function Icon({
     case 'trash':
       return (
         <StyledImg
-          src={trashcan}
+          src={white ? whiteTrashcan : trashcan}
           height={height}
           alt=""
           onClick={onClick}

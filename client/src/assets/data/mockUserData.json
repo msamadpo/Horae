@@ -217,7 +217,7 @@
       "id": "123456789",
       "title": "CSE 110",
       "settings": {
-        "color": "#ff5a5f"
+        "color": "--color-primary-3"
       },
       "tasks": [
         {
@@ -244,7 +244,7 @@
       "id": "12345678910",
       "title": "CSE 107",
       "settings": {
-        "color": "#ff5a5f"
+        "color": "--color-primary-5"
       },
       "tasks": [
         {

@@ -41,6 +41,7 @@ const StyledTodoList = styled.div`
 
 const StyledTodoListBody = styled.div`
   overflow-y: auto;
+  overflow-x: hidden;
   &::-webkit-scrollbar {
     background-color: rgba(0, 0, 0, 0.03);
     width: 10px;
@@ -51,28 +52,84 @@ const StyledTodoListBody = styled.div`
   }
 `;
 
-const IconContainer = styled.div`
-  padding: var(--spacing-medium);
+const EditMenu = styled.div`
+  padding: var(--spacing-small);
   position: absolute;
-  right: 5px;
-  top: 5px;
-  background-color: transparent;
+  right: 25px;
+  top: 25px;
+  z-index: 1;
+  background-color: white;
+  border-radius: 1rem;
+  border-top-right-radius: 1px;
+  border: 1px solid var(--color-shadow);
+  box-shadow: 2px 5px 10px #999;
+  max-width: 20rem;
+`;
+
+const ColorPickerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: var(--spacing-tiny) 0;
+  cursor: pointer;
+`;
+
+const COLORS = [
+  '--color-primary-1',
+  '--color-primary-2',
+  '--color-primary-3',
+  '--color-primary-4',
+  '--color-primary-5',
+  '--color-primary-6',
+  '--color-primary-7',
+  '--color-primary',
+];
+
+const ColorPickerOption = styled.div<{ color: string; selected: boolean }>`
+  background-color: var(${(props) => props.color});
+  transition: border 0.2s;
+  ${(props) => props.selected && `border: 2px solid #333;`}
+  box-sizing: border-box;
+  min-width: 3rem;
+  max-width: 3rem;
+  min-height: 3rem;
+  max-height: 3rem;
+  border-radius: 50%;
+  margin: 5px;
 `;
 
 const Header = styled.div<{ color: string }>`
   display: grid;
   grid-template-columns: 1fr 3rem;
-  background-color: ${(props) => props.color || 'var(--color-primary)'};
+  background-color: var(${(props) => props.color}, blue);
   padding: var(--spacing-small);
   text-align: center;
+  align-items: center;
   position: relative;
+`;
+
+const DeleteButton = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-primary);
+  border-radius: 6px;
+  padding: 5px 10px;
+  transition: all 0.2s;
+  &:hover {
+    background-color: var(--color-primary);
+    span {
+      color: white !important;
+    }
+  }
 `;
 
 function TodoList({ id, title, tasks, settings }: ITodoProps) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [editedName, setEditedName] = useState<string>(title);
-  const { dispatch } = useContext(GlobalContext);
   const [taskList, setTaskList] = useState<Task[]>(tasks);
+  const { dispatch } = useContext(GlobalContext);
 
   useEffect(() => {
     setTaskList(tasks);
@@ -113,29 +170,8 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
     });
   };
 
-  const completeTask = (taskId: string, completed: boolean) => {
-    dispatch({
-      type: 'EDIT_TASK',
-      payload: {
-        taskId: taskId,
-        taskListId: id,
-        task: {
-          completed: completed,
-        },
-      },
-    });
-  };
-
   const toggleEditMode = () => {
     setIsEditing(!isEditing);
-  };
-
-  const handleRemoveTask = () => {
-    removeTask(id);
-  };
-
-  const handleEditName = () => {
-    setEditedName('');
   };
 
   const editTaskList = (updates: EditTaskListPayload) => {
@@ -169,30 +205,36 @@ function TodoList({ id, title, tasks, settings }: ITodoProps) {
         <Text type="large" color="white" weight="500">
           {title}
         </Text>
-        <Icon type="kebab" white={false} height={20} onClick={toggleEditMode} />
-        {isEditing && (
-          <IconContainer>
-            <Icon
-              type="trash"
-              white={false}
-              height={20}
-              {...handleRemoveTask}
-            />
-            <Icon
-              type="edit"
-              white={false}
-              height={20}
-              onClick={handleEditName}
-            />
-            <Icon type="paint" white={false} height={20} />
-            <Icon
-              type="exit"
-              white={false}
-              height={20}
-              onClick={toggleEditMode}
-            />
-          </IconContainer>
-        )}
+        <div>
+          <Icon
+            type="kebab"
+            white={false}
+            height={20}
+            onClick={toggleEditMode}
+          />
+          {isEditing || (
+            <EditMenu>
+              <input type="text" value={title} />
+              <ColorPickerContainer>
+                {COLORS.map((color) => (
+                  <ColorPickerOption
+                    color={color}
+                    selected={settings.color === color}
+                  />
+                ))}
+              </ColorPickerContainer>
+              <DeleteButton>
+                <Text
+                  type="small"
+                  color="var(--color-primary)"
+                  margins={['none', 'none', 'none', 'tiny']}
+                >
+                  Delete List
+                </Text>
+              </DeleteButton>
+            </EditMenu>
+          )}
+        </div>
       </Header>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId={id}>
