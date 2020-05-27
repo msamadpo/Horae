@@ -1,9 +1,16 @@
 import React, { useContext, useState } from 'react';
 import GlobalContext from 'context/GlobalContext';
-import TodoList from 'components/HoraeApp/TodoPage/TodoList/TodoList';
-import TodoModal from 'components/HoraeApp/TodoPage/TodoModal/TodoModal';
 import styled from 'styled-components';
+
 import Text from 'components/Common/Text';
+import TodoList from 'components/HoraeApp/TodoPage/TodoList/TodoList';
+import TodoModal from 'components/HoraeApp/TodoPage/TodoModal';
+
+const TodoPageBody = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+`;
 
 const ModalBackground = styled.div`
   display: flex;
@@ -40,46 +47,10 @@ const StyledTodoListsButton = styled.button`
 `;
 
 function TodoPage() {
-  const { data, dispatch } = useContext(GlobalContext);
-  const lists = data.todo_lists;
+  const { data } = useContext(GlobalContext);
+  const taskLists = data.todo_lists;
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const addTask = () => {
-    dispatch({
-      type: 'ADD_TASK',
-      payload: {
-        taskListId: '123456789',
-        task: {
-          name: 'New Task',
-          completed: false,
-        },
-      },
-    });
-  };
-
-  const editTask = () => {
-    dispatch({
-      type: 'EDIT_TASK',
-      payload: {
-        taskListId: '123456789',
-        taskId: '343ERHFGIR4545',
-        task: {
-          name: 'Edited Spinach',
-        },
-      },
-    });
-  };
-
-  const removeTask = () => {
-    dispatch({
-      type: 'REMOVE_TASK',
-      payload: {
-        taskListId: '123456789',
-        taskId: '343ERHFGIR4545',
-      },
-    });
-  };
 
   const toggleOpenMode = () => {
     setIsOpen(!isOpen);
@@ -90,12 +61,12 @@ function TodoPage() {
   };
 
   return (
-    <div
-      style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 1fr)' }}
-    >
-      {lists.map((list) => (
-        <TodoList {...list} />
-      ))}
+    <>
+      <TodoPageBody>
+        {taskLists.map((taskList) => (
+          <TodoList key={taskList.id} {...taskList} />
+        ))}
+      </TodoPageBody>
       <StyledTodoListsButton onClick={toggleOpenMode}>
         <Text type="heading1" weight="300" color="white">
           +
@@ -106,7 +77,7 @@ function TodoPage() {
           <TodoModal closeModal={closeModal} />
         </ModalBackground>
       )}
-    </div>
+    </>
   );
 }
 

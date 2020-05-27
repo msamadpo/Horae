@@ -11,6 +11,7 @@ import {
   EditTaskListPayload,
   addTaskList,
   editTaskList,
+  deleteTaskList,
 } from 'context/reducers/taskListReducer';
 
 export type GlobalState = typeof mockData;
@@ -25,6 +26,10 @@ export type Action =
   | {
       type: 'EDIT_TASK_LIST';
       payload: { taskListId: string; updates: EditTaskListPayload };
+    }
+  | {
+      type: 'DELETE_TASK_LIST';
+      payload: { taskListId: string };
     };
 
 export default function globalReducer(
@@ -42,6 +47,8 @@ export default function globalReducer(
       return addTaskList(state, action);
     case 'EDIT_TASK_LIST':
       return editTaskList(state, action);
+    case 'DELETE_TASK_LIST':
+      return deleteTaskList(state, action);
     default:
       return state;
   }

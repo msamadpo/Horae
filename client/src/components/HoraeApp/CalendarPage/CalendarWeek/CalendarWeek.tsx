@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import GlobalContext from 'context/GlobalContext';
 import styled from 'styled-components';
-import { addDays, subDays, eachDayOfInterval } from 'date-fns';
-import Text from 'components/Common/Text';
+import {
+  addDays,
+  subDays,
+  eachDayOfInterval,
+  addWeeks,
+  isWithinInterval,
+} from 'date-fns';
 import WeekHeader from 'components/HoraeApp/CalendarPage/CalendarWeek/WeekHeader';
+import { CalendarEvent, Calendar } from 'context/reducers/calendarEventReducer';
+import CalendarItem from 'components/HoraeApp/CalendarPage/CalendarWeek/CalendarEventItem';
 
 const Container = styled.div`
   height: 100%;
@@ -18,7 +26,7 @@ const WeekBody = styled.div`
 
 const ColumnContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, minmax(15rem, 1fr));
   height: 100%;
 `;
 
@@ -32,23 +40,75 @@ interface ICalendarWeekProps {
   startDate?: Date;
 }
 
-const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+type CalendarEventItemType = CalendarEvent & { color: string };
+
+const indexEventsByDate = (calendars: Calendar[]) => {
+  const indexedEvents = new Map<string, CalendarEventItemType[]>();
+  calendars.forEach((calendar) => {
+    calendar.events.forEach((event) => {
+      const dateKey = new Date(Date.parse(event.date)).toDateString();
+      if (indexedEvents.has(dateKey)) {
+        indexedEvents
+          .get(dateKey)
+          ?.push({ ...event, color: calendar.settings.color });
+      } else {
+        indexedEvents.set(dateKey, [
+          { ...event, color: calendar.settings.color },
+        ]);
+      }
+    });
+  });
+  return indexedEvents;
+};
 
 function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
-  const lastSunday = subDays(startDate, startDate.getDay());
-  const comingSaturday = addDays(startDate, 6 - startDate.getDay());
+  const { data } = useContext(GlobalContext);
+  const [start, setStart] = useState<Date>(startDate);
+  const lastSunday = subDays(start, start.getDay());
+  const nextSaturday = addDays(start, 6 - start.getDay());
   const currentDates = eachDayOfInterval({
     start: lastSunday,
-    end: comingSaturday,
+    end: nextSaturday,
   });
+
+  const [indexedEvents, setIndexedEvents] = useState<
+    Map<string, CalendarEventItemType[]>
+  >(indexEventsByDate(data.calendars));
+
+  useEffect(() => {
+    setIndexedEvents(indexEventsByDate(data.calendars));
+  }, [data.calendars]);
+
+  const changeWeeks = (numWeeks: number) => {
+    if (numWeeks === 0) {
+      setStart(new Date());
+    } else {
+      setStart(addWeeks(start, numWeeks));
+    }
+  };
+
   return (
     <Container>
-      <WeekHeader dates={currentDates} />
+      <WeekHeader
+        dates={currentDates}
+        changeWeeks={changeWeeks}
+        showBackButton={
+          !isWithinInterval(new Date(), {
+            start: lastSunday,
+            end: nextSaturday,
+          })
+        }
+      />
       <WeekBody>
         <ColumnContainer>
-          {DAYS.map((day, index) => (
-            <CalendarColumns key={index}>
-              <Text type="small">Display events on {day}</Text>
+          {currentDates.map((date) => (
+            <CalendarColumns key={date.toString()}>
+              {indexedEvents
+                ?.get(date.toDateString())
+                ?.sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
+                .map((event) => {
+                  return <CalendarItem {...event} key={event.id} />;
+                })}
             </CalendarColumns>
           ))}
         </ColumnContainer>
