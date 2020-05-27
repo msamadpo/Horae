@@ -33,51 +33,23 @@ const SytledForm = styled.form`
   border-radius: 1rem;
   margin: var(--spacing-small);
   padding: var(--spacing-tiny);
+  cursor: default;
 `;
 
-const StyledTodoListNameInput = styled.input`
-  color: var(--color-primary);
+const StyledTodoListNameInput = styled.input<{ todoListColor: string }>`
+  border: 0.2rem solid ${props => props.todoListColor}; 
+  color: ${props => props.todoListColor};
   &::placeholder {
-    color: var(--color-primary);
+    color: ${props => props.todoListColor};
   }
   align-items: center;
   border-radius: 1rem;
   outline: none;
-  border: none;
   padding-left: 0.8rem;
   font-size: 3rem;
   font-family: var(--font-large);
   margin: var(--spacing-small);
 `;
-
-//  opacity: 0;
-const StyledTodoListColorInput = styled.input`
-background: var(--color-text-body);
-outline: none;
-border: none;
-margin: var(--spacing-small);
-min-width: 5rem;
-max-width: 5rem;
-min-height: 3rem;
-max-height: 3rem;
-cursor: pointer;
-`;
-
-
-// This is for trying to get the color-picker to be a circle
-const StyledColorInputBox = styled.div<{ todoListColor: string }>`
-  background: ${props => props.todoListColor}; 
-  background: white;
-  outline: none;
-  border: none;
-  margin: var(--spacing-small);
-  min-width: 4rem;
-  max-width: 4rem;
-  min-height: 4rem;
-  max-height: 4rem;
-  border-radius: 40%;
-  cursor: pointer;
-`
 
 const StyledTodoListSubmitInput = styled.input`
   align-items: center;
@@ -113,10 +85,10 @@ const StyledColors = styled.div`
   border-radius: 50%;
   border: 1px solid var(--color-nav-item-text);
   cursor: pointer;
+  transition: transform 0.2s;
   &:hover {
-    color: var(--color-bg-light);
-    text-decoration: underline;
-  }
+    transform: translateY(-2px);
+  }    
 `;
 
 function TodoModal({ closeModal }: ITodoModalProps) {
@@ -167,25 +139,14 @@ function TodoModal({ closeModal }: ITodoModalProps) {
           }}
         >
           <div>
-            <StyledTodoListNameInput
+            <StyledTodoListNameInput 
               type="text"
               placeholder="Todo list name"
               value={todoListName}
               onChange={handleChangeName}
               required={true}
+              todoListColor={todoListColor}
             />
-            {/* To customize the color-picker, you need to wrap input tag in a label 
-                then set the input to hidden. Then you change the label to the color-picker
-                but I could not get it working */}
-            {/* <StyledColorInputBox todoListColor={todoListColor}> */}
-            <StyledTodoListColorInput
-              type="color"
-              onChange={handleColorChange} 
-              value={todoListColor}
-
-            />              
-            {/* <StyledColorInputBox todoListColor={todoListColor}/> */}
-            {/* </StyledColorInputBox> */}
           </div> 
           <div>
             <StyledColors onClick={() => setTodoListColor('#ff5a5f')} style={{backgroundColor: '#ff5a5f'}}/>
