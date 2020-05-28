@@ -11,6 +11,12 @@ const StyledItem = styled.div<{ color: string }>`
   border-radius: 1rem;
   background-color: var(${(props) => props.color});
   margin: 1rem;
+  transition: all 0.2s;
+  border: 3px solid transparent;
+  cursor: pointer;
+  &:hover {
+    border-color: var(--color-text-subtitle);
+  }
 `;
 
 function CalendarEventItem({
@@ -32,6 +38,7 @@ function CalendarEventItem({
     minute: 'numeric',
     hour12: true,
   });
+
   return (
     <StyledItem color={color}>
       <Text color="white" type="regular" weight="400">
