@@ -9,13 +9,7 @@ export type NewTaskListPayload = {
   };
 };
 
-export type EditTaskListPayload = {
-  title?: string;
-  tasks?: Task[];
-  settings?: {
-    color: string;
-  };
-};
+export type EditTaskListPayload = Partial<NewTaskListPayload>;
 
 export const addTaskList = (state: GlobalState, action: Action) => {
   if (action.type !== 'ADD_TASK_LIST') {

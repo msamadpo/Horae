@@ -7,17 +7,8 @@ export type Task = {
   completed: boolean;
 };
 
-export type NewTaskPayload = {
-  name: string;
-  deadline?: string;
-  completed: boolean;
-};
-
-export type EditTaskPayload = {
-  name?: string;
-  deadline?: string;
-  completed?: boolean;
-};
+export type NewTaskPayload = Omit<Task, 'id'>;
+export type EditTaskPayload = Partial<NewTaskPayload>;
 
 export const addTask = (state: GlobalState, action: Action) => {
   if (action.type !== 'ADD_TASK') {

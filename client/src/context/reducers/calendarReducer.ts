@@ -47,7 +47,6 @@ export const addCalendar = (state: GlobalState, action: Action) => {
   };
   const newCalendars = [...state.calendars, newCalendar];
   console.log('Dispatch ADD_CALENDAR');
-  console.log({ ...state, calendars: newCalendars });
   return { ...state, calendars: newCalendars };
 };
 
@@ -64,34 +63,17 @@ export const editCalendar = (state: GlobalState, action: Action) => {
   const newCalendars = state.calendars.map((calendar) =>
     calendar.id === action.payload.calendarId ? newCalendar : calendar
   );
-  console.log('Dispatch EDIT_TASK_LIST');
+  console.log('Dispatch EDIT_CALENDAR');
   return { ...state, calendars: newCalendars };
 };
 
-// export const editTaskList = (state: GlobalState, action: Action) => {
-//   if (action.type !== 'EDIT_TASK_LIST') {
-//     return state;
-//   }
-// const newTaskList = {
-//   ...state.todo_lists.filter(
-//     (list) => list.id === action.payload.taskListId
-//   )[0],
-//   ...action.payload.updates,
-// };
-// const newTaskLists = state.todo_lists.map((list) =>
-//   list.id === action.payload.taskListId ? newTaskList : list
-// );
-// console.log('Dispatch EDIT_TASK_LIST');
-// return { ...state, todo_lists: newTaskLists };
-// };
-
-// export const deleteTaskList = (state: GlobalState, action: Action) => {
-//   if (action.type !== 'DELETE_TASK_LIST') {
-//     return state;
-//   }
-//   const newTaskLists = state.todo_lists.filter(
-//     (list) => list.id !== action.payload.taskListId
-//   );
-//   console.log('Dispatch DELETE_TASK_LIST');
-//   return { ...state, todo_lists: newTaskLists };
-// };
+export const deleteCalendar = (state: GlobalState, action: Action) => {
+  if (action.type !== 'DELETE_CALENDAR') {
+    return state;
+  }
+  const newCalendars = state.calendars.filter(
+    (calendar) => calendar.id !== action.payload.calendarId
+  );
+  console.log('Dispatch DELETE_CALENDAR');
+  return { ...state, calendars: newCalendars };
+};

@@ -14,13 +14,19 @@ import {
   deleteTaskList,
 } from 'context/reducers/taskListReducer';
 import {
-  Calendar,
-  CalendarEvent,
   NewCalendarPayload,
   EditCalendarPayload,
   addCalendar,
   editCalendar,
+  deleteCalendar,
 } from 'context/reducers/calendarReducer';
+import {
+  NewCalendarEventPayload,
+  EditCalendarEventPayload,
+  addCalendarEvent,
+  editCalendarEvent,
+  deleteCalendarEvent,
+} from 'context/reducers/calendarEventReducer';
 
 export type GlobalState = typeof mockData;
 export type Action =
@@ -50,6 +56,22 @@ export type Action =
   | {
       type: 'DELETE_CALENDAR';
       payload: { calendarId: string };
+    }
+  | {
+      type: 'ADD_CALENDAR_EVENT';
+      payload: { calendarId: string; event: NewCalendarEventPayload };
+    }
+  | {
+      type: 'DELETE_CALENDAR_EVENT';
+      payload: { calendarId: string; eventId: string };
+    }
+  | {
+      type: 'EDIT_CALENDAR_EVENT';
+      payload: {
+        calendarId: string;
+        eventId: string;
+        task: EditCalendarEventPayload;
+      };
     };
 
 export default function globalReducer(
@@ -98,7 +120,22 @@ export default function globalReducer(
       return newState;
     }
     case 'DELETE_CALENDAR': {
-      const newState = addCalendar(state, action);
+      const newState = deleteCalendar(state, action);
+      localStorage.setItem('horaeData', JSON.stringify(newState));
+      return newState;
+    }
+    case 'ADD_CALENDAR_EVENT': {
+      const newState = addCalendarEvent(state, action);
+      localStorage.setItem('horaeData', JSON.stringify(newState));
+      return newState;
+    }
+    case 'EDIT_CALENDAR_EVENT': {
+      const newState = editCalendarEvent(state, action);
+      localStorage.setItem('horaeData', JSON.stringify(newState));
+      return newState;
+    }
+    case 'DELETE_CALENDAR_EVENT': {
+      const newState = deleteCalendarEvent(state, action);
       localStorage.setItem('horaeData', JSON.stringify(newState));
       return newState;
     }
