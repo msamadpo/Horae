@@ -36,25 +36,24 @@ export const editCalendarEvent = (state: GlobalState, action: Action) => {
   if (action.type !== 'EDIT_CALENDAR_EVENT') {
     return state;
   }
-  // const currentList = {
-  //   ...state.todo_lists.filter(
-  //     (list) => list.id === action.payload.taskListId
-  //   )[0],
-  // };
-  // const newTaskList = {
-  //   ...currentList,
-  //   tasks: currentList.tasks.map((task) =>
-  //     task.id === action.payload.taskId
-  //       ? { ...task, ...action.payload.task }
-  //       : task
-  //   ),
-  // };
-  // const newTaskLists = state.todo_lists.map((todoList) =>
-  //   todoList.id === action.payload.taskListId ? newTaskList : todoList
-  // );
-  // console.log('Dispatch REMOVE_TASK');
-  // return { ...state, todo_lists: newTaskLists };
-  return state;
+  const currentCalendar = {
+    ...state.calendars.filter(
+      (calendar) => calendar.id === action.payload.calendarId
+    )[0],
+  };
+  const newCalendar = {
+    ...currentCalendar,
+    events: currentCalendar.events.map((event) =>
+      event.id === action.payload.eventId
+        ? { ...event, ...action.payload.event }
+        : event
+    ),
+  };
+  const newCalendars = state.calendars.map((calendar) =>
+    calendar.id === action.payload.calendarId ? newCalendar : calendar
+  );
+  console.log('Dispatch EDIT_CALENDAR_EVENT');
+  return { ...state, calendars: newCalendars };
 };
 
 export const deleteCalendarEvent = (state: GlobalState, action: Action) => {

@@ -70,7 +70,7 @@ export type Action =
       payload: {
         calendarId: string;
         eventId: string;
-        task: EditCalendarEventPayload;
+        event: EditCalendarEventPayload;
       };
     };
 
