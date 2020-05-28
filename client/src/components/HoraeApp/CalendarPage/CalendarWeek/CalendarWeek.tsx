@@ -102,14 +102,14 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
       <WeekBody
         onClick={() => {
           dispatch({
-            type: 'ADD_CALENDAR',
+            type: 'EDIT_CALENDAR',
             payload: {
-              calendar: {
+              calendarId: '1',
+              updates: {
                 title: 'NEW CALENDAR',
                 settings: {
-                  color: '--color-primary-2',
+                  color: '--color-primary-4',
                 },
-                events: [],
               },
             },
           });

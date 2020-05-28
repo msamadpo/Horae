@@ -19,6 +19,7 @@ import {
   NewCalendarPayload,
   EditCalendarPayload,
   addCalendar,
+  editCalendar,
 } from 'context/reducers/calendarReducer';
 
 export type GlobalState = typeof mockData;
@@ -92,7 +93,7 @@ export default function globalReducer(
       return newState;
     }
     case 'EDIT_CALENDAR': {
-      const newState = addCalendar(state, action);
+      const newState = editCalendar(state, action);
       localStorage.setItem('horaeData', JSON.stringify(newState));
       return newState;
     }
