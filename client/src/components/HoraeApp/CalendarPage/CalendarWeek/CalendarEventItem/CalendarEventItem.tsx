@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Text from 'components/Common/Text';
-import { CalendarEvent } from 'context/reducers/calendarEventReducer';
+import { CalendarEvent } from 'context/reducers/calendarReducer';
 import { add } from 'date-fns';
 
 export type CalendarEventItemProps = CalendarEvent & { color: string };

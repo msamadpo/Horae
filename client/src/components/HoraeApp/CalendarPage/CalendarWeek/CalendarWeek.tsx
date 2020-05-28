@@ -9,7 +9,7 @@ import {
   isWithinInterval,
 } from 'date-fns';
 import WeekHeader from 'components/HoraeApp/CalendarPage/CalendarWeek/WeekHeader';
-import { CalendarEvent, Calendar } from 'context/reducers/calendarEventReducer';
+import { CalendarEvent, Calendar } from 'context/reducers/calendarReducer';
 import CalendarItem from 'components/HoraeApp/CalendarPage/CalendarWeek/CalendarEventItem';
 
 const Container = styled.div`
@@ -62,7 +62,7 @@ const indexEventsByDate = (calendars: Calendar[]) => {
 };
 
 function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
-  const { data } = useContext(GlobalContext);
+  const { data, dispatch } = useContext(GlobalContext);
   const [start, setStart] = useState<Date>(startDate);
   const lastSunday = subDays(start, start.getDay());
   const nextSaturday = addDays(start, 6 - start.getDay());
@@ -99,7 +99,22 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
           })
         }
       />
-      <WeekBody>
+      <WeekBody
+        onClick={() => {
+          dispatch({
+            type: 'ADD_CALENDAR',
+            payload: {
+              calendar: {
+                title: 'NEW CALENDAR',
+                settings: {
+                  color: '--color-primary-2',
+                },
+                events: [],
+              },
+            },
+          });
+        }}
+      >
         <ColumnContainer>
           {currentDates.map((date) => (
             <CalendarColumns key={date.toString()}>
