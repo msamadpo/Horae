@@ -99,20 +99,7 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
           })
         }
       />
-      <WeekBody
-        onClick={() => {
-          dispatch({
-            type: 'EDIT_CALENDAR_EVENT',
-            payload: {
-              calendarId: '0',
-              eventId: '8571',
-              event: {
-                name: 'HOLA',
-              },
-            },
-          });
-        }}
-      >
+      <WeekBody>
         <ColumnContainer>
           {currentDates.map((date) => (
             <CalendarColumns key={date.toString()}>
