@@ -37,7 +37,7 @@ const StyledTodoListBody = styled.div`
   overflow-x: hidden;
   &::-webkit-scrollbar {
     background-color: rgba(0, 0, 0, 0.03);
-    width: 10px;
+    width: 8px;
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 2rem;

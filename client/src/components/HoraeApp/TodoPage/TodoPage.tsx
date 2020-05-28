@@ -63,6 +63,9 @@ function TodoPage() {
 
   return (
     <>
+      <Text type="heading1" styleProp="text-align: center;">
+        Todo Lists
+      </Text>
       <TodoPageBody>
         {taskLists.map((taskList) => (
           <TodoList key={taskList.id} {...taskList} />
