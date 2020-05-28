@@ -60,7 +60,7 @@ const userId = req.params.userId;
 
 
 // UPDATE an avatar
-router.patch('/:users/:avatarId', server, (req, res) => {
+router.patch('/:userId/:avatarId', server, (req, res) => {
   const {userId, avatarId} = req.params;
   const {hair_style, hair_color, skin_color, eyes_color, tops, bottoms, shoes,
     headwear, facial_hair, accessories} = req.body;
@@ -78,18 +78,17 @@ router.patch('/:users/:avatarId', server, (req, res) => {
       facial_hair: facial_hair,
       accessories: accessories
     })
-  .then(()=> res.json({status: 200, message: 'Successfully updated avatar' }))
+  .then(()=> res.json({status: 200, message: 'Successfully updated avatar ' + userId}))
   .catch((err) => res.json({error: err.message}))
 
 });
 
 // DELETE avatar
-router.delete('/:users/:avatarId', (req, res) => {
-  //console.log('avatarId:', req.params.avatarId);
+router.delete('/:userId/:avatarId', (req, res) => {
   const {userId, avatarId} = req.params;
 
   db.ref('users/' + userId+ '/avatar/' + avatarId).remove()
-  .then( ()=> res.json({status: 200, message: 'Successfully deleted avatar' }))
+  .then( ()=> res.json({status: 200, message: 'Successfully deleted avatar ' + userId}))
   .catch((err) => res.json({error: err.message}));
   
 });
