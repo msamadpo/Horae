@@ -62,7 +62,7 @@ const indexEventsByDate = (calendars: Calendar[]) => {
 };
 
 function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
-  const { data, dispatch } = useContext(GlobalContext);
+  const { data } = useContext(GlobalContext);
   const [start, setStart] = useState<Date>(startDate);
   const lastSunday = subDays(start, start.getDay());
   const nextSaturday = addDays(start, 6 - start.getDay());
