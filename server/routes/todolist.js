@@ -2,19 +2,19 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const firebase = require('../config/firebase');
+//const server = require('../server');
 
+const db = firebase.database();
 // CREATE a TodoList
 router.post('/', (req, res) => {
-  console.log('Creating TodoList');
 
-  const { userId, title, description, settings } = req.body;
-  const todoList = { title, description, settings, tasks: [], numOfTasks: 0 };
-  const data = firebase
-    .database()
+  const { userId, title, description} = req.body;
+  const todoList = { title, description, tasks: [], numOfTasksAdded: 0 };
+  const data = db
     .ref('users/' + userId + '/todo/')
     .push();
   data
-    .set({ ...todoList, id: data.key })
+    .set({ ...todoList, todoListid: data.key })
     .then(() => {
       res.json({
         key: data.key,
@@ -28,8 +28,7 @@ router.get('/:userId', (req, res) => {
   console.log('Reading ALL TodoList');
   const userId = req.params.userId;
 
-  firebase
-    .database()
+  db
     .ref('users/' + userId + '/todo/')
     .once('value')
     .then((data) => res.json(data.val()))
@@ -39,10 +38,8 @@ router.get('/:userId', (req, res) => {
 // READ one TodoList
 router.get('/:userId/:todoListId', (req, res) => {
   console.log('Reading ONE TodoList');
-  const userId = req.params.userId;
-  const todoListId = req.params.todoList;
-  firebase
-    .database()
+  const {userId, todoListId} = req.params;
+  db
     .ref('users/' + userId + '/todo/' + todoListId)
     .once('value')
     .then((data) => res.json(data.val()))
@@ -52,13 +49,11 @@ router.get('/:userId/:todoListId', (req, res) => {
 // UPDATE a TodoList
 router.patch('/:userId/:todoListId', (req, res) => {
   console.log('Updating ONE TodoList');
-  const userId = req.params.userId;
-  const todoListId = req.params.todoList;
 
-  const { title, description, settings } = req.body;
-  const updates = { title, description, settings };
-  firebase
-    .database()
+  const {userId, todoListId} = req.params;
+  const { title, description} = req.body;
+  const updates = { title, description};
+  db
     .ref('users/' + userId + '/todo/' + todoListId)
     .update(updates)
     .then(() =>
@@ -70,11 +65,9 @@ router.patch('/:userId/:todoListId', (req, res) => {
 // DELETE a TodoList
 router.delete('/:userId/:todoListId', (req, res) => {
   console.log('Deleting ONE TodoList');
-  const userId = req.params.userId;
-  const todoListId = req.params.todoList;
+  const {userId, todoListId} = req.params;
 
-  firebase
-    .database()
+  db
     .ref('users/' + userId + '/todo/' + todoListId)
     .remove()
     .then(() =>
