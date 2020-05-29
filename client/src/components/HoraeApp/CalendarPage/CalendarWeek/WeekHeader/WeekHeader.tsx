@@ -40,6 +40,7 @@ interface IWeekHeader {
   showBackButton?: boolean;
   changeWeeks: (numWeeks: number) => void;
 }
+
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const composeDateString = (
