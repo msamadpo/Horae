@@ -13,6 +13,9 @@ const CalendarDays = styled.div`
   padding: var(--spacing-tiny) 0;
   border-radius: 1.5rem;
   text-align: center;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  // border-bottom: 3px solid black;
 `;
 
 const StyledTodayButton = styled.div`
@@ -43,7 +46,10 @@ function MonthHeader({
   showBackButton = false,
   changeMonth,
 }: IMonthHeader) {
-  const month = date.toLocaleString('default', { month: 'long' });
+  const month = date.toLocaleString('default', {
+    month: 'short',
+    year: 'numeric',
+  });
 
   return (
     <>

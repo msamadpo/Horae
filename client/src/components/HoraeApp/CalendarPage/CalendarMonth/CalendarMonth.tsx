@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import MonthHeader from 'components/HoraeApp/CalendarPage/CalendarMonth/MonthHeader';
+import MonthItem from 'components/HoraeApp/CalendarPage/CalendarMonth/MonthItem';
 import {
   addMonths,
   isSameMonth,
@@ -9,6 +10,7 @@ import {
   eachDayOfInterval,
   subDays,
   addDays,
+  isToday,
 } from 'date-fns';
 
 const Container = styled.div`
@@ -23,6 +25,7 @@ const MonthBody = styled.div`
   background-color: var(--color-shadow);
   grid-column-gap: 1px;
   height: 100%;
+  border-top: 1px solid var(--color-shadow);
 `;
 
 const closestSundayBefore = (date: Date) => subDays(date, date.getDay());
@@ -53,12 +56,13 @@ function CalendarMonth() {
       />
       <MonthBody>
         {daysOfMonth.map((day) => (
-          <div
-            key={day.toLocaleDateString()}
-            style={{ background: 'white', padding: '1rem', marginBottom: 1 }}
-          >
-            {isSameMonth(day, date) ? day.getDate() : 'Not same month'}
-          </div>
+          <MonthItem
+            key={day.toLocaleString()}
+            date={day}
+            events={[]}
+            isSameMonth={isSameMonth(day, date)}
+            isToday={isToday(day)}
+          />
         ))}
       </MonthBody>
     </Container>
