@@ -27,7 +27,7 @@ const MonthBody = styled.div`
   background-color: var(--color-shadow);
   grid-column-gap: 1px;
   height: 100%;
-  border-top: 1px solid var(--color-shadow);
+  border: 1px solid var(--color-shadow);
 `;
 
 const closestSundayBefore = (date: Date) => subDays(date, date.getDay());

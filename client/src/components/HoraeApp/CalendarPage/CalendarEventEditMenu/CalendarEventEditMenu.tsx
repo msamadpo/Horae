@@ -30,6 +30,7 @@ const Overlay = styled.div`
 const EditMenu = styled.div<{ x: number; y: number }>`
   position: fixed;
   z-index: 2;
+  box-sizing: border-box;
   background-color: white;
   min-width: 25rem;
   min-height: 30rem;
@@ -55,7 +56,16 @@ type CalendarEventEditMenu = {
   closeModal: () => void;
 } & CalendarEvent;
 
-function CalendarEventEditMenu({ x, y, closeModal }: CalendarEventEditMenu) {
+function CalendarEventEditMenu({
+  x,
+  y,
+  name,
+  location,
+  date,
+  description,
+  duration,
+  closeModal,
+}: CalendarEventEditMenu) {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -63,15 +73,34 @@ function CalendarEventEditMenu({ x, y, closeModal }: CalendarEventEditMenu) {
       document.body.style.overflow = '';
     };
   }, []);
+
+  const inputDateString = new Date(date).toISOString().split('T')[0];
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(e.currentTarget);
+  };
+
   return (
     <>
       <Overlay onClick={closeModal} />
       <EditMenu x={x} y={y}>
-        <input type="text" placeholder="name" />
-        <input type="text" placeholder="location" />
-        <input type="date" placeholder="date" />
-        <input type="text" placeholder="description" />
-        <input type="text" placeholder="duration" />
+        <form action="" onSubmit={handleFormSubmit}>
+          <input type="text" placeholder="name" defaultValue={name} />
+          <input type="text" placeholder="location" defaultValue={location} />
+          <input
+            type="date"
+            placeholder="date"
+            defaultValue={inputDateString}
+          />
+          <input
+            type="text"
+            placeholder="description"
+            defaultValue={description}
+          />
+          <input type="text" placeholder="duration" defaultValue={duration} />
+          <input type="submit" />
+        </form>
       </EditMenu>
     </>
   );

@@ -32,7 +32,7 @@ const DateNum = styled.span<{ isToday: boolean }>`
 
 const StyledEvent = styled.div<{ color: string }>`
   background-color: var(${(props) => props.color});
-  padding: var(--spacing-tiny) var(--spacing-small);
+  padding: 5px var(--spacing-small);
   margin-top: var(--spacing-tiny);
   border-radius: 2rem;
   cursor: pointer;
@@ -71,7 +71,7 @@ function MonthItem({ date, isSameMonth, isToday, events }: IMonthItem) {
       </DateNum>
       {events?.map(
         ({ id, name, description, duration, date, color, location }) => (
-          <>
+          <div key={`month-${id}`}>
             {showMenu && (
               <CalendarEventEditMenu
                 id={id}
@@ -86,11 +86,11 @@ function MonthItem({ date, isSameMonth, isToday, events }: IMonthItem) {
               />
             )}
             <StyledEvent color={color} onClick={toggleMenu}>
-              <Text type="small" color="white" key={`month-${id}`}>
+              <Text type="small" color="white">
                 {name}
               </Text>
             </StyledEvent>
-          </>
+          </div>
         )
       )}
     </StyledMonthItem>
