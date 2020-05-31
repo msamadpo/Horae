@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Text from 'components/Common/Text';
 import { CalendarEventItemType } from 'hooks/useCalendarEvents';
 import CalendarEventEditMenu from 'components/HoraeApp/CalendarPage/CalendarEventEditMenu';
+import CalendarAddEventMenu from 'components/HoraeApp/CalendarPage/CalendarAddEventMenu';
 import { compareAsc } from 'date-fns';
 
 const StyledMonthItem = styled.div<{ blurred: boolean }>`
@@ -59,7 +60,8 @@ interface IMonthItem {
 }
 
 function MonthItem({ date, isSameMonth, isToday, events }: IMonthItem) {
-  const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [showEditMenu, setShowEditMenu] = useState<boolean>(false);
+  const [showAddMenu, setShowAddMenu] = useState<boolean>(false);
   const [editMenuData, setEditMenuData] = useState<CalendarEventItemType>(
     events?.[0]
   );
@@ -68,25 +70,40 @@ function MonthItem({ date, isSameMonth, isToday, events }: IMonthItem) {
     y: number;
   }>({ x: 0, y: 0 });
 
-  const toggleMenu = (
+  const toggleEditMenu = (
     event: React.MouseEvent<HTMLDivElement>,
     index: number
   ) => {
     event.stopPropagation();
     const { clientX, clientY } = event;
-    setShowMenu(!showMenu);
+    setShowEditMenu(!showEditMenu);
     setClickCoordinates({ x: clientX, y: clientY });
     setEditMenuData(events?.[index]);
   };
 
+  const toggleAddMenu = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    const { clientX, clientY } = event;
+    setShowAddMenu(!showAddMenu);
+    setClickCoordinates({ x: clientX, y: clientY });
+  };
+
   return (
-    <StyledMonthItem blurred={!isSameMonth}>
-      {showMenu && (
+    <StyledMonthItem blurred={!isSameMonth} onClick={toggleAddMenu}>
+      {showEditMenu && (
         <CalendarEventEditMenu
           {...editMenuData}
           x={clickCoordinates.x}
           y={clickCoordinates.y}
-          closeModal={() => setShowMenu(false)}
+          closeModal={() => setShowEditMenu(false)}
+        />
+      )}
+      {showAddMenu && (
+        <CalendarAddEventMenu
+          x={clickCoordinates.x}
+          y={clickCoordinates.y}
+          date={date}
+          closeModal={() => setShowAddMenu(false)}
         />
       )}
       <DateNum isToday={isToday}>
@@ -99,7 +116,7 @@ function MonthItem({ date, isSameMonth, isToday, events }: IMonthItem) {
           <StyledEvent
             color={color}
             onClick={(e) => {
-              toggleMenu(e, index);
+              toggleEditMenu(e, index);
             }}
             key={`month-${id}`}
           >

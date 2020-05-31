@@ -1,21 +1,19 @@
 import React, { useEffect, useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import styled from 'styled-components';
-import { CalendarEvent } from 'context/reducers/calendarReducer';
 import { addHours } from 'date-fns';
 
-const calculatedBorder = (x: number, y: number) => {
-  const xOffset = x + 250;
-  const yOffset = y + 300;
-  if (xOffset > window.innerWidth && yOffset > window.innerHeight) {
-    return 'border-bottom-right-radius: 0px;';
-  } else if (xOffset > window.innerWidth) {
-    return 'border-top-right-radius: 0px;';
-  } else if (yOffset > window.innerHeight) {
-    return 'border-bottom-left-radius: 0px;';
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  :root {
+    overflow: hidden;
   }
-  return 'border-top-left-radius: 0px;';
-};
+`;
 
 const StyledInput = styled.input<{ font?: string; color?: string }>`
   border: none;
@@ -29,20 +27,9 @@ const StyledInput = styled.input<{ font?: string; color?: string }>`
   }
   margin: var(--spacing-tiny) 0;
   transition: border-color 0.2s;
+  border-bottom: 2px solid var(--color-shadow);
   &:focus {
     border-bottom-color: var(--color-primary);
-  }
-`;
-
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-  :root {
-    overflow: hidden;
   }
 `;
 
@@ -69,11 +56,25 @@ const EditMenu = styled.form<{ x: number; y: number }>`
     ${(props) => calculatedBorder(props.x, props.y)};
 `;
 
+const calculatedBorder = (x: number, y: number) => {
+  const xOffset = x + 250;
+  const yOffset = y + 300;
+  if (xOffset > window.innerWidth && yOffset > window.innerHeight) {
+    return 'border-bottom-right-radius: 0px;';
+  } else if (xOffset > window.innerWidth) {
+    return 'border-top-right-radius: 0px;';
+  } else if (yOffset > window.innerHeight) {
+    return 'border-bottom-left-radius: 0px;';
+  }
+  return 'border-top-left-radius: 0px;';
+};
+
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
+
 const SaveButton = styled.button`
   cursor: pointer;
   outline: none;
@@ -87,6 +88,7 @@ const SaveButton = styled.button`
   border-radius: 1rem;
   padding: var(--spacing-tiny);
 `;
+
 const DeleteButton = styled.button`
   cursor: pointer;
   outline: none;
@@ -100,25 +102,19 @@ const DeleteButton = styled.button`
   padding: var(--spacing-tiny);
 `;
 
-type CalendarEventEditMenu = {
+interface ICalendarAddEventMenuProps {
   x: number;
   y: number;
-  calendarId: string;
   closeModal: () => void;
-} & CalendarEvent;
+  date: Date;
+}
 
-function CalendarEventEditMenu({
+function CalendarAddEventMenu({
   x,
   y,
-  name,
-  id,
-  location,
-  date,
-  description,
-  duration,
-  calendarId,
   closeModal,
-}: CalendarEventEditMenu) {
+  date,
+}: ICalendarAddEventMenuProps) {
   const { dispatch } = useContext(GlobalContext);
 
   useEffect(() => {
@@ -131,6 +127,7 @@ function CalendarEventEditMenu({
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    event.stopPropagation();
     closeModal();
     const inputs: HTMLInputElement[] = Array.from(
       event.currentTarget.getElementsByTagName('input')
@@ -146,24 +143,19 @@ function CalendarEventEditMenu({
     });
     console.log(formData);
     dispatch({
-      type: 'EDIT_CALENDAR_EVENT',
+      type: 'ADD_CALENDAR_EVENT',
       payload: {
-        calendarId: calendarId,
-        eventId: id,
+        calendarId: '0',
         event: formData,
       },
     });
   };
 
-  const handleDeleteEvent = () => {
+  const handleCancelClick = (
+    event: React.SyntheticEvent<HTMLButtonElement>
+  ) => {
+    event.stopPropagation();
     closeModal();
-    dispatch({
-      type: 'DELETE_CALENDAR_EVENT',
-      payload: {
-        calendarId: calendarId,
-        eventId: id,
-      },
-    });
   };
 
   const isoStr = addHours(
@@ -188,18 +180,11 @@ function CalendarEventEditMenu({
         onClick={(e) => e.stopPropagation()}
       >
         <StyledInput
-          font="heading3"
+          font="large"
           color="--color-text-heading"
           type="text"
-          placeholder="name"
+          placeholder="Event Name"
           name="name"
-          defaultValue={name}
-        />
-        <StyledInput
-          type="text"
-          placeholder="location"
-          name="location"
-          defaultValue={location}
         />
         <StyledInput
           type="datetime-local"
@@ -207,25 +192,16 @@ function CalendarEventEditMenu({
           name="date"
           defaultValue={defaultDate}
         />
-        <StyledInput
-          type="text"
-          placeholder="description"
-          name="description"
-          defaultValue={description}
-        />
-        <StyledInput
-          type="text"
-          placeholder="duration"
-          name="duration"
-          defaultValue={duration}
-        />
+        <StyledInput type="text" placeholder="Description" name="description" />
+        <StyledInput type="text" placeholder="Location" name="location" />
+        <StyledInput type="time" name="duration" />
         <ButtonContainer>
           <SaveButton type="submit">Save Changes</SaveButton>
-          <DeleteButton onClick={handleDeleteEvent}>Delete Event</DeleteButton>
+          <DeleteButton onClick={handleCancelClick}>Cancel</DeleteButton>
         </ButtonContainer>
       </EditMenu>
     </>
   );
 }
 
-export default CalendarEventEditMenu;
+export default CalendarAddEventMenu;
