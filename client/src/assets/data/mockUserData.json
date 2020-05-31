@@ -268,7 +268,7 @@
       "id": "b3e5623b-6f1f-4fc1-a562-7461dc52721f",
       "title": "CSE 101",
       "settings": {
-        "color": "--color-primary-7"
+        "color": "--color-primary-3"
       },
       "events": [
         {
@@ -373,7 +373,7 @@
       "id": "d5f7bde0-0774-4fbf-9fad-b83a941a4daa",
       "title": "Work",
       "settings": {
-        "color": "--color-primary-2"
+        "color": "--color-primary-4"
       },
       "events": [
         {
@@ -462,7 +462,7 @@
       "id": "ffc181cd-599a-410d-a50d-14bcd0b5272b",
       "title": "Birthdays",
       "settings": {
-        "color": "--color-primary-4"
+        "color": "--color-primary-5"
       },
       "events": [
         {
@@ -519,7 +519,7 @@
       "id": "2c6444df-fff8-4b1d-846e-be4ab3cbb7d6",
       "title": "CSE 143",
       "settings": {
-        "color": "--color-primary-4"
+        "color": "--color-primary-6"
       },
       "events": [
         {
@@ -837,7 +837,7 @@
       "id": "f7194401-b6b4-4c82-ac5d-2bc39cd51b67",
       "title": "Groceries",
       "settings": {
-        "color": "--color-primary-3"
+        "color": "--color-primary-7"
       },
       "tasks": [
         {
@@ -888,7 +888,7 @@
       "id": "f0d8dcc0-7095-4e20-9669-30d5d48d048b",
       "title": "CSE 110",
       "settings": {
-        "color": "--color-primary-2"
+        "color": "--color-primary-6"
       },
       "tasks": [
         {
@@ -933,7 +933,7 @@
       "id": "e81c071c-68c3-45b7-bc0f-45053db474f7",
       "title": "Workouts",
       "settings": {
-        "color": "--color-primary-7"
+        "color": "--color-primary-5"
       },
       "tasks": [
         {
@@ -978,7 +978,7 @@
       "id": "87584b10-a4bd-44e4-a8fb-b657d1855660",
       "title": "Shopping",
       "settings": {
-        "color": "--color-primary-1"
+        "color": "--color-primary-4"
       },
       "tasks": [
         {
@@ -1029,7 +1029,7 @@
       "id": "015beebd-6553-4676-a7fd-aed3ee90764b",
       "title": "Landmarks to see",
       "settings": {
-        "color": "--color-primary-7"
+        "color": "--color-primary-3"
       },
       "tasks": [
         {
@@ -1080,7 +1080,7 @@
       "id": "a13a06ce-9745-4230-8f2d-5bcb5d9ff513",
       "title": "Albums",
       "settings": {
-        "color": "--color-primary-3"
+        "color": "--color-primary-2"
       },
       "tasks": [
         {
