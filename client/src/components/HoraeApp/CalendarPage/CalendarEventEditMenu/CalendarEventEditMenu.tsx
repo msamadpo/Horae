@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import styled from 'styled-components';
+import Text from 'components/Common/Text';
 import { CalendarEvent } from 'context/reducers/calendarReducer';
 import { addHours } from 'date-fns';
 
@@ -17,6 +18,23 @@ const calculatedBorder = (x: number, y: number) => {
   return 'border-top-left-radius: 0px;';
 };
 
+const StyledInput = styled.input<{ font?: string }>`
+  border: none;
+  outline: none;
+  text-overflow: ellipsis;
+  border-bottom: 3px solid transparent;
+  font: var(${(props) => '--font-' + (props.font || 'small')});
+  color: var(--color-text-paragraph);
+  &::placeholder {
+    color: var(--color-shadow);
+  }
+  margin: var(--spacing-tiny) 0;
+  transition: border-color 0.2s;
+  &:focus {
+    border-bottom-color: var(--color-primary);
+  }
+`;
+
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -32,15 +50,15 @@ const Overlay = styled.div`
 const EditMenu = styled.form<{ x: number; y: number }>`
   position: fixed;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   background-color: white;
   min-width: 25rem;
-  min-height: 30rem;
-  max-width: min-content;
-  max-height: 30rem;
+  max-width: 35rem;
   padding: var(--spacing-base);
   border-radius: 1rem;
-  border: 1px solid var(--color-text-subtitle);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
     ${(props) =>
       props.x + 250 > window.innerWidth
         ? `right: ${window.innerWidth - props.x}px;`
@@ -50,6 +68,37 @@ const EditMenu = styled.form<{ x: number; y: number }>`
         ? `bottom: ${window.innerHeight - props.y}px;`
         : `top: ${props.y}px;`}
     ${(props) => calculatedBorder(props.x, props.y)};
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const SaveButton = styled.button`
+  cursor: pointer;
+  outline: none;
+  font: var(--font-small);
+  font-size: 1.5rem;
+  flex: 1 1 0px;
+  margin: 0 var(--spacing-tiny);
+  color: white;
+  border: none;
+  background-color: var(--color-primary);
+  border-radius: 1rem;
+  padding: var(--spacing-tiny);
+`;
+const DeleteButton = styled.button`
+  cursor: pointer;
+  outline: none;
+  font: var(--font-small);
+  font-size: 1.5rem;
+  flex: 1 1 0px;
+  margin: 0 var(--spacing-tiny);
+  border: none;
+  background-color: var(--color-shadow);
+  border-radius: 1rem;
+  padding: var(--spacing-tiny);
 `;
 
 type CalendarEventEditMenu = {
@@ -83,6 +132,7 @@ function CalendarEventEditMenu({
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    closeModal();
     const inputs: HTMLInputElement[] = Array.from(
       event.currentTarget.getElementsByTagName('input')
     );
@@ -106,6 +156,17 @@ function CalendarEventEditMenu({
     });
   };
 
+  const handleDeleteEvent = () => {
+    closeModal();
+    dispatch({
+      type: 'DELETE_CALENDAR_EVENT',
+      payload: {
+        calendarId: calendarId,
+        eventId: id,
+      },
+    });
+  };
+
   const isoStr = addHours(
     new Date(date),
     -new Date().getTimezoneOffset() / 60
@@ -113,34 +174,48 @@ function CalendarEventEditMenu({
 
   return (
     <>
-      <Overlay onClick={closeModal} />
+      <Overlay
+        onClick={(e) => {
+          e.stopPropagation();
+          closeModal();
+        }}
+      />
       <EditMenu x={x} y={y} onSubmit={handleFormSubmit} action="">
-        <input type="text" placeholder="name" name="name" defaultValue={name} />
-        <input
+        <StyledInput
+          font="heading3"
+          type="text"
+          placeholder="name"
+          name="name"
+          defaultValue={name}
+        />
+        <StyledInput
           type="text"
           placeholder="location"
           name="location"
           defaultValue={location}
         />
-        <input
+        <StyledInput
           type="datetime-local"
           placeholder="date"
           name="date"
           defaultValue={isoStr.substring(0, isoStr.length - 1)}
         />
-        <input
+        <StyledInput
           type="text"
           placeholder="description"
           name="description"
           defaultValue={description}
         />
-        <input
+        <StyledInput
           type="text"
           placeholder="duration"
           name="duration"
           defaultValue={duration}
         />
-        <input type="submit" />
+        <ButtonContainer>
+          <SaveButton type="submit">Save Changes</SaveButton>
+          <DeleteButton onClick={handleDeleteEvent}>Delete Event</DeleteButton>
+        </ButtonContainer>
       </EditMenu>
     </>
   );

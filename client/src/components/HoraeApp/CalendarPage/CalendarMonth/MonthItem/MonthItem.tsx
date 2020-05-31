@@ -22,9 +22,11 @@ const StyledMonthItem = styled.div<{ blurred: boolean }>`
   min-height: 14rem;
   span {
     text-overflow: ellipsis;
+    white-space: nowrap;
     max-width: 100%;
     overflow: hidden;
   }
+  cursor: pointer;
 `;
 
 const DateNum = styled.span<{ isToday: boolean }>`
@@ -70,6 +72,7 @@ function MonthItem({ date, isSameMonth, isToday, events }: IMonthItem) {
     event: React.MouseEvent<HTMLDivElement>,
     index: number
   ) => {
+    event.stopPropagation();
     const { clientX, clientY } = event;
     setShowMenu(!showMenu);
     setClickCoordinates({ x: clientX, y: clientY });
@@ -97,7 +100,6 @@ function MonthItem({ date, isSameMonth, isToday, events }: IMonthItem) {
             color={color}
             onClick={(e) => {
               toggleMenu(e, index);
-              console.log();
             }}
             key={`month-${id}`}
           >
