@@ -47,62 +47,57 @@ interface IMonthItem {
   date: Date;
   isSameMonth: boolean;
   isToday: boolean;
-  events?: CalendarEventItemType[];
+  events: CalendarEventItemType[];
 }
 
 function MonthItem({ date, isSameMonth, isToday, events }: IMonthItem) {
   const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [editMenuData, setEditMenuData] = useState<CalendarEventItemType>(
+    events?.[0]
+  );
   const [clickCoordinates, setClickCoordinates] = useState<{
     x: number;
     y: number;
   }>({ x: 0, y: 0 });
 
-  const toggleMenu = (event: React.MouseEvent<HTMLDivElement>) => {
+  const toggleMenu = (
+    event: React.MouseEvent<HTMLDivElement>,
+    index: number
+  ) => {
     const { clientX, clientY } = event;
     setShowMenu(!showMenu);
     setClickCoordinates({ x: clientX, y: clientY });
+    setEditMenuData(events?.[index]);
   };
 
   return (
     <StyledMonthItem blurred={!isSameMonth}>
+      {showMenu && (
+        <CalendarEventEditMenu
+          {...editMenuData}
+          x={clickCoordinates.x}
+          y={clickCoordinates.y}
+          closeModal={() => setShowMenu(false)}
+        />
+      )}
       <DateNum isToday={isToday}>
         {!isSameMonth && date.toLocaleString('default', { month: 'short' })}{' '}
         {date.getDate()}
       </DateNum>
-      {events?.map(
-        ({
-          id,
-          name,
-          description,
-          duration,
-          date,
-          color,
-          location,
-          calendarId,
-        }) => (
-          <div key={`month-${id}`}>
-            {showMenu && (
-              <CalendarEventEditMenu
-                id={id}
-                calendarId={calendarId}
-                name={name}
-                description={description}
-                date={date}
-                duration={duration}
-                location={location}
-                x={clickCoordinates.x}
-                y={clickCoordinates.y}
-                closeModal={() => setShowMenu(false)}
-              />
-            )}
-            <StyledEvent color={color} onClick={toggleMenu}>
-              <Text type="small" color="white">
-                {name}
-              </Text>
-            </StyledEvent>
-          </div>
-        )
-      )}
+      {events?.map(({ id, name, color }, index) => (
+        <StyledEvent
+          color={color}
+          onClick={(e) => {
+            toggleMenu(e, index);
+            console.log();
+          }}
+          key={`month-${id}`}
+        >
+          <Text type="small" color="white">
+            {name}
+          </Text>
+        </StyledEvent>
+      ))}
     </StyledMonthItem>
   );
 }

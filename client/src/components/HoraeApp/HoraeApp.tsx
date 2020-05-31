@@ -55,9 +55,6 @@ function HoraeApp() {
           <Switch>
             <Route path="/todo" component={TodoPage} exact />
             <Route path="/avatar" component={AvatarPage} exact />
-            <Route path="/calendar/day" exact>
-              <CalendarPage>Day View of calendar</CalendarPage>
-            </Route>
             <Route path="/calendar/month" exact>
               <CalendarPage>
                 <CalendarMonth />

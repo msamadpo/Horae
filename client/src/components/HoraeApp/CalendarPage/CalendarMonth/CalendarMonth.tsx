@@ -62,7 +62,7 @@ function CalendarMonth() {
           <MonthItem
             key={day.toLocaleString()}
             date={day}
-            events={events.get(day.toDateString())}
+            events={events.get(day.toDateString()) || []}
             isSameMonth={isSameMonth(day, date)}
             isToday={isToday(day)}
           />

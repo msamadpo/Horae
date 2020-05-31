@@ -81,8 +81,6 @@ function CalendarEventEditMenu({
     };
   }, []);
 
-  const inputDateString = new Date(date).toISOString().split('T')[0];
-
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const inputs: HTMLInputElement[] = Array.from(
@@ -108,8 +106,10 @@ function CalendarEventEditMenu({
     });
   };
 
-  const isoStr = addHours(new Date(date), -7).toISOString();
-  console.log(date);
+  const isoStr = addHours(
+    new Date(date),
+    -new Date().getTimezoneOffset() / 60
+  ).toISOString();
 
   return (
     <>
