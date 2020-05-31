@@ -42,8 +42,8 @@ function Text({
     ${weight && `font-weight: ${weight};`}
     ${color && `color: ${color};`}
     ${margins && `margin: ${mappedMargins};`}
-    ${styleProp && styleProp}
     line-height: 140%;
+    ${styleProp && styleProp}
   `;
 
   return <CustomText className={type && styles[type]}>{children}</CustomText>;

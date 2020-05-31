@@ -1,5 +1,5 @@
 import React from 'react';
-import AppNavbar from 'components/HoraeApp/AppNavbar';
+import styled from 'styled-components';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -7,36 +7,38 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import styled from 'styled-components';
-import calendarIcon from 'assets/img/calendar-icon.svg';
-import todoIcon from 'assets/img/todo-icon.svg';
-import userIcon from 'assets/img/user-icon.svg';
-import Text from 'components/Common/Text';
+import AppNavbar from 'components/HoraeApp/AppNavbar';
+import Header from 'components/HoraeApp/Header';
+import CalendarPage from 'components/HoraeApp/CalendarPage';
+import TodoPage from 'components/HoraeApp/TodoPage';
+import AvatarPage from 'components/HoraeApp/AvatarPage';
 
 const ITEMS = [
   {
     title: 'Calendar',
-    icon: calendarIcon,
+    icon: 'calendar',
     to: '/calendar',
   },
   {
     title: 'Todo',
-    icon: todoIcon,
+    icon: 'todo',
     to: '/todo',
   },
   {
     title: 'Avatar',
-    icon: userIcon,
+    icon: 'avatar',
     to: '/avatar',
   },
 ];
 
 const StyledApp = styled.div`
   display: flex;
+  min-height: 100vh;
 `;
 
 const StyledAppBody = styled.div`
   padding: var(--spacing-large) var(--spacing-xlarge);
+  flex-grow: 1;
 `;
 
 function HoraeApp() {
@@ -45,22 +47,11 @@ function HoraeApp() {
       <Router>
         <AppNavbar items={ITEMS} />
         <StyledAppBody>
+          <Header />
           <Switch>
-            <Route path="/calendar" exact>
-              <Text weight="400" type="heading1">
-                Calendar
-              </Text>
-            </Route>
-            <Route path="/todo" exact>
-              <Text weight="400" type="heading1">
-                Todo
-              </Text>
-            </Route>
-            <Route path="/avatar" exact>
-              <Text weight="400" type="heading1">
-                Avatar
-              </Text>
-            </Route>
+            <Route path="/calendar" component={CalendarPage} exact />
+            <Route path="/todo" component={TodoPage} exact />
+            <Route path="/avatar" component={AvatarPage} exact />
             <Route path="/">
               <Redirect to="/calendar" />
             </Route>
