@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import styled from 'styled-components';
-import Text from 'components/Common/Text';
 import { CalendarEvent } from 'context/reducers/calendarReducer';
 import { addHours } from 'date-fns';
 
@@ -18,13 +17,13 @@ const calculatedBorder = (x: number, y: number) => {
   return 'border-top-left-radius: 0px;';
 };
 
-const StyledInput = styled.input<{ font?: string }>`
+const StyledInput = styled.input<{ font?: string; color?: string }>`
   border: none;
   outline: none;
   text-overflow: ellipsis;
   border-bottom: 3px solid transparent;
   font: var(${(props) => '--font-' + (props.font || 'small')});
-  color: var(--color-text-paragraph);
+  color: var(${(props) => props.color || '--color-text-paragraph'});
   &::placeholder {
     color: var(--color-shadow);
   }
@@ -183,6 +182,7 @@ function CalendarEventEditMenu({
       <EditMenu x={x} y={y} onSubmit={handleFormSubmit} action="">
         <StyledInput
           font="heading3"
+          color="--color-text-heading"
           type="text"
           placeholder="name"
           name="name"
