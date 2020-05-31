@@ -9,13 +9,7 @@ export type NewTaskListPayload = {
   };
 };
 
-export type EditTaskListPayload = {
-  title?: string;
-  tasks?: Task[];
-  settings?: {
-    color: string;
-  };
-};
+export type EditTaskListPayload = Partial<NewTaskListPayload>;
 
 export const addTaskList = (state: GlobalState, action: Action) => {
   if (action.type !== 'ADD_TASK_LIST') {
@@ -28,6 +22,7 @@ export const addTaskList = (state: GlobalState, action: Action) => {
   };
   const newTaskLists = [...state.todo_lists, newTaskList];
   console.log('Dispatch ADD_TASK_LIST');
+  console.log({ ...state, todo_lists: newTaskLists });
   return { ...state, todo_lists: newTaskLists };
 };
 

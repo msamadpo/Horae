@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import GlobalContext from 'context/GlobalContext';
+import React, { useState } from 'react';
+import useCalendarEvents from 'hooks/useCalendarEvents';
 import styled from 'styled-components';
 import {
   addDays,
@@ -7,9 +7,9 @@ import {
   eachDayOfInterval,
   addWeeks,
   isWithinInterval,
+  compareAsc,
 } from 'date-fns';
 import WeekHeader from 'components/HoraeApp/CalendarPage/CalendarWeek/WeekHeader';
-import { CalendarEvent, Calendar } from 'context/reducers/calendarEventReducer';
 import CalendarItem from 'components/HoraeApp/CalendarPage/CalendarWeek/CalendarEventItem';
 
 const Container = styled.div`
@@ -40,29 +40,8 @@ interface ICalendarWeekProps {
   startDate?: Date;
 }
 
-type CalendarEventItemType = CalendarEvent & { color: string };
-
-const indexEventsByDate = (calendars: Calendar[]) => {
-  const indexedEvents = new Map<string, CalendarEventItemType[]>();
-  calendars.forEach((calendar) => {
-    calendar.events.forEach((event) => {
-      const dateKey = new Date(Date.parse(event.date)).toDateString();
-      if (indexedEvents.has(dateKey)) {
-        indexedEvents
-          .get(dateKey)
-          ?.push({ ...event, color: calendar.settings.color });
-      } else {
-        indexedEvents.set(dateKey, [
-          { ...event, color: calendar.settings.color },
-        ]);
-      }
-    });
-  });
-  return indexedEvents;
-};
-
 function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
-  const { data } = useContext(GlobalContext);
+  const events = useCalendarEvents();
   const [start, setStart] = useState<Date>(startDate);
   const lastSunday = subDays(start, start.getDay());
   const nextSaturday = addDays(start, 6 - start.getDay());
@@ -70,14 +49,6 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
     start: lastSunday,
     end: nextSaturday,
   });
-
-  const [indexedEvents, setIndexedEvents] = useState<
-    Map<string, CalendarEventItemType[]>
-  >(indexEventsByDate(data.calendars));
-
-  useEffect(() => {
-    setIndexedEvents(indexEventsByDate(data.calendars));
-  }, [data.calendars]);
 
   const changeWeeks = (numWeeks: number) => {
     if (numWeeks === 0) {
@@ -103,9 +74,9 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
         <ColumnContainer>
           {currentDates.map((date) => (
             <CalendarColumns key={date.toString()}>
-              {indexedEvents
+              {events
                 ?.get(date.toDateString())
-                ?.sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
+                ?.sort((a, b) => compareAsc(new Date(a.date), new Date(b.date)))
                 .map((event) => {
                   return <CalendarItem {...event} key={event.id} />;
                 })}

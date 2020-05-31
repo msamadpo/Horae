@@ -38,11 +38,6 @@ function CalendarPage({ children }: ICalendarPageProps) {
   return (
     <PageBody>
       <ToggleContainer>
-        <Link to="/calendar/day">
-          <ToggleButton>
-            <Text type="small">Day</Text>
-          </ToggleButton>
-        </Link>
         <Link to="/calendar">
           <ToggleButton>
             <Text type="small">Week</Text>

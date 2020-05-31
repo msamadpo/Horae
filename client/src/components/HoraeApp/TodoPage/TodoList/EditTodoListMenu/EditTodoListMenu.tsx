@@ -48,6 +48,7 @@ const ColorPickerContainer = styled.div`
 `;
 
 const BackgroundOverlay = styled.div`
+  z-index: 1;
   position: fixed;
   top: 0;
   left: 0;
@@ -93,7 +94,7 @@ const StyledMenu = styled.div`
   max-width: 20rem;
 `;
 
-const StyledInput = styled.input`
+const StyledInput = styled.input<{ color?: string }>`
   outline: none;
   font: var(--font-large);
   color: var(--color-text-body);
@@ -101,9 +102,7 @@ const StyledInput = styled.input`
   border: none;
   border-bottom: 2px solid var(--color-shadow);
   max-width: 100%;
-  &:focus {
-    border-bottom-color: var(--color-primary);
-  }
+  border-bottom-color: var(${(props) => props.color}, #ff5a5f);
 `;
 
 interface IEditTodoListProps {
@@ -182,6 +181,7 @@ function EditTodoList({
           onChange={handleEditTitle}
           onKeyPress={handleKeyPress}
           ref={inputRef}
+          color={editedColor}
         />
         <ColorPickerContainer>
           {COLORS.map((color) => (

@@ -8,7 +8,13 @@ import GlobalContext from 'context/GlobalContext';
 import 'assets/styles/global.scss';
 
 function App() {
-  const [state, dispatch] = useReducer(globalReducer, mockData);
+  const storedData = JSON.parse(localStorage.getItem('horaeData') || '{}');
+  const defaultData =
+    typeof storedData === 'object' && storedData.id ? storedData : mockData;
+
+  const [state, dispatch] = useReducer(globalReducer, defaultData);
+  // localStorage.setItem('horaeData', JSON.stringify(state));
+
   return (
     <GlobalContext.Provider value={{ data: state, dispatch }}>
       <HoraeApp />

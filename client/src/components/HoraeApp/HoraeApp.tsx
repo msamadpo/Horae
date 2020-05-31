@@ -8,7 +8,6 @@ import {
 
 import styled from 'styled-components';
 import AppNavbar from 'components/HoraeApp/AppNavbar';
-import Header from 'components/HoraeApp/Header';
 import CalendarPage from 'components/HoraeApp/CalendarPage';
 import CalendarWeek from 'components/HoraeApp/CalendarPage/CalendarWeek';
 import CalendarMonth from 'components/HoraeApp/CalendarPage/CalendarMonth';
@@ -51,13 +50,9 @@ function HoraeApp() {
       <Router>
         <AppNavbar items={ITEMS} />
         <StyledAppBody>
-          <Header />
           <Switch>
             <Route path="/todo" component={TodoPage} exact />
             <Route path="/avatar" component={AvatarPage} exact />
-            <Route path="/calendar/day" exact>
-              <CalendarPage>Day View of calendar</CalendarPage>
-            </Route>
             <Route path="/calendar/month" exact>
               <CalendarPage>
                 <CalendarMonth />
