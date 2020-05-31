@@ -5,27 +5,30 @@ const server = require('../server');
 
 const db = firebase.database();
 
-const EVENTS = (eventId, name, date, duration, location, note) => {
+const EVENTS = (eventId, name, date, color, duration, location, description) => {
   return {
     eventId: eventId,
     name: name,
     date: date,
+    settings:{
+        color: color
+    },
     duration: duration,
     location: location,
-    note: note,
+    description: description,
   };
 };
 
 //CREATE an event inside calendar
 router.post('/', server, (req, res) => {
-  const { uid, calendarId, name, date, duration, location, note } = req.body;
+  const { uid, calendarId, name, date, color, duration, location, description } = req.body;
 
   const eventId = db
     .ref('users/' + uid + '/calendar/' + calendarId + '/events')
     .push().key;
 
   db.ref('users/' + uid + '/calendar/' + calendarId + '/events/' + eventId)
-    .set(EVENTS(eventId, name, date, duration, location, note))
+    .set(EVENTS(eventId, name, date,color, duration, location, description))
     .then(() => {
       res.json({ eventId: eventId });
     })
@@ -39,7 +42,8 @@ router.get('/:uid/:calendarId', (req, res) => {
     .once('value')
     .then((data) => {
       if (data.val() != null) {
-        res.json(data.val());
+        let val = Object.values(data.val())
+        res.json(val);
       } else {
         res.send('DOESNT EXIST');
       }
@@ -54,7 +58,7 @@ router.get('/:uid/:calendarId/:eventId', (req, res) => {
     .once('value')
     .then((data) => {
       if (data.val() != null) {
-        res.json(data.val());
+        res.json(Object(data.val()));
       } else {
         res.send('DOESNT EXIST');
       }
@@ -65,15 +69,18 @@ router.get('/:uid/:calendarId/:eventId', (req, res) => {
 //UPDATE an event inside calendar
 router.patch('/:uid/:calendarId/:eventId', server, (req, res) => {
   const { calendarId, eventId, uid } = req.params;
-  const { name, date, duration, location, note } = req.body;
+  const { name, date, duration, location, description } = req.body;
 
   db.ref('users/' + uid + '/calendar/' + calendarId + '/events/' + eventId)
     .update({
       name: name,
       date: date,
+      settings:{
+        color: color
+      },
       duration: duration,
       location: location,
-      note: note,
+      description: description,
     })
     .then(() =>
       res.json({ status: 200, message: 'Successfully updated event' })
@@ -82,8 +89,6 @@ router.patch('/:uid/:calendarId/:eventId', server, (req, res) => {
 });
 
 router.delete('/:uid/:calendarId/:eventId', server, (req, res) => {
-  const { uid, calendarId, eventId } = req.params;
-  const { name, date, duration, location, note } = req.body;
 
   db.ref('users/' + uid + '/calendar/' + calendarId + '/events/' + eventId)
     .remove()

@@ -54,6 +54,19 @@ router.post("/signup", JSONParser, (req, res) => {
   });
 })
 
+router.get('/:uid', (req, res) => {
+  const uid  = req.params.uid;
+  firebase.database().ref('users/' + uid )
+    .once('value')
+    .then((data) => {
+      if (data.val() != null) {
+        res.json(data.val());
+      } else {
+        res.send('DOESNT EXIST');
+      }
+    })
+    .catch((err) => res.json({ err: err.message }));
+});
 
 
 module.exports = router;

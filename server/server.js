@@ -39,10 +39,11 @@ app.use(logger('dev'));
 // Routes
 app.use('/api/auth', authRoutes);
 
+/*
 app.get('/api/register', (req, res) => {
   writeUserData(1245345, 'Anh Pham', 'team@thehub.com');
 });
-
+*/
 app.use('/api/avatar', avatarRoutes);
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/todolist', todoListRoutes);
