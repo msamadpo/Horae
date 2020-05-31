@@ -11,6 +11,7 @@ import {
 } from 'date-fns';
 import WeekHeader from 'components/HoraeApp/CalendarPage/CalendarWeek/WeekHeader';
 import CalendarItem from 'components/HoraeApp/CalendarPage/CalendarWeek/CalendarEventItem';
+import CalendarAddEventMenu from 'components/HoraeApp/CalendarPage/CalendarAddEventMenu';
 
 const Container = styled.div`
   height: 100%;
@@ -22,6 +23,7 @@ const WeekBody = styled.div`
   display: flex;
   flex-grow: 1;
   flex-direction: column;
+  cursor: pointer;
 `;
 
 const ColumnContainer = styled.div`
@@ -49,6 +51,12 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
     start: lastSunday,
     end: nextSaturday,
   });
+  const [showAddMenu, setShowAddMenu] = useState<boolean>(false);
+  const [addDate, setAddDate] = useState<Date>(new Date());
+  const [clickCoordinates, setClickCoordinates] = useState<{
+    x: number;
+    y: number;
+  }>({ x: 0, y: 0 });
 
   const changeWeeks = (numWeeks: number) => {
     if (numWeeks === 0) {
@@ -56,6 +64,17 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
     } else {
       setStart(addWeeks(start, numWeeks));
     }
+  };
+
+  const toggleAddMenu = (
+    event: React.MouseEvent<HTMLDivElement>,
+    date: Date
+  ) => {
+    event.stopPropagation();
+    setAddDate(date);
+    const { clientX, clientY } = event;
+    setShowAddMenu(!showAddMenu);
+    setClickCoordinates({ x: clientX, y: clientY });
   };
 
   return (
@@ -71,9 +90,20 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
         }
       />
       <WeekBody>
+        {showAddMenu && (
+          <CalendarAddEventMenu
+            x={clickCoordinates.x}
+            y={clickCoordinates.y}
+            date={addDate}
+            closeModal={() => setShowAddMenu(false)}
+          />
+        )}
         <ColumnContainer>
           {currentDates.map((date) => (
-            <CalendarColumns key={date.toString()}>
+            <CalendarColumns
+              key={date.toString()}
+              onClick={(e) => toggleAddMenu(e, date)}
+            >
               {events
                 ?.get(date.toDateString())
                 ?.sort((a, b) => compareAsc(new Date(a.date), new Date(b.date)))

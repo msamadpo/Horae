@@ -6,7 +6,7 @@ import { CalendarEventItemType } from 'hooks/useCalendarEvents';
 
 import CalendarEventEditMenu from 'components/HoraeApp/CalendarPage/CalendarEventEditMenu';
 
-const StyledItem = styled.div<{ color: string; showMenu?: boolean }>`
+const StyledItem = styled.div<{ color: string; showEditMenu?: boolean }>`
   padding: 1rem;
   border-radius: 1rem;
   background-color: var(${(props) => props.color});
@@ -14,7 +14,8 @@ const StyledItem = styled.div<{ color: string; showMenu?: boolean }>`
   transition: all 0.2s;
   border: 3px solid transparent;
   cursor: pointer;
-  ${(props) => props.showMenu && 'border-color: var(--color-text-subtitle);'}
+  ${(props) =>
+    props.showEditMenu && 'border-color: var(--color-text-subtitle);'}
   &:hover {
     border-color: var(--color-text-subtitle);
   }
@@ -30,7 +31,7 @@ function CalendarEventItem({
   calendarId,
   id,
 }: CalendarEventItemType) {
-  const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [showEditMenu, setShowEditMenu] = useState<boolean>(false);
   const [clickCoordinates, setClickCoordinates] = useState<{
     x: number;
     y: number;
@@ -50,14 +51,15 @@ function CalendarEventItem({
   });
 
   const toggleMenu = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
     const { clientX, clientY } = event;
-    setShowMenu(!showMenu);
+    setShowEditMenu(!showEditMenu);
     setClickCoordinates({ x: clientX, y: clientY });
   };
 
   return (
     <>
-      {showMenu && (
+      {showEditMenu && (
         <CalendarEventEditMenu
           id={id}
           calendarId={calendarId}
@@ -68,10 +70,14 @@ function CalendarEventItem({
           location={location}
           x={clickCoordinates.x}
           y={clickCoordinates.y}
-          closeModal={() => setShowMenu(false)}
+          closeModal={() => setShowEditMenu(false)}
         />
       )}
-      <StyledItem color={color} onClick={toggleMenu} showMenu={showMenu}>
+      <StyledItem
+        color={color}
+        onClick={toggleMenu}
+        showEditMenu={showEditMenu}
+      >
         <Text color="white" type="regular" weight="400">
           {name}
         </Text>

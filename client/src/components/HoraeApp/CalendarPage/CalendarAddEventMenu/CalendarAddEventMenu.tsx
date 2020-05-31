@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import styled from 'styled-components';
+import useCalendars from 'hooks/useCalendars';
 import { addHours } from 'date-fns';
 
 const Overlay = styled.div`
@@ -116,7 +117,7 @@ function CalendarAddEventMenu({
   date,
 }: ICalendarAddEventMenuProps) {
   const { dispatch } = useContext(GlobalContext);
-
+  const calendarFields = useCalendars();
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -141,11 +142,13 @@ function CalendarAddEventMenu({
         } else (formData as any)[name] = value;
       }
     });
+    const calendarId = event.currentTarget.getElementsByTagName('select')[0]
+      .value;
     console.log(formData);
     dispatch({
       type: 'ADD_CALENDAR_EVENT',
       payload: {
-        calendarId: '0',
+        calendarId: calendarId,
         event: formData,
       },
     });
@@ -185,16 +188,29 @@ function CalendarAddEventMenu({
           type="text"
           placeholder="Event Name"
           name="name"
+          required
         />
         <StyledInput
           type="datetime-local"
           placeholder="date"
           name="date"
+          required
           defaultValue={defaultDate}
         />
         <StyledInput type="text" placeholder="Description" name="description" />
         <StyledInput type="text" placeholder="Location" name="location" />
         <StyledInput type="time" name="duration" />
+        <select
+          style={{ margin: 'var(--spacing-tiny) 0' }}
+          name="calendar"
+          id="calendar-select"
+        >
+          {calendarFields.map(({ id, title }) => (
+            <option key={id} value={id}>
+              {title}
+            </option>
+          ))}
+        </select>
         <ButtonContainer>
           <SaveButton type="submit">Save Changes</SaveButton>
           <DeleteButton onClick={handleCancelClick}>Cancel</DeleteButton>

@@ -11,13 +11,7 @@ const StyledMonthItem = styled.div<{ blurred: boolean }>`
   flex-direction: column;
   padding: var(--spacing-base) var(--spacing-small) var(--spacing-small);
   background-color: white;
-  ${(props) =>
-    props.blurred &&
-    `background-color: var(--color-light-gray);
-     span {
-       color: var(--color-text-subtitle);
-     }
-    `}
+  ${(props) => props.blurred && `background-color: var(--color-light-gray);`}
   position: relative;
   margin-bottom: 1px;
   min-height: 14rem;
@@ -41,7 +35,7 @@ const DateNum = styled.span<{ isToday: boolean }>`
 
 const StyledEvent = styled.div<{ color: string }>`
   background-color: var(${(props) => props.color});
-  padding: 5px var(--spacing-small);
+  padding: 3px var(--spacing-tiny);
   margin-top: var(--spacing-tiny);
   border-radius: 2rem;
   cursor: pointer;
@@ -120,7 +114,7 @@ function MonthItem({ date, isSameMonth, isToday, events }: IMonthItem) {
             }}
             key={`month-${id}`}
           >
-            <Text type="small" color="white">
+            <Text type="smaller" color="white">
               {name}
             </Text>
           </StyledEvent>

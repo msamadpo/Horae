@@ -11,6 +11,7 @@ type TextType =
   | 'large'
   | 'regular'
   | 'small'
+  | 'smaller'
   | 'tiny';
 
 interface ITextProps {
