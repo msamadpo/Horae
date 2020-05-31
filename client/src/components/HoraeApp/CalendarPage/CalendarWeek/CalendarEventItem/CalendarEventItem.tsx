@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Text from 'components/Common/Text';
-import { CalendarEvent } from 'context/reducers/calendarReducer';
 import { add } from 'date-fns';
+import { CalendarEventItemType } from 'hooks/useCalendarEvents';
 
 import CalendarEventEditMenu from 'components/HoraeApp/CalendarPage/CalendarEventEditMenu';
-
-export type CalendarEventItemProps = CalendarEvent & { color: string };
 
 const StyledItem = styled.div<{ color: string; showMenu?: boolean }>`
   padding: 1rem;
@@ -29,8 +27,9 @@ function CalendarEventItem({
   duration,
   location,
   description,
+  calendarId,
   id,
-}: CalendarEventItemProps) {
+}: CalendarEventItemType) {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [clickCoordinates, setClickCoordinates] = useState<{
     x: number;
@@ -61,6 +60,7 @@ function CalendarEventItem({
       {showMenu && (
         <CalendarEventEditMenu
           id={id}
+          calendarId={calendarId}
           name={name}
           description={description}
           date={date}

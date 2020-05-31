@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import GlobalContext from 'context/GlobalContext';
 import styled from 'styled-components';
 import { CalendarEvent } from 'context/reducers/calendarReducer';
+import { addHours } from 'date-fns';
 
 const calculatedBorder = (x: number, y: number) => {
   const xOffset = x + 250;
@@ -27,14 +29,14 @@ const Overlay = styled.div`
   }
 `;
 
-const EditMenu = styled.div<{ x: number; y: number }>`
+const EditMenu = styled.form<{ x: number; y: number }>`
   position: fixed;
   z-index: 2;
   box-sizing: border-box;
   background-color: white;
   min-width: 25rem;
   min-height: 30rem;
-  max-width: 25rem;
+  max-width: min-content;
   max-height: 30rem;
   padding: var(--spacing-base);
   border-radius: 1rem;
@@ -53,6 +55,7 @@ const EditMenu = styled.div<{ x: number; y: number }>`
 type CalendarEventEditMenu = {
   x: number;
   y: number;
+  calendarId: string;
   closeModal: () => void;
 } & CalendarEvent;
 
@@ -60,12 +63,16 @@ function CalendarEventEditMenu({
   x,
   y,
   name,
+  id,
   location,
   date,
   description,
   duration,
+  calendarId,
   closeModal,
 }: CalendarEventEditMenu) {
+  const { dispatch } = useContext(GlobalContext);
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -76,31 +83,64 @@ function CalendarEventEditMenu({
 
   const inputDateString = new Date(date).toISOString().split('T')[0];
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(e.currentTarget);
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const inputs: HTMLInputElement[] = Array.from(
+      event.currentTarget.getElementsByTagName('input')
+    );
+    const formData = {};
+    inputs.forEach((input) => {
+      if (input.type !== 'submit') {
+        const { name, value } = input;
+        if (input.type === 'datetime-local') {
+          (formData as any)[name] = new Date(value).toString();
+        } else (formData as any)[name] = value;
+      }
+    });
+    console.log(formData);
+    dispatch({
+      type: 'EDIT_CALENDAR_EVENT',
+      payload: {
+        calendarId: calendarId,
+        eventId: id,
+        event: formData,
+      },
+    });
   };
+
+  const isoStr = addHours(new Date(date), -7).toISOString();
+  console.log(date);
 
   return (
     <>
       <Overlay onClick={closeModal} />
-      <EditMenu x={x} y={y}>
-        <form action="" onSubmit={handleFormSubmit}>
-          <input type="text" placeholder="name" defaultValue={name} />
-          <input type="text" placeholder="location" defaultValue={location} />
-          <input
-            type="date"
-            placeholder="date"
-            defaultValue={inputDateString}
-          />
-          <input
-            type="text"
-            placeholder="description"
-            defaultValue={description}
-          />
-          <input type="text" placeholder="duration" defaultValue={duration} />
-          <input type="submit" />
-        </form>
+      <EditMenu x={x} y={y} onSubmit={handleFormSubmit} action="">
+        <input type="text" placeholder="name" name="name" defaultValue={name} />
+        <input
+          type="text"
+          placeholder="location"
+          name="location"
+          defaultValue={location}
+        />
+        <input
+          type="datetime-local"
+          placeholder="date"
+          name="date"
+          defaultValue={isoStr.substring(0, isoStr.length - 1)}
+        />
+        <input
+          type="text"
+          placeholder="description"
+          name="description"
+          defaultValue={description}
+        />
+        <input
+          type="text"
+          placeholder="duration"
+          name="duration"
+          defaultValue={duration}
+        />
+        <input type="submit" />
       </EditMenu>
     </>
   );

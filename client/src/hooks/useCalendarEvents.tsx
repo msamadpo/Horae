@@ -2,7 +2,10 @@ import { useState, useEffect, useContext } from 'react';
 import GlobalContext from 'context/GlobalContext';
 import { Calendar, CalendarEvent } from 'context/reducers/calendarReducer';
 
-export type CalendarEventItemType = CalendarEvent & { color: string };
+export type CalendarEventItemType = CalendarEvent & {
+  color: string;
+  calendarId: string;
+};
 
 const indexEventsByDate = (calendars: Calendar[]) => {
   const indexedEvents = new Map<string, CalendarEventItemType[]>();
@@ -10,12 +13,14 @@ const indexEventsByDate = (calendars: Calendar[]) => {
     calendar.events.forEach((event) => {
       const dateKey = new Date(Date.parse(event.date)).toDateString();
       if (indexedEvents.has(dateKey)) {
-        indexedEvents
-          .get(dateKey)
-          ?.push({ ...event, color: calendar.settings.color });
+        indexedEvents.get(dateKey)?.push({
+          ...event,
+          color: calendar.settings.color,
+          calendarId: calendar.id,
+        });
       } else {
         indexedEvents.set(dateKey, [
-          { ...event, color: calendar.settings.color },
+          { ...event, color: calendar.settings.color, calendarId: calendar.id },
         ]);
       }
     });

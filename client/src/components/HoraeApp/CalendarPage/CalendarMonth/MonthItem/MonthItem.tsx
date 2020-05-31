@@ -70,11 +70,21 @@ function MonthItem({ date, isSameMonth, isToday, events }: IMonthItem) {
         {date.getDate()}
       </DateNum>
       {events?.map(
-        ({ id, name, description, duration, date, color, location }) => (
+        ({
+          id,
+          name,
+          description,
+          duration,
+          date,
+          color,
+          location,
+          calendarId,
+        }) => (
           <div key={`month-${id}`}>
             {showMenu && (
               <CalendarEventEditMenu
                 id={id}
+                calendarId={calendarId}
                 name={name}
                 description={description}
                 date={date}
