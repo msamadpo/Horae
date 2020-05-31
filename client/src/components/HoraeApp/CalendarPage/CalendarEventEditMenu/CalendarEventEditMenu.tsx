@@ -1,6 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { CalendarEvent } from 'context/reducers/calendarReducer';
+
+const calculatedBorder = (x: number, y: number) => {
+  const xOffset = x + 250;
+  const yOffset = y + 300;
+  if (xOffset > window.innerWidth && yOffset > window.innerHeight) {
+    return 'border-bottom-right-radius: 0px;';
+  } else if (xOffset > window.innerWidth) {
+    return 'border-top-right-radius: 0px;';
+  } else if (yOffset > window.innerHeight) {
+    return 'border-bottom-left-radius: 0px;';
+  }
+  return 'border-top-left-radius: 0px;';
+};
 
 const Overlay = styled.div`
   position: fixed;
@@ -9,6 +22,9 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
   z-index: 1;
+  :root {
+    overflow: hidden;
+  }
 `;
 
 const EditMenu = styled.div<{ x: number; y: number }>`
@@ -20,16 +36,17 @@ const EditMenu = styled.div<{ x: number; y: number }>`
   max-width: 25rem;
   max-height: 30rem;
   padding: var(--spacing-base);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   border-radius: 1rem;
-  ${(props) =>
-    props.x + 250 > window.innerWidth
-      ? `right: ${window.innerWidth - props.x}px;`
-      : `left: ${props.x}px;`}
-  ${(props) =>
-    props.y + 300 > window.innerHeight
-      ? `bottom: ${window.innerHeight - props.y}px;`
-      : `top: ${props.y}px;`}
+  border: 1px solid var(--color-text-subtitle);
+    ${(props) =>
+      props.x + 250 > window.innerWidth
+        ? `right: ${window.innerWidth - props.x}px;`
+        : `left: ${props.x}px;`}
+    ${(props) =>
+      props.y + 300 > window.innerHeight
+        ? `bottom: ${window.innerHeight - props.y}px;`
+        : `top: ${props.y}px;`}
+    ${(props) => calculatedBorder(props.x, props.y)};
 `;
 
 type CalendarEventEditMenu = {
@@ -39,6 +56,13 @@ type CalendarEventEditMenu = {
 } & CalendarEvent;
 
 function CalendarEventEditMenu({ x, y, closeModal }: CalendarEventEditMenu) {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
   return (
     <>
       <Overlay onClick={closeModal} />

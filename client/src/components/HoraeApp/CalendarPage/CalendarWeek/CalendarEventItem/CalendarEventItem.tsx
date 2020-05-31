@@ -8,7 +8,7 @@ import CalendarEventEditMenu from 'components/HoraeApp/CalendarPage/CalendarEven
 
 export type CalendarEventItemProps = CalendarEvent & { color: string };
 
-const StyledItem = styled.div<{ color: string }>`
+const StyledItem = styled.div<{ color: string; showMenu?: boolean }>`
   padding: 1rem;
   border-radius: 1rem;
   background-color: var(${(props) => props.color});
@@ -16,6 +16,7 @@ const StyledItem = styled.div<{ color: string }>`
   transition: all 0.2s;
   border: 3px solid transparent;
   cursor: pointer;
+  ${(props) => props.showMenu && 'border-color: var(--color-text-subtitle);'}
   &:hover {
     border-color: var(--color-text-subtitle);
   }
@@ -70,7 +71,7 @@ function CalendarEventItem({
           closeModal={() => setShowMenu(false)}
         />
       )}
-      <StyledItem color={color} onClick={toggleMenu}>
+      <StyledItem color={color} onClick={toggleMenu} showMenu={showMenu}>
         <Text color="white" type="regular" weight="400">
           {name}
         </Text>

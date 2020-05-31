@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import useCalendarEvents from 'hooks/useCalendarEvents';
+
 import MonthHeader from 'components/HoraeApp/CalendarPage/CalendarMonth/MonthHeader';
 import MonthItem from 'components/HoraeApp/CalendarPage/CalendarMonth/MonthItem';
 import {
@@ -33,6 +35,7 @@ const closestSaturdayAfter = (date: Date) => addDays(date, 6 - date.getDay());
 
 function CalendarMonth() {
   const [date, setDate] = useState<Date>(new Date());
+  const events = useCalendarEvents();
 
   const daysOfMonth = eachDayOfInterval({
     start: closestSundayBefore(startOfMonth(date)),
@@ -59,7 +62,7 @@ function CalendarMonth() {
           <MonthItem
             key={day.toLocaleString()}
             date={day}
-            events={[]}
+            events={events.get(day.toDateString())}
             isSameMonth={isSameMonth(day, date)}
             isToday={isToday(day)}
           />
