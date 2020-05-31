@@ -9,7 +9,7 @@ const db = firebase.database();
 router.post('/', (req, res) => {
 
   const { userId, title, description} = req.body;
-  const todoList = { title, description, tasks: [], numOfTasksAdded: 0 };
+  const todoList = { title, description, settings: {color}, tasks: [], numOfTasksAdded: 0 };
   const data = db
     .ref('users/' + userId + '/todo/')
     .push();
@@ -31,7 +31,18 @@ router.get('/:userId', (req, res) => {
   db
     .ref('users/' + userId + '/todo/')
     .once('value')
-    .then((data) => res.json(data.val()))
+    .then((data) => { 
+      if (data.val() != null) {
+      let val = Object.values(data.val())
+      val.forEach(element =>
+        element.tasks = Object.values(element.tasks)
+      )
+      res.json(val);
+    } 
+    else {
+      res.send('DOESNT EXIST');
+    }
+  })
     .catch((err) => res.json({ err: err.message }));
 });
 
@@ -42,7 +53,14 @@ router.get('/:userId/:todoListId', (req, res) => {
   db
     .ref('users/' + userId + '/todo/' + todoListId)
     .once('value')
-    .then((data) => res.json(data.val()))
+    .then((data) => { 
+      let val = Object(data.val())
+      val.tasks = Object.values(data.val().tasks);
+      if (data.val() != null) {
+        res.json(val);
+      }
+      //basically if the key doesnt exist
+      else res.send('DOESNT EXIST!');})
     .catch((err) => res.json({ err: err.message }));
 });
 

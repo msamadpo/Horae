@@ -35,7 +35,11 @@ router.get('/:uid', (req, res) => {
     .once('value')
     .then((data) => {
       if (data.val() != null) {
-        res.json(data.val());
+        let val = Object.values(data.val())
+        val.forEach(element =>
+          element.events = Object.values(element.events)
+        )
+        res.json(val);
       } else {
         res.send('DOESNT EXIST');
       }
@@ -46,12 +50,14 @@ router.get('/:uid', (req, res) => {
 // READ one calendar
 router.get('/:uid/:calendarId', (req, res) => {
   const { uid, calendarId } = req.params;
-
+ 
   db.ref('users/' + uid + '/calendar/' + calendarId)
     .once('value')
     .then((data) => {
+      let val = Object(data.val())
+      val.events = Object.values(data.val().events);
       if (data.val() != null) {
-        res.json(data.val());
+        res.json(val);
       }
       //basically if the key doesnt exist
       else res.send('DOESNT EXIST!');

@@ -43,7 +43,14 @@ router.get('/:userId/:todoListId', (req, res) => {
     db
     .ref('users/'+userId+'/todo/'+ todoListId + '/tasks')
     .once('value')
-    .then((data)=> res.json(data.val()))
+    .then((data)=> {
+      if (data.val() != null) {
+        let val = Object.values(data.val())
+        res.json(val);
+      } else {
+        res.send('DOESNT EXIST');
+      }
+    })
     .catch((err)=> res.json({err: err.message}));
 });
 
@@ -55,7 +62,12 @@ router.get('/:userId/:todoListId/:taskId', (req, res) => {
     db
     .ref('users/'+userId+'/todo/'+ todoListId +'/tasks/'+taskId)
     .once('value')
-    .then((data)=> res.json(data.val()))
+    .then((data)=> {
+      if (data.val() != null) {
+      res.json(Object(data.val()));
+    } else {
+      res.send('DOESNT EXIST');
+    }})
     .catch((err)=> res.json({err: err.message}));
 });
 

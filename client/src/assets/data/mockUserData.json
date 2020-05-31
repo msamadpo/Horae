@@ -1,274 +1,1179 @@
 {
-  "id": "5d5060be825ee",
+  "id": "cf32c7e6-ec27-4782-bc21-359ccce21009",
   "firstName": "John",
   "lastName": "Doe",
-  "email": "johndoe@gmail.com",
-  "phoneNumber": "12345678910",
-  "passwordHash": "qiyh4XPJGsOZ",
+  "email": "jdoe@gmail.com",
+  "phoneNumber": "(525) 451-1823",
+  "passwordHash": "h11th1t11h1jhct1jDd51",
   "calendars": [
-    {
-      "id": "0",
-      "title": "Palau",
-      "settings": {
-        "color": "--color-primary-3"
+      {
+          "id": "a6d80b43-c256-4eee-b458-5ec9cccdc896",
+          "name": "CSE 110 Calendar",
+          "setting": {
+              "color": "--color-primary-7"
+          },
+          "events": [
+              {
+                  "id": "4f084c42-c791-4dae-adaf-212698d1c4dc",
+                  "name": "Lecture #1",
+                  "date": "Sat Feb 01 2020 01:59:52 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "bb74b68d-0658-48e1-9db5-cc9afdb0a639",
+                  "name": "Quiz #1",
+                  "date": "Wed Nov 04 2020 19:01:16 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "55976517-5cd7-4f3e-95ae-8a924b30db8c",
+                  "name": "Lab #1",
+                  "date": "Sat Nov 28 2020 08:12:13 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "f3bee91b-c01a-4017-b444-8f7ae297cfcd",
+                  "name": "Lecture #2",
+                  "date": "Tue Jul 14 2020 07:11:53 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 5,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "2e5d993f-1a25-451e-8e3c-160270d7ed92",
+                  "name": "lab 2",
+                  "date": "Tue Dec 22 2020 08:31:31 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "282b332b-a99d-4461-b6f4-12311cd35588",
+                  "name": "Customer meeting 1",
+                  "date": "Tue Jan 14 2020 03:31:47 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "2e10582c-38d7-4bab-9a1c-b4624ae13d4b",
+                  "name": "team meeting",
+                  "date": "Sat Aug 01 2020 07:25:40 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "b1755c18-59c8-4a76-bb1a-5447ae44ecb1",
+                  "name": "lab 3",
+                  "date": "Wed Nov 11 2020 16:55:04 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "4cf82062-3397-4ec9-a0ab-22eebc5137d2",
+                  "name": "quiz 1",
+                  "date": "Thu May 28 2020 12:24:22 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "fc5602dd-c18d-4269-93c7-b6c50203d993",
+                  "name": "Customer meeting 2",
+                  "date": "Mon Feb 03 2020 15:02:49 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "9ac376ab-7a64-438b-ae73-253de3b38845",
+                  "name": "quiz 2",
+                  "date": "Mon Oct 12 2020 16:32:01 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "ad14124e-92a4-436b-a91b-25cafc7ab948",
+                  "name": "lecture 4",
+                  "date": "Sat Aug 08 2020 22:13:02 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "35846e0a-3f61-4dfa-a9bb-0fd545768877",
+                  "name": "team meeting",
+                  "date": "Wed Feb 19 2020 03:55:52 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "36e5c41c-96a9-41f4-9c2a-b839bfb60977",
+                  "name": "lab 4",
+                  "date": "Fri Apr 10 2020 17:58:37 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "ea5a92d2-9f62-40ef-8b60-6d3dde9529fd",
+                  "name": "team meeting",
+                  "date": "Thu May 14 2020 20:01:48 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 5,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "36b4fc2d-4431-4c39-a5ed-9d16a96a8dab",
+                  "name": "Customer meeting 6",
+                  "date": "Thu Mar 12 2020 02:18:38 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "d923c245-e064-44f7-a2da-8848f4df1f01",
+                  "name": "lab 7",
+                  "date": "Thu Sep 03 2020 23:44:20 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "81205c69-7bc9-4166-8cbb-3521c07a3bdc",
+                  "name": "lab 8",
+                  "date": "Wed Dec 23 2020 21:46:57 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "e9771eeb-b638-44c3-aeab-4481fa923bf7",
+                  "name": "Final Project",
+                  "date": "Wed Jul 01 2020 22:43:22 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "6569236a-bbb4-4760-969f-95f1d5385ddb",
+                  "name": "Final",
+                  "date": "Fri Sep 04 2020 10:30:06 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "ZOOM",
+                  "note": ""
+              }
+          ]
       },
-      "events": [
-        {
-          "id": "235097353",
-          "name": "San Diego",
-          "description": "",
-          "date": "Mon May 18 2020 14:03:20 GMT-0700 (Pacific Daylight Time)",
-          "duration": 1,
-          "location": "Zoom"
-        },
-        {
-          "id": "429121530",
-          "name": "Cincinnati",
-          "description": "",
-          "date": "Fri May 22 2020 22:56:10 GMT-0700 (Pacific Daylight Time)",
-          "duration": 1,
-          "location": "Zoom"
-        },
-        {
-          "id": "150628658",
-          "name": "Monrovia",
-          "description": "",
-          "date": "Mon May 18 2020 17:36:07 GMT-0700 (Pacific Daylight Time)",
-          "duration": 1,
-          "location": "Zoom"
-        },
-        {
-          "id": "602844088",
-          "name": "Athens",
-          "description": "",
-          "date": "Wed May 20 2020 4:44:03 GMT-0700 (Pacific Daylight Time)",
-          "duration": 2,
-          "location": "Zoom"
-        }
-      ]
-    },
-    {
-      "id": "1",
-      "title": "Israel",
-      "settings": {
-        "color": "--color-primary-6"
+      {
+          "id": "4eb46179-ffa8-4bad-be55-6b2ebf6e0b6e",
+          "name": "COGS 108 Calendar",
+          "setting": {
+              "color": "--color-primary-6"
+          },
+          "events": [
+              {
+                  "id": "8872312b-73e6-4584-89a9-4c0514d8a18a",
+                  "name": "Lecture#1",
+                  "date": "Fri Dec 04 2020 13:53:25 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "fa18a8a1-e84e-4c76-835c-490615bf174b",
+                  "name": "Lecture 2",
+                  "date": "Sun May 10 2020 08:23:11 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "835a77b2-20c4-4dce-b82b-548a33813f6c",
+                  "name": "Assignment 1",
+                  "date": "Wed Mar 18 2020 23:35:58 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "d26ff555-a8c9-443f-93cf-d4bfed37c227",
+                  "name": "Lecture 3",
+                  "date": "Wed Sep 09 2020 07:31:01 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 5,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "fbc32f85-8f67-4220-935e-c96ff5e80daa",
+                  "name": "Assignment 2",
+                  "date": "Wed Jul 15 2020 09:07:47 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "0a3f56ad-4863-4316-8cb2-063c622ab37e",
+                  "name": "Project Proposal",
+                  "date": "Tue Feb 25 2020 03:14:07 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "38ae8ea4-6bae-4ab1-929f-8ae6584acf8a",
+                  "name": "lecture 4",
+                  "date": "Fri Oct 09 2020 23:26:34 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "c8322868-a193-481b-bb5d-ed9e1b08c189",
+                  "name": "Assignment 3",
+                  "date": "Tue Dec 29 2020 16:47:57 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "0f3ddfe5-031e-4e43-bdf4-4f7061897155",
+                  "name": "lecture 5",
+                  "date": "Thu Jun 25 2020 08:36:53 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "3110797e-fd95-4e12-9344-a372620b4bf8",
+                  "name": "Assignment 4Final Project",
+                  "date": "Thu Sep 17 2020 00:28:20 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "ZOOM",
+                  "note": ""
+              }
+          ]
       },
-      "events": [
-        {
-          "id": "894597099",
-          "name": "Chongjin",
-          "description": "",
-          "date": "Sun May 17 2020 3:58:05 GMT-0700 (Pacific Daylight Time)",
-          "duration": 4,
-          "location": "Zoom"
-        },
-        {
-          "id": "224278318",
-          "name": "Boston",
-          "description": "",
-          "date": "Sun May 17 2020 10:33:57 GMT-0700 (Pacific Daylight Time)",
-          "duration": 1,
-          "location": "Zoom"
-        },
-        {
-          "id": "178146367",
-          "name": "Nagoya",
-          "description": "",
-          "date": "Wed May 20 2020 7:51:04 GMT-0700 (Pacific Daylight Time)",
-          "duration": 4,
-          "location": "Zoom"
-        },
-        {
-          "id": "484903687",
-          "name": "Miri",
-          "description": "",
-          "date": "Sat May 23 2020 18:34:59 GMT-0700 (Pacific Daylight Time)",
-          "duration": 3,
-          "location": "Zoom"
-        }
-      ]
-    },
-    {
-      "id": "2",
-      "title": "Madagascar",
-      "settings": {
-        "color": "--color-primary-3"
+      {
+          "id": "536397c4-d180-48f3-97a1-1902843b09ec",
+          "name": "CSE 101 Calendar",
+          "setting": {
+              "color": "--color-primary-1"
+          },
+          "events": [
+              {
+                  "id": "39af4348-c028-4746-b00d-326ab17ab34b",
+                  "name": "Lecture 1",
+                  "date": "Fri Jul 24 2020 05:11:49 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "48d123e9-b123-4594-a747-4b7d122d1d82",
+                  "name": "Lecture 2",
+                  "date": "Fri May 22 2020 15:46:08 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "be651da6-5115-40c8-b2c9-32b168f1443a",
+                  "name": "Lecture 3",
+                  "date": "Fri Dec 04 2020 06:04:06 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "d9e7c427-a919-4ab8-b7d2-d2a9d7b7655d",
+                  "name": "HW1",
+                  "date": "Tue Jan 21 2020 20:17:27 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "9e4864d6-9eb2-49f5-9a88-70f32be9855c",
+                  "name": "Quiz 1",
+                  "date": "Mon May 18 2020 12:27:47 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "cdd425f4-59f1-4567-8e62-f64dc6b0fd3a",
+                  "name": "Lecture 4",
+                  "date": "Sat Aug 29 2020 16:11:50 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "5c34f3de-ed89-4fe0-9258-c5a0f5d87747",
+                  "name": "HW2",
+                  "date": "Thu Mar 19 2020 22:53:32 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "97a3920e-81bb-40ef-accc-30f3099e30d3",
+                  "name": "lecture 5",
+                  "date": "Thu Aug 20 2020 06:12:33 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "919b6825-cced-4c0d-a444-6bd9d9a162e4",
+                  "name": "Quiz 2",
+                  "date": "Fri Aug 21 2020 11:42:40 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "c6fbd253-6fd8-4396-b44f-667d58e05d3f",
+                  "name": "HW3",
+                  "date": "Sun Mar 29 2020 18:42:51 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "67748457-79f8-4171-8900-dd9a9bc19f0e",
+                  "name": "Lectur 6",
+                  "date": "Sun Jul 19 2020 14:29:02 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "f9138e50-06e5-4381-8dc0-a7bd279db3c4",
+                  "name": "Final",
+                  "date": "Wed Feb 26 2020 08:46:51 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "ZOOM",
+                  "note": ""
+              }
+          ]
       },
-      "events": [
-        {
-          "id": "980698582",
-          "name": "Iquitos",
-          "description": "",
-          "date": "Wed May 20 2020 15:55:30 GMT-0700 (Pacific Daylight Time)",
-          "duration": 1,
-          "location": "Zoom"
-        },
-        {
-          "id": "635564594",
-          "name": "Khartoum",
-          "description": "",
-          "date": "Sat May 23 2020 19:29:15 GMT-0700 (Pacific Daylight Time)",
-          "duration": 4,
-          "location": "Zoom"
-        },
-        {
-          "id": "390590584",
-          "name": "Charlotte",
-          "description": "",
-          "date": "Thu May 21 2020 15:32:46 GMT-0700 (Pacific Daylight Time)",
-          "duration": 4,
-          "location": "Zoom"
-        },
-        {
-          "id": "242543400",
-          "name": "Tampa",
-          "description": "",
-          "date": "Sun May 17 2020 11:06:10 GMT-0700 (Pacific Daylight Time)",
-          "duration": 1,
-          "location": "Zoom"
-        }
-      ]
-    },
-    {
-      "id": "3",
-      "title": "Nepal",
-      "settings": {
-        "color": "--color-primary-2"
+      {
+          "id": "34e4ff38-63c8-4967-8c52-30cdbb0f736c",
+          "name": "Work Calendar",
+          "setting": {
+              "color": "--color-primary-5"
+          },
+          "events": [
+              {
+                  "id": "79bab6d0-48bc-4f32-9355-ccce6d73941b",
+                  "name": "Meeting",
+                  "date": "Thu Oct 15 2020 16:03:16 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "CSE110 INC",
+                  "note": ""
+              },
+              {
+                  "id": "2657bf9c-8487-4586-97d5-25a36e7e8b2d",
+                  "name": "Company BBQ",
+                  "date": "Sun May 17 2020 09:11:47 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "CSE110 INC",
+                  "note": ""
+              },
+              {
+                  "id": "50bd0123-a04c-40b0-8f73-91d258fbb623",
+                  "name": "Meeting",
+                  "date": "Mon Feb 03 2020 17:07:15 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "CSECSE_110_event_location110 INC",
+                  "note": ""
+              },
+              {
+                  "id": "a2307890-33c8-43e0-8cf6-5379789490af",
+                  "name": "Work Convention",
+                  "date": "Wed Jan 08 2020 08:51:04 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "CSE110 INC",
+                  "note": ""
+              },
+              {
+                  "id": "4b0278c3-5039-4cd4-8bb6-9045f411a753",
+                  "name": "Company Dinner",
+                  "date": "Thu May 07 2020 10:50:23 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 5,
+                  "location": "CSE110 INC",
+                  "note": ""
+              },
+              {
+                  "id": "5139b9f5-27d6-4a66-a554-8d3e7c835620",
+                  "name": "Meeting",
+                  "date": "Thu Dec 24 2020 07:27:25 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "CSE110 INC",
+                  "note": ""
+              },
+              {
+                  "id": "cbd03673-5dfe-408e-ad91-442d9711f73a",
+                  "name": "Work Convention",
+                  "date": "Fri Jul 03 2020 22:27:18 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "CSE110 INC",
+                  "note": ""
+              },
+              {
+                  "id": "06a5b428-3d12-4fce-b67f-4e5c57bd394d",
+                  "name": "Lunch with Coworker",
+                  "date": "Wed Jun 10 2020 20:20:44 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "CSE110 INC",
+                  "note": ""
+              },
+              {
+                  "id": "66269716-5cb8-4b97-9582-e1ce5a4cc5ec",
+                  "name": "Lunch with Boss",
+                  "date": "Sun Mar 01 2020 15:49:10 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "CSE110 INC",
+                  "note": ""
+              },
+              {
+                  "id": "bd00df0a-883d-4330-a4e6-97b9c8c9ffa5",
+                  "name": "Award Ceremony",
+                  "date": "Tue Oct 27 2020 06:19:54 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "CSE110 INC",
+                  "note": ""
+              }
+          ]
       },
-      "events": [
-        {
-          "id": "826166173",
-          "name": "Bangalore",
-          "description": "",
-          "date": "Sat May 23 2020 14:54:48 GMT-0700 (Pacific Daylight Time)",
-          "duration": 4,
-          "location": "Zoom"
-        },
-        {
-          "id": "770923493",
-          "name": "Tiraspol",
-          "description": "",
-          "date": "Sun May 17 2020 5:55:44 GMT-0700 (Pacific Daylight Time)",
-          "duration": 4,
-          "location": "Zoom"
-        },
-        {
-          "id": "427938771",
-          "name": "Medina",
-          "description": "",
-          "date": "Thu May 21 2020 21:04:21 GMT-0700 (Pacific Daylight Time)",
-          "duration": 1,
-          "location": "Zoom"
-        },
-        {
-          "id": "669393184",
-          "name": "Townsville",
-          "description": "",
-          "date": "Sat May 23 2020 20:37:25 GMT-0700 (Pacific Daylight Time)",
-          "duration": 2,
-          "location": "Zoom"
-        }
-      ]
-    },
-    {
-      "id": "4",
-      "title": "Indonesia",
-      "settings": {
-        "color": "--color-primary-4"
+      {
+          "id": "f7bc566f-ab21-43d0-9f77-ab6c077af4d5",
+          "name": "Birthdays Calendar",
+          "setting": {
+              "color": "--color-primary-7"
+          },
+          "events": [
+              {
+                  "id": "156346c3-ecc9-4829-828a-d6c9f297ea56",
+                  "name": "Jose's Bday",
+                  "date": "Sat Feb 08 2020 10:25:47 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "eaecb894-798d-461f-ac75-f26835e6729c",
+                  "name": "Karthik's Bday",
+                  "date": "Thu Dec 10 2020 01:21:55 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "17c2c833-9bfc-40b1-9331-89e6b4ae4773",
+                  "name": "Luke's Bday",
+                  "date": "Mon Aug 10 2020 23:03:35 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "cbc47b29-a885-4782-b4b9-1b89d1bffa47",
+                  "name": "Nikki's bday",
+                  "date": "Sat Dec 26 2020 05:00:43 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 5,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "6c9bf3ef-18a5-43db-acd4-049a37a577e9",
+                  "name": "Anh's bday",
+                  "date": "Mon Jul 06 2020 15:38:43 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 5,
+                  "location": "ZOOM",
+                  "note": ""
+              },
+              {
+                  "id": "5ac8fc9c-f0db-4734-b8b7-c24986b66099",
+                  "name": "Naz's bday",
+                  "date": "Thu Oct 01 2020 03:31:34 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "ZOOM",
+                  "note": ""
+              }
+          ]
       },
-      "events": [
-        {
-          "id": "981442059",
-          "name": "Bratislava",
-          "description": "",
-          "date": "Sun May 17 2020 11:39:58 GMT-0700 (Pacific Daylight Time)",
-          "duration": 1,
-          "location": "Zoom"
-        },
-        {
-          "id": "131389",
-          "name": "Port Blair",
-          "description": "",
-          "date": "Sun May 17 2020 9:41:00 GMT-0700 (Pacific Daylight Time)",
-          "duration": 4,
-          "location": "Zoom"
-        },
-        {
-          "id": "61002489",
-          "name": "Cusco",
-          "description": "",
-          "date": "Wed May 20 2020 11:11:02 GMT-0700 (Pacific Daylight Time)",
-          "duration": 2,
-          "location": "Zoom"
-        },
-        {
-          "id": "609444708",
-          "name": "Greenwich",
-          "description": "",
-          "date": "Tue May 19 2020 21:42:26 GMT-0700 (Pacific Daylight Time)",
-          "duration": 2,
-          "location": "Zoom"
-        }
-      ]
-    }
+      {
+          "id": "5b110156-1f55-47c3-b4f2-0ac466e853cd",
+          "name": "CSE 143 Calendar",
+          "setting": {
+              "color": "--color-primary-5"
+          },
+          "events": [
+              {
+                  "id": "150a7aa3-acd2-4c53-a6b9-ee1c3f1960b4",
+                  "name": "Lecture #1",
+                  "date": "Sat May 02 2020 02:44:01 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "EBU3B 2154",
+                  "note": "Read Pre-Class Reading"
+              },
+              {
+                  "id": "9dbebaac-d4cd-48ae-bc2a-e39eae7992bc",
+                  "name": "Lecture #2",
+                  "date": "Thu Mar 12 2020 13:29:23 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 5,
+                  "location": "EBU3B 2154",
+                  "note": "Read Pre-Class Reading"
+              },
+              {
+                  "id": "c128fdb6-970c-43ce-917e-4304e1c46035",
+                  "name": "Lecture #3",
+                  "date": "Thu Jun 18 2020 01:11:58 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "EBU3B 2154",
+                  "note": "Read Pre-Class Reading"
+              },
+              {
+                  "id": "529d8a93-f794-4efd-b416-4ad05a1dc8f9",
+                  "name": "Lecture #4",
+                  "date": "Fri Mar 13 2020 04:04:53 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "EBU3B 2154",
+                  "note": "Read Pre-Class Reading"
+              },
+              {
+                  "id": "4728f56b-cee6-4d0e-b091-46bb632805a6",
+                  "name": "Lecture #5",
+                  "date": "Fri Apr 17 2020 16:38:49 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "EBU3B 2154",
+                  "note": "Read Pre-Class Reading"
+              },
+              {
+                  "id": "7291fb48-8019-41f9-9177-62f1a9108fd3",
+                  "name": "Lecture #6",
+                  "date": "Sat Jul 11 2020 02:26:03 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "EBU3B 2154",
+                  "note": "Read Pre-Class Reading"
+              },
+              {
+                  "id": "d7245756-a468-41fd-9257-f0e7d14081c3",
+                  "name": "Lecture #7",
+                  "date": "Tue Feb 11 2020 05:27:36 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "EBU3B 2154",
+                  "note": "Read Pre-Class Reading"
+              },
+              {
+                  "id": "6a365995-b873-4da4-acf7-e636db5fb435",
+                  "name": "Discussion #1",
+                  "date": "Thu Dec 03 2020 13:16:29 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "EBU3B 4140",
+                  "note": "Ask questions about hw"
+              },
+              {
+                  "id": "828de0f0-f34d-4b57-98b2-cfcc19f31c18",
+                  "name": "Discussion #2",
+                  "date": "Wed Jun 10 2020 22:49:47 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "EBU3B 4140",
+                  "note": "Ask questions about hw"
+              },
+              {
+                  "id": "faa772d9-f260-4ff3-ab2e-0d2f5cf61108",
+                  "name": "Discussion #3",
+                  "date": "Thu Mar 12 2020 10:23:11 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "EBU3B 4140",
+                  "note": "Ask questions about hw"
+              },
+              {
+                  "id": "3a610d99-c9c7-49f6-9882-e1058f6219e9",
+                  "name": "Discussion #4",
+                  "date": "Mon Dec 21 2020 02:00:18 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "EBU3B 4140",
+                  "note": "Ask questions about hw"
+              },
+              {
+                  "id": "e60e08c7-68fc-4b87-9162-ec7fd11d9930",
+                  "name": "Discussion #5",
+                  "date": "Mon Sep 07 2020 21:46:11 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 5,
+                  "location": "EBU3B 4140",
+                  "note": "Ask questions about hw"
+              },
+              {
+                  "id": "ba931f8e-a8a0-4344-be13-579b07126164",
+                  "name": "Discussion #6",
+                  "date": "Wed Sep 16 2020 03:34:59 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "EBU3B 4140",
+                  "note": "Ask questions about hw"
+              },
+              {
+                  "id": "dc9fd1ae-2bd3-42f5-b8e1-9cc9fcc6ee5d",
+                  "name": "PreFinal",
+                  "date": "Tue Jan 28 2020 09:31:34 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "EBU3B 2154",
+                  "note": "remember to study"
+              },
+              {
+                  "id": "e01f3742-306a-47f8-84f1-7dc544d758d8",
+                  "name": "Final Project",
+                  "date": "Sun Mar 08 2020 18:25:47 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "TBA",
+                  "note": "Finish Report and prepare presentation"
+              }
+          ]
+      },
+      {
+          "id": "ed7c2ae4-f12f-41ee-be14-9884faa55f5f",
+          "name": "Applications Deadline CalendarTutoring Calendar",
+          "setting": {
+              "color": "--color-primary-6"
+          },
+          "events": [
+              {
+                  "id": "67e4064a-5d47-424d-b6cd-d665ea5575d6",
+                  "name": "CSE Tutor Application Deadline",
+                  "date": "Tue Sep 22 2020 09:13:47 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "ucsd",
+                  "note": ""
+              },
+              {
+                  "id": "8e3aa64c-313c-4b8c-b7ee-a501dea08614",
+                  "name": "Qualcomm Internship Application Deadline",
+                  "date": "Mon Jul 20 2020 11:57:25 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "qualcomm",
+                  "note": ""
+              }
+          ]
+      },
+      {
+          "id": "b788a140-f518-403f-ae94-572d56fd64a1",
+          "name": "Family Events Calendar",
+          "setting": {
+              "color": "--color-primary-6"
+          },
+          "events": [
+              {
+                  "id": "ef81f767-c277-4a5d-8f03-b7fa759e59f0",
+                  "name": "Tutoring Session #1",
+                  "date": "Tue Apr 21 2020 15:17:44 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "Library",
+                  "note": "Review students notes"
+              },
+              {
+                  "id": "aaeff915-1045-46e8-9309-6724491eaffb",
+                  "name": "Tutoring Session #2",
+                  "date": "Wed Jun 24 2020 06:04:42 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "Library",
+                  "note": "Review students notes"
+              },
+              {
+                  "id": "c4b990b5-403b-4a67-83ac-0518218085fb",
+                  "name": "Tutoring Session #3",
+                  "date": "Sun Jul 12 2020 10:21:54 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "Library",
+                  "note": "Review students notes"
+              },
+              {
+                  "id": "eb5176af-a051-4075-a322-e89f49375166",
+                  "name": "Tutoring Session #4",
+                  "date": "Tue Nov 24 2020 00:08:10 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "Library",
+                  "note": "Review students notes"
+              },
+              {
+                  "id": "1f5135f4-43bf-4e1b-b122-44febf811f61",
+                  "name": "Tutoring Session #5",
+                  "date": "Mon May 25 2020 02:24:27 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 5,
+                  "location": "Library",
+                  "note": "Review students notes"
+              },
+              {
+                  "id": "41e3d2dd-3212-4669-832d-351e88d83fcd",
+                  "name": "Tutoring Session #6",
+                  "date": "Fri Sep 25 2020 21:56:02 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "Library",
+                  "note": "Review students notes"
+              },
+              {
+                  "id": "db683cc0-d23d-4588-a28f-d750b4e8b656",
+                  "name": "Tutoring Session #7",
+                  "date": "Sat Jun 13 2020 01:52:46 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "Library",
+                  "note": "Review students notes"
+              },
+              {
+                  "id": "c918e3e2-cee6-469d-af8a-10279250524c",
+                  "name": "Tutoring Session #8",
+                  "date": "Sun Nov 22 2020 10:20:01 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "Library",
+                  "note": "Review students notes"
+              },
+              {
+                  "id": "861390a5-d5fa-4af5-9795-43c1c34de4a2",
+                  "name": "Tutoring Session #9",
+                  "date": "Sat May 16 2020 18:42:00 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 5,
+                  "location": "Library",
+                  "note": "Review students notes"
+              },
+              {
+                  "id": "02e7a2a0-f630-4fc8-a279-90f96176bc45",
+                  "name": "Tutoring Session #10",
+                  "date": "Fri Apr 03 2020 00:25:41 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "Library",
+                  "note": "Review students notes"
+              },
+              {
+                  "id": "d95f3546-da01-4062-ad7d-76b3dc416625",
+                  "name": "Tutoring Session #11",
+                  "date": "Tue Oct 27 2020 13:22:14 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "Library",
+                  "note": "Review students notes"
+              },
+              {
+                  "id": "ac288681-e837-4a40-8847-d0bef9b7cc41",
+                  "name": "Tutoring Session #12",
+                  "date": "Sun Feb 09 2020 19:06:39 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "Library",
+                  "note": "Review students notes"
+              },
+              {
+                  "id": "432016ec-a6d5-49a5-ae88-78e527805650",
+                  "name": "Tutoring Session #13",
+                  "date": "Sat Jul 25 2020 11:09:07 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 5,
+                  "location": "Library",
+                  "note": "Review students notes"
+              },
+              {
+                  "id": "8b9fd4a9-ef61-4cf6-a6e5-c1da67da2712",
+                  "name": "Tutoring Session #14",
+                  "date": "Sun Apr 12 2020 04:55:04 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 3,
+                  "location": "Library",
+                  "note": "Review students notes"
+              }
+          ]
+      },
+      {
+          "id": "986628c2-dd4f-4c90-a347-1035cf4d12cd",
+          "name": "Personal Calendar",
+          "setting": {
+              "color": "--color-primary-1"
+          },
+          "events": [
+              {
+                  "id": "606bc73d-308a-4b61-a8c4-ddf36ddcbd15",
+                  "name": "DisneyLand Trip",
+                  "date": "Tue Dec 22 2020 18:17:37 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 9,
+                  "location": "Anehiam",
+                  "note": "Take picture with famaly"
+              },
+              {
+                  "id": "0449b805-1173-43be-85d5-f856dd54ad38",
+                  "name": "France Trip",
+                  "date": "Tue Dec 29 2020 08:31:08 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 1,
+                  "location": "France",
+                  "note": "See the eiffel tower"
+              },
+              {
+                  "id": "53ca44da-a038-4762-919a-65d59b470fa7",
+                  "name": "Dad's Surpirise Party",
+                  "date": "Mon May 18 2020 00:35:20 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "Home",
+                  "note": "Bring the cake"
+              },
+              {
+                  "id": "0689fd34-6624-428e-93b2-0d1fa5b15775",
+                  "name": "Movie Night",
+                  "date": "Thu Apr 09 2020 07:24:56 GMT-0700 (Pacific Daylight Time)",
+                  "duration": 7,
+                  "location": "Theater",
+                  "note": "Buy tickets in advance"
+              }
+          ]
+      }
   ],
-  "todo_lists": [
-    {
-      "id": "123456789",
-      "title": "CSE 110",
-      "settings": {
-        "color": "--color-primary-3"
+  "todo_list": [
+      {
+          "id": "ae2ea3e6-358f-4367-aac9-7d2300fb3c9e",
+          "title": "Groceries",
+          "description": "List of groceries",
+          "setting": {
+              "color": "--color-primary-1"
+          },
+          "tasks": [
+              {
+                  "id": "4b68de91-6f07-49d9-b5aa-5305449efbd7",
+                  "name": "Carrots",
+                  "order": 1000,
+                  "deadline": "Mon Jul 20 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "cb273840-f6da-4839-9192-d32de30c7a2b",
+                  "name": "Peas",
+                  "order": 2000,
+                  "deadline": "Thu Feb 06 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "4a0e9360-9f71-4cf8-a631-04dbd85f38a6",
+                  "name": "Milk",
+                  "order": 3000,
+                  "deadline": "Thu Aug 06 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "d331dda1-4d49-4426-b577-41cf32b75f7b",
+                  "name": "Chips",
+                  "order": 4000,
+                  "deadline": "Sat Jul 25 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "22afe9cd-72b1-480e-9504-e760defbd109",
+                  "name": "Apples",
+                  "order": 5000,
+                  "deadline": "Sun Jul 19 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "c5aa1861-4e49-404c-8be9-e6c7b8659522",
+                  "name": "Bannanas",
+                  "order": 6000,
+                  "deadline": "Wed Jun 10 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "e8c93aee-1930-4eef-9819-0c50128edd32",
+                  "name": "Ice Cream",
+                  "order": 7000,
+                  "deadline": "Sun Jun 28 2020 ",
+                  "completion": false
+              }
+          ]
       },
-      "tasks": [
-        {
-          "id": "343ERHFGIR4545",
-          "name": "Spinach",
-          "deadline": "May 08 2020",
-          "completed": true
-        },
-        {
-          "id": "343ERH12R4545",
-          "name": "Homework 1",
-          "deadline": "May 12 2020",
-          "completed": false
-        },
-        {
-          "id": "343ERadFGIR4545",
-          "name": "Gym",
-          "deadline": "May 14 2020",
-          "completed": true
-        }
-      ]
-    },
-    {
-      "id": "12345678910",
-      "title": "CSE 107",
-      "settings": {
-        "color": "--color-primary-5"
+      {
+          "id": "c3969234-bf0f-4fbc-ab4b-877f44c57926",
+          "title": "CSE 110",
+          "description": "List of CSE 110 assignments",
+          "setting": {
+              "color": "--color-primary-6"
+          },
+          "tasks": [
+              {
+                  "id": "0999023c-81e6-4d18-8405-0980117893d4",
+                  "name": "User Stories",
+                  "order": 1000,
+                  "deadline": "Thu Mar 05 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "67143cb8-9808-4772-991b-6e00fbb25cd8",
+                  "name": "Use Cases",
+                  "order": 2000,
+                  "deadline": "Thu Aug 06 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "1f1cfbfb-44e2-4b86-b8ce-69721c8b20b1",
+                  "name": "Database Schema",
+                  "order": 3000,
+                  "deadline": "Sat Mar 07 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "630c88ab-6a47-4c25-a119-7ea1ce48c73d",
+                  "name": "System Requirements",
+                  "order": 4000,
+                  "deadline": "Wed Nov 04 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "8c2bf4a2-2bd3-49e5-813b-41db82343084",
+                  "name": "Test Cases",
+                  "order": 5000,
+                  "deadline": "Thu Jan 09 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "2d380a41-1a58-4c21-b7c3-b7aae73dea8b",
+                  "name": "Coding",
+                  "order": 6000,
+                  "deadline": "Fri Aug 21 2020 ",
+                  "completion": false
+              }
+          ]
       },
-      "tasks": [
-        {
-          "id": "34ERHFGIR4545",
-          "name": "PA 7",
-          "deadline": "May 08 2020",
-          "completed": true
-        },
-        {
-          "id": "343ERH14545",
-          "name": "Quiz 2",
-          "deadline": "May 12 2020",
-          "completed": false
-        },
-        {
-          "id": "343ERadFGIR45",
-          "name": "Study for final",
-          "deadline": "May 14 2020",
-          "completed": true
-        }
-      ]
-    }
+      {
+          "id": "4daf694f-19a4-4120-b4bd-3261004ae076",
+          "title": "Workouts",
+          "description": "Lis of workouts",
+          "setting": {
+              "color": "--color-primary-6"
+          },
+          "tasks": [
+              {
+                  "id": "711244f8-8ff8-4c91-8e9d-38eb657d83bd",
+                  "name": "Push-Up",
+                  "order": 1000,
+                  "deadline": "Thu Feb 20 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "950a5c77-9f4a-4fad-9555-ddd11d27599f",
+                  "name": "Sit-ups",
+                  "order": 2000,
+                  "deadline": "Sat May 23 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "6d18b074-7cd5-4f94-b14d-ab8334fb2e20",
+                  "name": "Plank",
+                  "order": 3000,
+                  "deadline": "Tue Apr 14 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "45a0c247-a408-4a4e-aa8e-d651776f8722",
+                  "name": "Squat",
+                  "order": 4000,
+                  "deadline": "Wed May 06 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "32479887-f031-486b-8f61-edce7bee0544",
+                  "name": "Burpee",
+                  "order": 5000,
+                  "deadline": "Tue Feb 25 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "6adb4d8a-bd0d-4a77-9756-fda0911450ca",
+                  "name": "Lunge",
+                  "order": 6000,
+                  "deadline": "Sat Apr 25 2020 ",
+                  "completion": true
+              }
+          ]
+      },
+      {
+          "id": "744dbcc3-401c-4ba2-9929-3114574b27fd",
+          "title": "Shopping",
+          "description": "Things I need",
+          "setting": {
+              "color": "--color-primary-1"
+          },
+          "tasks": [
+              {
+                  "id": "11301edd-4b32-48c1-9f19-ee25523746e2",
+                  "name": "Shirts",
+                  "order": 1000,
+                  "deadline": "Fri Feb 07 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "1e0ccacb-1131-407d-a457-0f7d5c5a0399",
+                  "name": "Pants",
+                  "order": 2000,
+                  "deadline": "Thu Jan 16 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "bbc226da-d825-4b27-b9f0-a0a92214251a",
+                  "name": "Shoes",
+                  "order": 3000,
+                  "deadline": "Tue Sep 01 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "29e1d581-e2ed-44e1-b17e-b3b9d26c002b",
+                  "name": "Blender",
+                  "order": 4000,
+                  "deadline": "Mon Aug 10 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "50acbb07-3264-4e2e-a05d-1a19badf42f8",
+                  "name": "Toaster",
+                  "order": 5000,
+                  "deadline": "Mon Feb 17 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "a930d8bc-dd57-47f5-9277-39eabf095d2d",
+                  "name": " Belt",
+                  "order": 6000,
+                  "deadline": "Sun Jun 07 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "40fd5b1a-ba18-419b-a4f8-6f08acebedbf",
+                  "name": "Birthday Card",
+                  "order": 7000,
+                  "deadline": "Wed Nov 11 2020 ",
+                  "completion": false
+              }
+          ]
+      },
+      {
+          "id": "d9cb5c5d-2d4d-4e2d-9ccf-b69b594205ed",
+          "title": "Landmarks to see",
+          "description": "Want to see",
+          "setting": {
+              "color": "--color-primary-2"
+          },
+          "tasks": [
+              {
+                  "id": "15f6646d-784e-43eb-af9f-290a17ed43de",
+                  "name": "Emipire State Building",
+                  "order": 1000,
+                  "deadline": "Fri Mar 13 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "d1e9b4d2-eaee-4f91-a332-9714cb0939d4",
+                  "name": "Mount Rushmore",
+                  "order": 2000,
+                  "deadline": "Sun Apr 19 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "8e082b72-2c37-4a66-9cc8-9bf44a334018",
+                  "name": "Eiffle Tower",
+                  "order": 3000,
+                  "deadline": "Wed Jan 22 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "a0f51b47-71e8-4bfe-a4aa-2fee7dbe603b",
+                  "name": "The Great Wall",
+                  "order": 4000,
+                  "deadline": "Thu Feb 13 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "01f59058-67e8-4651-8744-ccbec6273218",
+                  "name": "The Great Pramid of Giza",
+                  "order": 5000,
+                  "deadline": "Sun Aug 23 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "f02c30ee-7098-49ac-8027-fdb2e0e0397f",
+                  "name": "Bannanas",
+                  "order": 6000,
+                  "deadline": "Thu Dec 24 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "ffc8c112-8878-461b-970e-5abe1ad48c88",
+                  "name": "Ice Cream",
+                  "order": 7000,
+                  "deadline": "Thu Jul 16 2020 ",
+                  "completion": true
+              }
+          ]
+      },
+      {
+          "id": "0ae9ae73-2b09-439b-a770-f993aa90a03c",
+          "title": "Albums",
+          "description": "Albums to listen to",
+          "setting": {
+              "color": "--color-primary-7"
+          },
+          "tasks": [
+              {
+                  "id": "39815c28-a3c4-4d5d-8a7b-7cc331d02b13",
+                  "name": "Thriller",
+                  "order": 1000,
+                  "deadline": "Sun Jan 05 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "d7330754-f2b4-465a-8363-abeaf2fdfe01",
+                  "name": "Back in Black",
+                  "order": 2000,
+                  "deadline": "Wed Aug 12 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "dff10881-1a95-4766-9659-e18d4c84280b",
+                  "name": "The Dark Side of the Moon",
+                  "order": 3000,
+                  "deadline": "Tue May 26 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "b13623ee-c430-424a-9620-11574b673a8a",
+                  "name": "Grease Soundtrack",
+                  "order": 4000,
+                  "deadline": "Tue Jan 14 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "1c860d31-6e5d-4428-bbca-739179fe9637",
+                  "name": "Abby Road",
+                  "order": 5000,
+                  "deadline": "Fri Oct 23 2020 ",
+                  "completion": true
+              },
+              {
+                  "id": "bcbde381-1ce6-46f4-969d-8dad8b51ed2e",
+                  "name": "Hotel California",
+                  "order": 6000,
+                  "deadline": "Tue Jan 21 2020 ",
+                  "completion": false
+              },
+              {
+                  "id": "03a6b93a-4e4c-448b-bfc0-4ad741f72379",
+                  "name": "Sgt. Pepper's Lonely Hearts Club Band",
+                  "order": 7000,
+                  "deadline": "Sat Nov 28 2020 ",
+                  "completion": false
+              }
+          ]
+      }
   ],
-  "coins": 1000,
-  "avatar": {},
+  "avatar": "",
   "inventory": []
 }
