@@ -7,6 +7,7 @@ import {
   eachDayOfInterval,
   addWeeks,
   isWithinInterval,
+  compareAsc,
 } from 'date-fns';
 import WeekHeader from 'components/HoraeApp/CalendarPage/CalendarWeek/WeekHeader';
 import CalendarItem from 'components/HoraeApp/CalendarPage/CalendarWeek/CalendarEventItem';
@@ -75,7 +76,7 @@ function CalendarWeek({ startDate = new Date() }: ICalendarWeekProps) {
             <CalendarColumns key={date.toString()}>
               {events
                 ?.get(date.toDateString())
-                ?.sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
+                ?.sort((a, b) => compareAsc(new Date(a.date), new Date(b.date)))
                 .map((event) => {
                   return <CalendarItem {...event} key={event.id} />;
                 })}

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Text from 'components/Common/Text';
 import { CalendarEventItemType } from 'hooks/useCalendarEvents';
 import CalendarEventEditMenu from 'components/HoraeApp/CalendarPage/CalendarEventEditMenu';
+import { compareAsc } from 'date-fns';
 
 const StyledMonthItem = styled.div<{ blurred: boolean }>`
   display: flex;
@@ -19,6 +20,11 @@ const StyledMonthItem = styled.div<{ blurred: boolean }>`
   position: relative;
   margin-bottom: 1px;
   min-height: 14rem;
+  span {
+    text-overflow: ellipsis;
+    max-width: 100%;
+    overflow: hidden;
+  }
 `;
 
 const DateNum = styled.span<{ isToday: boolean }>`
@@ -84,20 +90,22 @@ function MonthItem({ date, isSameMonth, isToday, events }: IMonthItem) {
         {!isSameMonth && date.toLocaleString('default', { month: 'short' })}{' '}
         {date.getDate()}
       </DateNum>
-      {events?.map(({ id, name, color }, index) => (
-        <StyledEvent
-          color={color}
-          onClick={(e) => {
-            toggleMenu(e, index);
-            console.log();
-          }}
-          key={`month-${id}`}
-        >
-          <Text type="small" color="white">
-            {name}
-          </Text>
-        </StyledEvent>
-      ))}
+      {events
+        ?.sort((a, b) => compareAsc(new Date(a.date), new Date(b.date)))
+        .map(({ id, name, color }, index) => (
+          <StyledEvent
+            color={color}
+            onClick={(e) => {
+              toggleMenu(e, index);
+              console.log();
+            }}
+            key={`month-${id}`}
+          >
+            <Text type="small" color="white">
+              {name}
+            </Text>
+          </StyledEvent>
+        ))}
     </StyledMonthItem>
   );
 }
