@@ -39,12 +39,12 @@ function AppNavItem({ title, icon, to }: IAppNavItemProps) {
   const [active, setActive] = useState<boolean>(false);
 
   useEffect(() => {
-    setActive(history.location.pathname === to);
+    setActive(history.location.pathname.includes(to));
   }, [history.location.pathname, to]);
 
   useEffect(() => {
     history.listen((location) => {
-      setActive(location.pathname === to);
+      setActive(location.pathname.includes(to));
     });
   }, [history, to]);
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -7,9 +6,11 @@ import {
   Switch,
 } from 'react-router-dom';
 
+import styled from 'styled-components';
 import AppNavbar from 'components/HoraeApp/AppNavbar';
-import Header from 'components/HoraeApp/Header';
 import CalendarPage from 'components/HoraeApp/CalendarPage';
+import CalendarWeek from 'components/HoraeApp/CalendarPage/CalendarWeek';
+import CalendarMonth from 'components/HoraeApp/CalendarPage/CalendarMonth';
 import TodoPage from 'components/HoraeApp/TodoPage';
 import AvatarPage from 'components/HoraeApp/AvatarPage';
 
@@ -37,8 +38,10 @@ const StyledApp = styled.div`
 `;
 
 const StyledAppBody = styled.div`
-  padding: var(--spacing-large) var(--spacing-xlarge);
+  padding: var(--spacing-large) var(--spacing-base);
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 function HoraeApp() {
@@ -47,11 +50,19 @@ function HoraeApp() {
       <Router>
         <AppNavbar items={ITEMS} />
         <StyledAppBody>
-          <Header />
           <Switch>
-            <Route path="/calendar" component={CalendarPage} exact />
             <Route path="/todo" component={TodoPage} exact />
             <Route path="/avatar" component={AvatarPage} exact />
+            <Route path="/calendar/month" exact>
+              <CalendarPage>
+                <CalendarMonth />
+              </CalendarPage>
+            </Route>
+            <Route path={['/calendar', '/calendar/week']} exact>
+              <CalendarPage>
+                <CalendarWeek />
+              </CalendarPage>
+            </Route>
             <Route path="/">
               <Redirect to="/calendar" />
             </Route>
