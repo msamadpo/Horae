@@ -1,57 +1,54 @@
-require('dotenv').config()
 const express = require('express');
-const logger = require('morgan');               // log performance + GET/POST requests + JS console in terminal
+const logger = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
-const firebase = require("firebase");
 
-
-firebase.initializeApp(firebaseConfig);
-​
-// Get a reference to the database service
-var database = firebase.database();
-​
-// create new user in remote Firebase DB
-function writeUserData(userId, name, email, imageUrl) {
-    database.ref('users/' + userId).set({
-      username: name,
-      email: email,
-      profile_picture : imageUrl
-    });
-}
-​
-​
 // Import Routes
+const authRoutes = require('./routes/auth');
+
+module.exports = bodyParser.json();
+
+//importing routes
 const avatarRoutes = require('./routes/avatar');
+
+//calendar
 const calendarRoutes = require('./routes/calendar');
+const eventsRoutes = require('./routes/events');
+
+//todo lists
 const todoListRoutes = require('./routes/todolist');
-/* Probably will need separate routers for events and todos */
-​
-// Middleware
-app.use(bodyParser.json({ type: 'application/*+json' }));
+const taskRoutes = require('./routes/task');
+
+//Middleware
+app.use(bodyParser.json());
 app.use(logger('dev'));
-​
-​
-// Routes
-app.get('/homepage', (req, res) => {                        
-    res.send("Homepage (only for authorized personel)");
-})
-​
-app.get("/", (req, res) => {
-    res.send("Welcome to Horea landing page!!");
-})
-​
-app.get("/api/register", (req, res) => {
-    writeUserData(1245345, "Z", "team@india.com", "www.ice.com", "www.google.com");
+
+//routes
+app.get('/homepage', (req, res) => {
+  res.send('Homepage (only for authorized personel)');
 });
-​
-​
+
+app.get('/', (req, res) => {
+  res.send('Welcome to Horea landing page!!');
+});
+
+
+app.use(bodyParser.json());;
+app.use(logger('dev'));
+
+// Routes
+app.use('/api/auth', authRoutes);
+
+app.get('/api/register', (req, res) => {
+  writeUserData(1245345, 'Anh Pham', 'team@thehub.com');
+});
+
 app.use('/api/avatar', avatarRoutes);
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/todolist', todoListRoutes);
-​
-​
-​
+app.use('/api/calendar/events', eventsRoutes);
+app.use('/api/todolist/task', taskRoutes);
+
 const PORT = process.env.port || 5000;
 app.listen(PORT, () => console.log(`Sever running on port ${PORT}...`));
 
