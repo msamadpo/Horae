@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Text from 'components/Common/Text';
 import Icon from 'components/Common/Icon';
+import AddCalendarModal from 'components/HoraeApp/CalendarPage/AddCalendarModal';
 
 const CalendarDays = styled.div`
   margin-top: var(--spacing-tiny);
@@ -16,6 +17,15 @@ const CalendarDays = styled.div`
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   // border-bottom: 3px solid black;
+`;
+
+const AddCalendarButton = styled.button`
+  background-color: var(--color-primary);
+  border-radius: 1rem;
+  outline: none;
+  border: none;
+  padding: var(--spacing-tiny);
+  cursor: pointer;
 `;
 
 const StyledTodayButton = styled.div`
@@ -46,23 +56,47 @@ function MonthHeader({
   showBackButton = false,
   changeMonth,
 }: IMonthHeader) {
+  const [showModal, setShowModal] = useState<boolean>(false);
   const month = date.toLocaleString('default', {
     month: 'short',
     year: 'numeric',
   });
 
+  const toggleModal = (e: React.SyntheticEvent) => {
+    e.stopPropagation();
+    setShowModal(!showModal);
+  };
+
   return (
     <>
-      <MonthToggler>
-        <Icon type="chevron-left" height={20} onClick={() => changeMonth(-1)} />
-        <Text type="large">{month}</Text>
-        <Icon type="chevron-right" height={20} onClick={() => changeMonth(1)} />
-        {showBackButton && (
-          <StyledTodayButton onClick={() => changeMonth(0)}>
-            <Text type="tiny">This Month</Text>
-          </StyledTodayButton>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <MonthToggler>
+          <Icon
+            type="chevron-left"
+            height={20}
+            onClick={() => changeMonth(-1)}
+          />
+          <Text type="large">{month}</Text>
+          <Icon
+            type="chevron-right"
+            height={20}
+            onClick={() => changeMonth(1)}
+          />
+          {showBackButton && (
+            <StyledTodayButton onClick={() => changeMonth(0)}>
+              <Text type="tiny">This Month</Text>
+            </StyledTodayButton>
+          )}
+        </MonthToggler>
+        {showModal && (
+          <AddCalendarModal closeModal={() => setShowModal(false)} />
         )}
-      </MonthToggler>
+        <AddCalendarButton onClick={toggleModal}>
+          <Text type="small" weight="400" color="white">
+            Add Calendar
+          </Text>
+        </AddCalendarButton>
+      </div>
       <CalendarDays>
         {DAYS.map((day) => (
           <Text type="small" key={day}>

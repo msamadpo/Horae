@@ -41,9 +41,6 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
   z-index: 1;
-  :root {
-    overflow: hidden;
-  }
 `;
 
 const EditMenu = styled.form<{ x: number; y: number }>`
