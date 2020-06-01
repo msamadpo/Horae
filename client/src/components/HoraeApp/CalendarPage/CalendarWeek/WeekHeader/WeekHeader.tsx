@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Text from 'components/Common/Text';
 import Icon from 'components/Common/Icon';
 import { isToday } from 'date-fns';
+import AddCalendarModal from 'components/HoraeApp/CalendarPage/AddCalendarModal';
 
 const Today = styled.span<{ active: boolean }>`
   ${(props) =>
@@ -35,6 +36,16 @@ const DayDateContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+const AddCalendarButton = styled.button`
+  background-color: var(--color-primary);
+  border-radius: 1rem;
+  outline: none;
+  border: none;
+  padding: var(--spacing-tiny);
+  cursor: pointer;
+`;
+
 interface IWeekHeader {
   dates: Date[];
   showBackButton?: boolean;
@@ -90,6 +101,7 @@ function WeekHeader({
   changeWeeks,
   showBackButton = false,
 }: IWeekHeader) {
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [startDate, startDay] = [
     dates[0].toLocaleString('default', {
       month: 'short',
@@ -102,20 +114,45 @@ function WeekHeader({
     }),
     dates[dates.length - 1].getDate(),
   ];
+
+  const toggleModal = (e: React.SyntheticEvent) => {
+    e.stopPropagation();
+    setShowModal(!showModal);
+  };
+
   return (
     <div>
-      <StyledWeekToggler>
-        <Icon type="chevron-left" height={20} onClick={() => changeWeeks(-1)} />
-        <Text type="large">
-          {composeDateString(startDate, startDay, endDate, endDay)}
-        </Text>
-        <Icon type="chevron-right" height={20} onClick={() => changeWeeks(1)} />
-        {showBackButton && (
-          <StyledTodayButton onClick={() => changeWeeks(0)}>
-            <Text type="tiny">This Week</Text>
-          </StyledTodayButton>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <StyledWeekToggler>
+          <Icon
+            type="chevron-left"
+            height={20}
+            onClick={() => changeWeeks(-1)}
+          />
+          <Text type="large">
+            {composeDateString(startDate, startDay, endDate, endDay)}
+          </Text>
+          <Icon
+            type="chevron-right"
+            height={20}
+            onClick={() => changeWeeks(1)}
+          />
+          {showBackButton && (
+            <StyledTodayButton onClick={() => changeWeeks(0)}>
+              <Text type="tiny">This Week</Text>
+            </StyledTodayButton>
+          )}
+        </StyledWeekToggler>
+
+        {showModal && (
+          <AddCalendarModal closeModal={() => setShowModal(false)} />
         )}
-      </StyledWeekToggler>
+        <AddCalendarButton onClick={toggleModal}>
+          <Text type="small" weight="400" color="white">
+            Add Calendar
+          </Text>
+        </AddCalendarButton>
+      </div>
       <CalendarDays>
         {dates.map((date, index) => (
           <DayDateContainer key={date.toString()}>

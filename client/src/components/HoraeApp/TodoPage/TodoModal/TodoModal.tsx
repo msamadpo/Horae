@@ -145,9 +145,7 @@ function TodoModal({ closeModal }: ITodoModalProps) {
       }}
     >
       <FormHeader>
-        <Text type="large" size="3.25rem" color="var(--color-primary)">
-          Create a New List
-        </Text>
+        <Text type="heading3">Create a New List</Text>
       </FormHeader>
       <div>
         <StyledTodoListNameInput
